@@ -21,7 +21,7 @@ open class AppsAdapter(protected val mContext: Context) :
 
     protected val mAppsList by lazy { getaAppsList() }
 
-    open inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener, View.OnLongClickListener, View.OnKeyListener {
 
         init {
