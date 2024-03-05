@@ -21,25 +21,19 @@ open class AppsAdapter(protected val mContext: Context) :
 
     protected val mAppsList by lazy { getaAppsList() }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener, View.OnLongClickListener, View.OnKeyListener {
-
+    inner class ViewHolder(card: Card) : RecyclerView.ViewHolder(card) {
         init {
-            itemView.setOnClickListener(this)
-            itemView.setOnLongClickListener(this)
-            itemView.setOnKeyListener(this)
-        }
-
-        override fun onClick(v: View) {
-            handleClick(v as Card)
-        }
-
-        override fun onLongClick(v: View): Boolean {
-            return handleLongClick(v as Card)
-        }
-
-        override fun onKey(v: View, keyCode: Int, keyEvent: KeyEvent): Boolean {
-            return handleKey(v, keyCode, keyEvent, bindingAdapterPosition)
+            card.apply {
+                setOnClickListener {
+                    handleClick(this)
+                }
+                setOnLongClickListener {
+                    handleLongClick(this)
+                }
+                setOnKeyListener { v, keyCode, event ->
+                    handleKey(v, keyCode, event, bindingAdapterPosition)
+                }
+            }
         }
     }
 
