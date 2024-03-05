@@ -118,7 +118,6 @@ class MainActivity : FragmentActivity(R.layout.activity_main) {
                     Channel.WATCH_NEXT_ID,
                     MainRowItem(
                         getString(R.string.watch_next), WatchNextAdapter(
-                            this,
                             Suggestions.getWatchNextPrograms(this)
                                 .filterIsInstance<BasePreviewProgram>() as MutableList<BasePreviewProgram>
                         )
@@ -155,7 +154,7 @@ class MainActivity : FragmentActivity(R.layout.activity_main) {
             Pair(
                 channel.id, MainRowItem(
                     channel.displayName.toString(),
-                    WatchNextAdapter(this, previewPrograms)
+                    WatchNextAdapter(previewPrograms)
                 )
             )
         )
@@ -201,7 +200,6 @@ class MainActivity : FragmentActivity(R.layout.activity_main) {
                 Pair(
                     Channel.WATCH_NEXT_ID, MainRowItem(
                         getString(R.string.watch_next), WatchNextAdapter(
-                            this@MainActivity,
                             Suggestions.getWatchNextPrograms(this@MainActivity)
                                 .filterIsInstance<BasePreviewProgram>() as MutableList<BasePreviewProgram>
                         )
@@ -244,7 +242,7 @@ class MainActivity : FragmentActivity(R.layout.activity_main) {
                 Pair(
                     channel.id, MainRowItem(
                         Suggestions.getChannelTitle(this@MainActivity, channel),
-                        WatchNextAdapter(this@MainActivity, previewPrograms)
+                        WatchNextAdapter(previewPrograms)
                     )
                 )
             )

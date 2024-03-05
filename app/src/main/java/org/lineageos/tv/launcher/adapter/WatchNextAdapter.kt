@@ -6,31 +6,22 @@
 package org.lineageos.tv.launcher.adapter
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.tvprovider.media.tv.BasePreviewProgram
 import org.lineageos.tv.launcher.view.WatchNextCard
 
-
 @SuppressLint("RestrictedApi")
 class WatchNextAdapter(
-    private val context: Context,
     private val watchableList: MutableList<BasePreviewProgram>,
-) :
-    RecyclerView.Adapter<WatchNextAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<WatchNextAdapter.ViewHolder>() {
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
-
+    inner class ViewHolder(val card: WatchNextCard) : RecyclerView.ViewHolder(card) {
         init {
-            itemView.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View) {
-            handleClick(v as WatchNextCard)
+            card.setOnClickListener {
+                handleClick(card)
+            }
         }
     }
 
@@ -41,12 +32,10 @@ class WatchNextAdapter(
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        (viewHolder.itemView as WatchNextCard).setInfo(watchableList[i])
+        viewHolder.card.setInfo(watchableList[i])
     }
 
-    override fun getItemCount(): Int {
-        return watchableList.size
-    }
+    override fun getItemCount() = watchableList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = WatchNextCard(parent.context)
