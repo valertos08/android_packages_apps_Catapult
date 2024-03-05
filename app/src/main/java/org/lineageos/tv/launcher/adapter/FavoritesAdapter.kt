@@ -10,7 +10,6 @@ import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.view.KeyEvent
-import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import org.lineageos.tv.launcher.AddFavoriteActivity
@@ -20,38 +19,37 @@ import org.lineageos.tv.launcher.model.ActivityLauncher
 import org.lineageos.tv.launcher.model.AppInfo
 import org.lineageos.tv.launcher.model.Launchable
 import org.lineageos.tv.launcher.utils.AppManager
-import org.lineageos.tv.launcher.view.Card
 import org.lineageos.tv.launcher.view.FavoriteCard
 import java.util.Collections
 
 
-class FavoritesAdapter(context: Context) : AppsAdapter(context) {
+class FavoritesAdapter(context: Context) : TvAdapter<FavoriteCard>(context) {
     init {
-        updateFavoriteApps(AppManager.getFavoriteApps(this.context))
+        updateFavoriteApps(AppManager.getFavoriteApps(context))
     }
 
-    override fun getaAppsList() = mutableListOf(
+    override fun getAppsList() = mutableListOf(
         createAddFavoriteEntry(),
         createModifyChannelsEntry(),
     )
 
-    fun updateFavoriteApps(packageNames: List<String>) {
+    private fun updateFavoriteApps(packageNames: List<String>) {
         for (packageName in packageNames) {
             val pm: PackageManager = context.packageManager
             try {
                 val ai: ApplicationInfo = pm.getApplicationInfo(packageName, 0)
                 val appInfo = AppInfo(ai, context)
-                appsList.add(appsList.size - STABLE_ITEM_COUNT, appInfo)
+                launchablesList.add(launchablesList.size - STABLE_ITEM_COUNT, appInfo)
             } catch (e: PackageManager.NameNotFoundException) {
                 AppManager.removeFavoriteApp(context, packageName)
             }
         }
 
-        notifyItemRangeChanged(0, appsList.size)
+        notifyItemRangeChanged(0, launchablesList.size)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        (viewHolder.itemView as FavoriteCard).setCardInfo(appsList[i])
+        viewHolder.card.setCardInfo(launchablesList[i])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -70,7 +68,8 @@ class FavoritesAdapter(context: Context) : AppsAdapter(context) {
     private fun createAddFavoriteEntry(): Launchable {
         return ActivityLauncher(
             context.getString(R.string.new_favorite),
-            AppCompatResources.getDrawable(context, R.drawable.ic_add)!!, context,
+            AppCompatResources.getDrawable(context, R.drawable.ic_add)!!,
+            context,
             Intent(context, AddFavoriteActivity::class.java)
         )
     }
@@ -78,91 +77,95 @@ class FavoritesAdapter(context: Context) : AppsAdapter(context) {
     private fun createModifyChannelsEntry(): Launchable {
         return ActivityLauncher(
             context.getString(R.string.modify_channels),
-            AppCompatResources.getDrawable(context, R.drawable.ic_settings)!!, context,
+            AppCompatResources.getDrawable(context, R.drawable.ic_settings)!!,
+            context,
             Intent(context, ModifyChannelsActivity::class.java)
         )
     }
 
     override fun handleKey(
-        v: View,
+        card: FavoriteCard,
         keyCode: Int,
-        keyEvent: KeyEvent,
-        adapterPosition: Int,
+        event: KeyEvent?,
+        bindingAdapterPosition: Int,
     ): Boolean {
-        v as FavoriteCard
-
         // Leave center key for onClick handler
         if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
             return false
         }
 
+        if (event == null) {
+            return false
+        }
+
         // Only handle keyDown events here
-        if (keyEvent.action != KeyEvent.ACTION_DOWN) {
-            return v.moving
+        if (event.action != KeyEvent.ACTION_DOWN) {
+            return card.moving
         }
 
         when (keyCode) {
             KeyEvent.KEYCODE_BACK -> {
-                if (v.moving) {
-                    v.setMoveDone()
+                if (card.moving) {
+                    card.setMoveDone()
                     return true
                 }
                 return false
             }
 
             KeyEvent.KEYCODE_DPAD_LEFT -> {
-                if (v.moving) {
-                    if (adapterPosition == 0) {
+                if (card.moving) {
+                    if (bindingAdapterPosition == 0) {
                         return true
                     }
-                    Collections.swap(appsList, adapterPosition, adapterPosition - 1)
-                    notifyItemMoved(adapterPosition, adapterPosition - 1)
+                    Collections.swap(
+                        launchablesList, bindingAdapterPosition, bindingAdapterPosition - 1
+                    )
+                    notifyItemMoved(bindingAdapterPosition, bindingAdapterPosition - 1)
                     return true
                 }
             }
 
             KeyEvent.KEYCODE_DPAD_RIGHT -> {
-                if (v.moving) {
-                    if (adapterPosition == appsList.size - (STABLE_ITEM_COUNT + 1)) {
+                if (card.moving) {
+                    if (bindingAdapterPosition == launchablesList.size - (STABLE_ITEM_COUNT + 1)) {
                         return true
                     }
-                    Collections.swap(appsList, adapterPosition, adapterPosition + 1)
-                    notifyItemMoved(adapterPosition, adapterPosition + 1)
+                    Collections.swap(
+                        launchablesList, bindingAdapterPosition, bindingAdapterPosition + 1
+                    )
+                    notifyItemMoved(bindingAdapterPosition, bindingAdapterPosition + 1)
                     return true
                 }
             }
             // Don't allow moving up or down while moving a favorite app
             KeyEvent.KEYCODE_DPAD_DOWN,
             KeyEvent.KEYCODE_DPAD_UP,
-            ->
-                return v.moving
+            -> return card.moving
         }
 
         return false
     }
 
-    override fun handleLongClick(app: Card): Boolean {
-        app as FavoriteCard
-        if (app.moving || !app.hasMenu) {
+    override fun handleLongClick(card: FavoriteCard): Boolean {
+        if (card.moving || !card.hasMenu) {
             return true
         }
 
-        showPopupMenu(app, R.menu.favorite_app_long_press)
+        showPopupMenu(card, R.menu.favorite_app_long_press)
         return true
     }
 
-    override fun handleClick(app: Card) {
-        app as FavoriteCard
-        if (!app.moving) {
-            super.handleClick(app)
+    override fun handleClick(card: FavoriteCard) {
+        if (!card.moving) {
+            super.handleClick(card)
             return
         }
 
-        app.setMoveDone()
+        card.setMoveDone()
 
         // Save new favorites order
         val newFavoritesSet = mutableListOf<String>()
-        for (a in appsList) {
+        for (a in launchablesList) {
             if (a.packageName != "") {
                 newFavoritesSet.add(a.packageName)
             }
@@ -174,8 +177,11 @@ class FavoritesAdapter(context: Context) : AppsAdapter(context) {
     override fun addItem(packageName: String) {
         val ai: ApplicationInfo = context.packageManager.getApplicationInfo(packageName, 0)
         val appInfo = AppInfo(ai, context)
-        appsList.add(appsList.size - STABLE_ITEM_COUNT, appInfo) // Take 'Add new' into account
-        notifyItemInserted(appsList.size - (STABLE_ITEM_COUNT + 1))
+        // Take 'Add new' into account
+        launchablesList.add(
+            launchablesList.size - STABLE_ITEM_COUNT, appInfo
+        )
+        notifyItemInserted(launchablesList.size - (STABLE_ITEM_COUNT + 1))
     }
 
     companion object {

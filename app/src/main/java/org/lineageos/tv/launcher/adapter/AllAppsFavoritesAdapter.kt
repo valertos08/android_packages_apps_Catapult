@@ -9,31 +9,27 @@ import android.content.Context
 import android.view.ViewGroup
 import org.lineageos.tv.launcher.utils.AppManager
 import org.lineageos.tv.launcher.view.AddFavoriteCard
-import org.lineageos.tv.launcher.view.Card
-import kotlin.reflect.safeCast
 
-class AllAppsFavoritesAdapter(context: Context) : AppsAdapter(context) {
+class AllAppsFavoritesAdapter(context: Context) : TvAdapter<AddFavoriteCard>(context) {
     private var favoritePackageNames = AppManager.getFavoriteApps(context)
 
-    override fun handleClick(app: Card) {
-        val addFavoriteCard = AddFavoriteCard::class.safeCast(app) ?: return
-
-        if (favoritePackageNames.contains(app.packageName)) {
-            AppManager.removeFavoriteApp(context, app.packageName)
-            addFavoriteCard.setActionAdd()
+    override fun handleClick(card: AddFavoriteCard) {
+        if (favoritePackageNames.contains(card.packageName)) {
+            AppManager.removeFavoriteApp(context, card.packageName)
+            card.setActionAdd()
         } else {
-            AppManager.addFavoriteApp(context, app.packageName)
-            addFavoriteCard.setActionRemove()
+            AppManager.addFavoriteApp(context, card.packageName)
+            card.setActionRemove()
         }
 
         favoritePackageNames = AppManager.getFavoriteApps(context)
     }
 
-    override fun onBindViewHolder(viewHolder: AppsAdapter.ViewHolder, i: Int) {
+    override fun onBindViewHolder(viewHolder: TvAdapter<AddFavoriteCard>.ViewHolder, i: Int) {
         val card = viewHolder.itemView as AddFavoriteCard
-        card.setCardInfo(appsList[i])
+        card.setCardInfo(launchablesList[i])
 
-        if (favoritePackageNames.contains(appsList[i].packageName)) {
+        if (favoritePackageNames.contains(launchablesList[i].packageName)) {
             card.setActionRemove()
         }
     }
