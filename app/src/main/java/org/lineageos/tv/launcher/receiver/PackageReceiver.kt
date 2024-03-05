@@ -16,8 +16,8 @@ class PackageReceiver : BroadcastReceiver() {
     }
 
     override fun onReceive(context: Context, intent: Intent) {
-        val data = intent.data
-        if (data == null || data.scheme != "package") {
+        val data = intent.data ?: return
+        if (data.scheme != "package") {
             return
         }
 

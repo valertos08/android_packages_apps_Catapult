@@ -27,33 +27,31 @@ import java.util.Collections
 
 class FavoritesAdapter(context: Context) : AppsAdapter(context) {
     init {
-        updateFavoriteApps(AppManager.getFavoriteApps(mContext))
+        updateFavoriteApps(AppManager.getFavoriteApps(this.context))
     }
 
-    override fun getaAppsList(): ArrayList<Launchable> {
-        val list = ArrayList<Launchable>()
-        list.add(createAddFavoriteEntry())
-        list.add(createModifyChannelsEntry())
-        return list
-    }
+    override fun getaAppsList() = mutableListOf(
+        createAddFavoriteEntry(),
+        createModifyChannelsEntry(),
+    )
 
     fun updateFavoriteApps(packageNames: List<String>) {
         for (packageName in packageNames) {
-            val pm: PackageManager = mContext.packageManager
+            val pm: PackageManager = context.packageManager
             try {
                 val ai: ApplicationInfo = pm.getApplicationInfo(packageName, 0)
-                val appInfo = AppInfo(ai, mContext)
-                mAppsList.add(mAppsList.size - STABLE_ITEM_COUNT, appInfo)
+                val appInfo = AppInfo(ai, context)
+                appsList.add(appsList.size - STABLE_ITEM_COUNT, appInfo)
             } catch (e: PackageManager.NameNotFoundException) {
-                AppManager.removeFavoriteApp(mContext, packageName)
+                AppManager.removeFavoriteApp(context, packageName)
             }
         }
 
-        notifyItemRangeChanged(0, mAppsList.size)
+        notifyItemRangeChanged(0, appsList.size)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        (viewHolder.itemView as FavoriteCard).setCardInfo(mAppsList[i])
+        (viewHolder.itemView as FavoriteCard).setCardInfo(appsList[i])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -71,17 +69,17 @@ class FavoritesAdapter(context: Context) : AppsAdapter(context) {
 
     private fun createAddFavoriteEntry(): Launchable {
         return ActivityLauncher(
-            mContext.getString(R.string.new_favorite),
-            AppCompatResources.getDrawable(mContext, R.drawable.ic_add)!!, mContext,
-            Intent(mContext, AddFavoriteActivity::class.java)
+            context.getString(R.string.new_favorite),
+            AppCompatResources.getDrawable(context, R.drawable.ic_add)!!, context,
+            Intent(context, AddFavoriteActivity::class.java)
         )
     }
 
     private fun createModifyChannelsEntry(): Launchable {
         return ActivityLauncher(
-            mContext.getString(R.string.modify_channels),
-            AppCompatResources.getDrawable(mContext, R.drawable.ic_settings)!!, mContext,
-            Intent(mContext, ModifyChannelsActivity::class.java)
+            context.getString(R.string.modify_channels),
+            AppCompatResources.getDrawable(context, R.drawable.ic_settings)!!, context,
+            Intent(context, ModifyChannelsActivity::class.java)
         )
     }
 
@@ -100,12 +98,12 @@ class FavoritesAdapter(context: Context) : AppsAdapter(context) {
 
         // Only handle keyDown events here
         if (keyEvent.action != KeyEvent.ACTION_DOWN) {
-            return v.mMoving
+            return v.moving
         }
 
         when (keyCode) {
             KeyEvent.KEYCODE_BACK -> {
-                if (v.mMoving) {
+                if (v.moving) {
                     v.setMoveDone()
                     return true
                 }
@@ -113,22 +111,22 @@ class FavoritesAdapter(context: Context) : AppsAdapter(context) {
             }
 
             KeyEvent.KEYCODE_DPAD_LEFT -> {
-                if (v.mMoving) {
+                if (v.moving) {
                     if (adapterPosition == 0) {
                         return true
                     }
-                    Collections.swap(mAppsList, adapterPosition, adapterPosition - 1)
+                    Collections.swap(appsList, adapterPosition, adapterPosition - 1)
                     notifyItemMoved(adapterPosition, adapterPosition - 1)
                     return true
                 }
             }
 
             KeyEvent.KEYCODE_DPAD_RIGHT -> {
-                if (v.mMoving) {
-                    if (adapterPosition == mAppsList.size - (STABLE_ITEM_COUNT + 1)) {
+                if (v.moving) {
+                    if (adapterPosition == appsList.size - (STABLE_ITEM_COUNT + 1)) {
                         return true
                     }
-                    Collections.swap(mAppsList, adapterPosition, adapterPosition + 1)
+                    Collections.swap(appsList, adapterPosition, adapterPosition + 1)
                     notifyItemMoved(adapterPosition, adapterPosition + 1)
                     return true
                 }
@@ -137,7 +135,7 @@ class FavoritesAdapter(context: Context) : AppsAdapter(context) {
             KeyEvent.KEYCODE_DPAD_DOWN,
             KeyEvent.KEYCODE_DPAD_UP,
             ->
-                return v.mMoving
+                return v.moving
         }
 
         return false
@@ -145,7 +143,7 @@ class FavoritesAdapter(context: Context) : AppsAdapter(context) {
 
     override fun handleLongClick(app: Card): Boolean {
         app as FavoriteCard
-        if (app.mMoving || !app.mHasMenu) {
+        if (app.moving || !app.hasMenu) {
             return true
         }
 
@@ -155,7 +153,7 @@ class FavoritesAdapter(context: Context) : AppsAdapter(context) {
 
     override fun handleClick(app: Card) {
         app as FavoriteCard
-        if (!app.mMoving) {
+        if (!app.moving) {
             super.handleClick(app)
             return
         }
@@ -163,21 +161,21 @@ class FavoritesAdapter(context: Context) : AppsAdapter(context) {
         app.setMoveDone()
 
         // Save new favorites order
-        val newFavoritesSet = ArrayList<String>()
-        for (a in mAppsList) {
-            if (a.mPackageName != "") {
-                newFavoritesSet.add(a.mPackageName)
+        val newFavoritesSet = mutableListOf<String>()
+        for (a in appsList) {
+            if (a.packageName != "") {
+                newFavoritesSet.add(a.packageName)
             }
         }
 
-        AppManager.setFavorites(mContext, newFavoritesSet)
+        AppManager.setFavorites(context, newFavoritesSet)
     }
 
     override fun addItem(packageName: String) {
-        val ai: ApplicationInfo = mContext.packageManager.getApplicationInfo(packageName, 0)
-        val appInfo = AppInfo(ai, mContext)
-        mAppsList.add(mAppsList.size - STABLE_ITEM_COUNT, appInfo) // Take 'Add new' into account
-        notifyItemInserted(mAppsList.size - (STABLE_ITEM_COUNT + 1))
+        val ai: ApplicationInfo = context.packageManager.getApplicationInfo(packageName, 0)
+        val appInfo = AppInfo(ai, context)
+        appsList.add(appsList.size - STABLE_ITEM_COUNT, appInfo) // Take 'Add new' into account
+        notifyItemInserted(appsList.size - (STABLE_ITEM_COUNT + 1))
     }
 
     companion object {

@@ -8,30 +8,27 @@ package org.lineageos.tv.launcher.utils
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.core.content.edit
 import org.lineageos.tv.launcher.model.AppInfo
 import org.lineageos.tv.launcher.model.Launchable
-
 
 object AppManager {
     internal var onFavoriteAddedCallback: (packageName: String) -> Unit = {}
     internal var onFavoriteRemovedCallback: (packageName: String) -> Unit = {}
 
-    fun getInstalledApps(context: Context): ArrayList<Launchable> {
+    fun getInstalledApps(context: Context): List<Launchable> {
         val pm = context.packageManager
-        val intent = Intent(Intent.ACTION_MAIN, null)
-        intent.addCategory(Intent.CATEGORY_LAUNCHER)
-        val apps = pm.queryIntentActivities(intent, 0)
-        val appsList: ArrayList<Launchable> = ArrayList()
-        for (app in apps) {
-            val appInfo = AppInfo(app, context)
-            appsList.add(appInfo)
+        val intent = Intent(Intent.ACTION_MAIN, null).apply {
+            addCategory(Intent.CATEGORY_LAUNCHER)
         }
 
-        return appsList
+        return pm.queryIntentActivities(intent, 0).map {
+            AppInfo(it, context)
+        }
     }
 
     fun removeFavoriteApp(context: Context, packageName: String) {
-        val favoriteApps = getFavoriteApps(context)
+        val favoriteApps = getFavoriteApps(context).toMutableList()
         favoriteApps.remove(packageName)
         setFavorites(context, favoriteApps)
 
@@ -41,7 +38,7 @@ object AppManager {
 
 
     fun addFavoriteApp(context: Context, packageName: String) {
-        val favoriteApps = getFavoriteApps(context)
+        val favoriteApps = getFavoriteApps(context).toMutableList()
         favoriteApps.add(packageName)
         setFavorites(context, favoriteApps)
 
@@ -49,22 +46,22 @@ object AppManager {
         onFavoriteAddedCallback(packageName)
     }
 
-    fun getFavoriteApps(context: Context): ArrayList<String> {
+    fun getFavoriteApps(context: Context): List<String> {
         val sharedPreferences =
             context.getSharedPreferences("Favorites", Context.MODE_PRIVATE)
         val serializedList = sharedPreferences.getString("favoriteApps", "") ?: ""
         if (serializedList == "") {
-            return ArrayList()
+            return mutableListOf()
         }
-        return ArrayList(serializedList.split(","))
+        return serializedList.split(",")
     }
 
-    fun setFavorites(context: Context, newFavoritesSet: ArrayList<String>) {
+    fun setFavorites(context: Context, newFavoritesSet: MutableList<String>) {
         val sharedPreferences = context.getSharedPreferences("Favorites", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
         val serializedList = newFavoritesSet.joinToString(",")
-        editor.putString("favoriteApps", serializedList)
-        editor.apply()
+        sharedPreferences.edit {
+            putString("favoriteApps", serializedList)
+        }
     }
 
     fun uninstallApp(context: Context, packageName: String) {

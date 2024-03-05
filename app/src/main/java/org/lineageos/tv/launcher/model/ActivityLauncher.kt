@@ -15,13 +15,11 @@ class ActivityLauncher(
     context: Context,
     private val intent: Intent,
 ) : Launchable(label, "", icon, context) {
-    override var mHasMenu: Boolean = false
+    override var hasMenu: Boolean = false
 
     init {
-        icon.setTint(mContext.getColor(android.R.color.black))
+        icon.setTint(this.context.getColor(android.R.color.black))
     }
 
-    override fun setIntent(): Intent {
-        return intent
-    }
+    override fun setIntent() = intent
 }

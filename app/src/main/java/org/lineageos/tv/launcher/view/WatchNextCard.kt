@@ -9,21 +9,22 @@ import android.animation.AnimatorInflater
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
-import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.tvprovider.media.tv.BasePreviewProgram
 import androidx.tvprovider.media.tv.TvContractCompat
 import coil.load
 import org.lineageos.tv.launcher.R
 
-
-class WatchNextCard : Card, View.OnFocusChangeListener {
-    private val mBannerView: ImageView by lazy { findViewById(R.id.app_banner) }
-    private var mTitle: TextView? = null
-    private val mProgressView: ProgressBar
+class WatchNextCard : Card {
+    // Views
+    private val bannerView: ImageView by lazy { findViewById(R.id.app_banner) }
+    private var title: TextView? = null
+    private val progressView by lazy { findViewById<ProgressBar>(R.id.watch_progress) }
 
     constructor(context: Context?) : super(context)
 
@@ -38,8 +39,15 @@ class WatchNextCard : Card, View.OnFocusChangeListener {
     init {
         stateListAnimator =
             AnimatorInflater.loadStateListAnimator(context, R.anim.app_card_state_animator)
-        onFocusChangeListener = this
-        mProgressView = findViewById(R.id.watch_progress)
+
+        setOnFocusChangeListener { _, hasFocus ->
+            title?.isInvisible = !hasFocus
+            if (hasFocus) {
+                title?.postDelayed({ title?.isSelected = true }, 2000)
+            } else {
+                title?.isSelected = false
+            }
+        }
     }
 
     override fun inflate() {
@@ -49,7 +57,7 @@ class WatchNextCard : Card, View.OnFocusChangeListener {
     @SuppressLint("RestrictedApi")
     fun setInfo(info: BasePreviewProgram) {
         // Choose correct size title for the preview
-        mTitle = when (info.posterArtAspectRatio) {
+        title = when (info.posterArtAspectRatio) {
             TvContractCompat.PreviewProgramColumns.ASPECT_RATIO_16_9 -> {
                 findViewById(R.id.title_16_9)
             }
@@ -66,34 +74,25 @@ class WatchNextCard : Card, View.OnFocusChangeListener {
                 findViewById(R.id.title_4_3)
             }
         }
-        mTitle?.visibility = View.INVISIBLE
+        title?.isInvisible = true
 
-        mLabel = info.title
-        mBannerView.visibility = View.VISIBLE
-        mLaunchIntent = info.intent
-        mTitle?.text = info.title
+        label = info.title
+        bannerView.isVisible = true
+        launchIntent = info.intent
+        title?.text = info.title
 
         if (info.lastPlaybackPositionMillis != -1 && info.durationMillis != -1) {
             val percentWatched =
                 ((info.lastPlaybackPositionMillis.toDouble() / info.durationMillis) * 100).toInt()
             if (percentWatched > 3) {
-                mProgressView.progress = percentWatched
-                mProgressView.visibility = View.VISIBLE
+                progressView.progress = percentWatched
+                progressView.isVisible = true
             }
         }
 
-        mBannerView.load(info.posterArtUri) {
+        bannerView.load(info.posterArtUri) {
             placeholder(AppCompatResources.getDrawable(context, R.drawable.watch_next_placeholder))
             crossfade(500)
-        }
-    }
-
-    override fun onFocusChange(v: View, hasFocus: Boolean) {
-        mTitle?.visibility = if (hasFocus) View.VISIBLE else View.INVISIBLE
-        if (hasFocus) {
-            mTitle?.postDelayed({ mTitle?.isSelected = true }, 2000)
-        } else {
-            mTitle?.isSelected = false
         }
     }
 }

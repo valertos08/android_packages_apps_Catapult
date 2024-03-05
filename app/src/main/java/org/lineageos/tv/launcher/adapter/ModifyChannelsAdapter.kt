@@ -21,7 +21,7 @@ import java.util.Collections
 class ModifyChannelsAdapter(private val mContext: Context, private val mChannels: List<Channel>) :
     RecyclerView.Adapter<ModifyChannelsAdapter.ViewHolder>() {
 
-    val hiddenChannels: ArrayList<Long> by lazy { Suggestions.getHiddenChannels(mContext) }
+    val hiddenChannels by lazy { Suggestions.getHiddenChannels(mContext) }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener, View.OnLongClickListener, View.OnKeyListener {
@@ -38,7 +38,7 @@ class ModifyChannelsAdapter(private val mContext: Context, private val mChannels
         override fun onClick(v: View) {
             v as ToggleChannelView
 
-            if (v.mMoving) {
+            if (v.moving) {
                 v.setMoveDone()
                 return
             }
@@ -49,19 +49,19 @@ class ModifyChannelsAdapter(private val mContext: Context, private val mChannels
 
             if (mSwitch.isChecked) {
                 mSwitch.isChecked = false
-                Suggestions.hideChannel(mContext, v.mChannelId)
-                v.mChannelId?.let { hiddenChannels.add(it) }
+                Suggestions.hideChannel(mContext, v.channelId)
+                v.channelId?.let { hiddenChannels.add(it) }
             } else {
                 mSwitch.isChecked = true
-                Suggestions.showChannel(mContext, v.mChannelId)
-                hiddenChannels.remove(v.mChannelId)
+                Suggestions.showChannel(mContext, v.channelId)
+                hiddenChannels.remove(v.channelId)
             }
         }
 
         override fun onLongClick(v: View): Boolean {
             v as ToggleChannelView
             v.setMoving()
-            v.mChannelId?.let { Suggestions.onChannelSelectedCallback(it, bindingAdapterPosition) }
+            v.channelId?.let { Suggestions.onChannelSelectedCallback(it, bindingAdapterPosition) }
             return true
         }
 
@@ -75,13 +75,13 @@ class ModifyChannelsAdapter(private val mContext: Context, private val mChannels
 
             // Only handle keyDown events here
             if (keyEvent.action != KeyEvent.ACTION_DOWN) {
-                return v.mMoving
+                return v.moving
             }
 
             val pos = bindingAdapterPosition
             when (keyCode) {
                 KeyEvent.KEYCODE_BACK -> {
-                    if (v.mMoving) {
+                    if (v.moving) {
                         v.setMoveDone()
                         return true
                     }
@@ -89,7 +89,7 @@ class ModifyChannelsAdapter(private val mContext: Context, private val mChannels
                 }
 
                 KeyEvent.KEYCODE_DPAD_UP -> {
-                    if (v.mMoving) {
+                    if (v.moving) {
                         if (pos == 0) {
                             return true
                         }
@@ -97,14 +97,14 @@ class ModifyChannelsAdapter(private val mContext: Context, private val mChannels
                         notifyItemMoved(pos, pos - 1)
                         Suggestions.saveChannelOrder(
                             mContext, pos, pos - 1, mChannels.map { it.id },
-                            v.mChannelId !in hiddenChannels
+                            v.channelId !in hiddenChannels
                         )
                         return true
                     }
                 }
 
                 KeyEvent.KEYCODE_DPAD_DOWN -> {
-                    if (v.mMoving) {
+                    if (v.moving) {
                         if (pos == mChannels.size - 1) {
                             return true
                         }
@@ -112,7 +112,7 @@ class ModifyChannelsAdapter(private val mContext: Context, private val mChannels
                         notifyItemMoved(pos, pos + 1)
                         Suggestions.saveChannelOrder(
                             mContext, pos, pos + 1, mChannels.map { it.id },
-                            v.mChannelId !in hiddenChannels
+                            v.channelId !in hiddenChannels
                         )
                         return true
                     }

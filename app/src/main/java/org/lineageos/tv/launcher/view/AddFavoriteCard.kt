@@ -14,9 +14,10 @@ import org.lineageos.tv.launcher.R
 import org.lineageos.tv.launcher.model.Launchable
 
 class AddFavoriteCard : Card {
-    private val mIconView: ImageView by lazy { findViewById(R.id.app_icon) }
-    private val mNameView: TextView by lazy { findViewById(R.id.app_name) }
-    private val mActionIconView: ImageView
+    // Views
+    private val actionIconView by lazy { findViewById<ImageView>(R.id.action_image) }
+    private val iconView by lazy { findViewById<ImageView>(R.id.app_icon) }
+    private val nameView by lazy { findViewById<TextView>(R.id.app_name) }
 
     constructor(context: Context?) : super(context)
 
@@ -32,7 +33,6 @@ class AddFavoriteCard : Card {
         inflate(context, R.layout.favorites_add_app_card, this)
         background =
             AppCompatResources.getDrawable(context, R.drawable.favorites_app_card_background)
-        mActionIconView = findViewById(R.id.action_image)
     }
 
     override fun inflate() {
@@ -40,11 +40,11 @@ class AddFavoriteCard : Card {
     }
 
     fun setActionAdd() {
-        mActionIconView.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.ic_add))
+        actionIconView.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.ic_add))
     }
 
     fun setActionRemove() {
-        mActionIconView.setImageDrawable(
+        actionIconView.setImageDrawable(
             AppCompatResources.getDrawable(
                 context,
                 R.drawable.ic_remove
@@ -55,7 +55,7 @@ class AddFavoriteCard : Card {
     override fun setCardInfo(appInfo: Launchable) {
         super.setCardInfo(appInfo)
 
-        mNameView.text = appInfo.mLabel
-        mIconView.setImageDrawable(appInfo.mIcon)
+        nameView.text = appInfo.label
+        iconView.setImageDrawable(appInfo.icon)
     }
 }

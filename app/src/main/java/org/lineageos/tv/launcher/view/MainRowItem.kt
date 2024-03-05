@@ -15,8 +15,9 @@ import org.lineageos.tv.launcher.R
 import org.lineageos.tv.launcher.model.MainRowItem
 
 class MainRowItem : LinearLayout {
-    private val mTitleView: TextView by lazy { findViewById(R.id.title) }
-    private val mHorizontalGridView: HorizontalGridView by lazy { findViewById(R.id.horizontal_grid) }
+    // Views
+    private val horizontalGridView by lazy { findViewById<HorizontalGridView>(R.id.horizontal_grid) }
+    private val titleView by lazy { findViewById<TextView>(R.id.title) }
 
     constructor(context: Context?) : super(context)
 
@@ -29,8 +30,8 @@ class MainRowItem : LinearLayout {
     )
 
     fun setData(mainRowItem: MainRowItem) {
-        mTitleView.text = mainRowItem.label
-        mHorizontalGridView.adapter = mainRowItem.adapter
+        titleView.text = mainRowItem.label
+        horizontalGridView.adapter = mainRowItem.adapter
     }
 
     init {

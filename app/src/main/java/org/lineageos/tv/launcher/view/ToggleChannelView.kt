@@ -15,11 +15,12 @@ import org.lineageos.tv.launcher.R
 import org.lineageos.tv.launcher.model.Channel
 
 class ToggleChannelView : LinearLayout {
-    private val mTitleView: TextView by lazy { findViewById(R.id.title) }
-    private val mSwitch: Switch by lazy { findViewById(R.id.state_switch) }
+    // Views
+    private val titleView by lazy { findViewById<TextView>(R.id.title) }
+    private val switch by lazy { findViewById<Switch>(R.id.state_switch) }
 
-    var mMoving = false
-    var mChannelId: Long? = null
+    var moving = false
+    var channelId: Long? = null
 
     constructor(context: Context) : super(context)
 
@@ -40,20 +41,20 @@ class ToggleChannelView : LinearLayout {
     }
 
     fun setData(channel: Channel, hidden: Boolean) {
-        mTitleView.text = channel.title
-        mChannelId = channel.id
-        mSwitch.isChecked = !hidden
+        titleView.text = channel.title
+        channelId = channel.id
+        switch.isChecked = !hidden
     }
 
     fun disableToggle() {
-        mSwitch.isEnabled = false
+        switch.isEnabled = false
     }
 
     fun setMoving() {
-        mMoving = true
+        moving = true
     }
 
     fun setMoveDone() {
-        mMoving = false
+        moving = false
     }
 }

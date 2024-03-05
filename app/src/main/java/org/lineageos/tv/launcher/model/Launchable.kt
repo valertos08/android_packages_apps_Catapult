@@ -10,15 +10,13 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 
 open class Launchable(
-    val mLabel: String,
-    val mPackageName: String,
-    val mIcon: Drawable,
-    val mContext: Context,
+    val label: String,
+    val packageName: String,
+    val icon: Drawable,
+    val context: Context,
 ) {
-    open val mHasMenu = true
-    val mLaunchIntent by lazy { setIntent() }
+    open val hasMenu = true
+    val launchIntent by lazy { setIntent() }
 
-    protected open fun setIntent(): Intent? {
-        return null
-    }
+    protected open fun setIntent(): Intent? = null
 }

@@ -10,6 +10,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.media.tv.TvContract
 import android.util.Log
+import androidx.core.content.edit
 import androidx.tvprovider.media.tv.PreviewChannel
 import androidx.tvprovider.media.tv.PreviewProgram
 import androidx.tvprovider.media.tv.TvContractCompat
@@ -37,12 +38,12 @@ object Suggestions {
             null,
             null,
             null
-        ) ?: return ArrayList()
+        ) ?: return listOf()
 
-        val watchNextList = ArrayList<WatchNextProgram>()
+        val watchNextList = mutableListOf<WatchNextProgram>()
 
         if (!cursor.moveToFirst()) {
-            return ArrayList()
+            return listOf()
         }
 
         while (cursor.moveToNext()) {
@@ -73,12 +74,12 @@ object Suggestions {
             null,
             null,
             null
-        ) ?: return ArrayList()
+        ) ?: return listOf()
 
-        val previewChannelList = ArrayList<PreviewChannel>()
+        val previewChannelList = mutableListOf<PreviewChannel>()
 
         if (!cursor.moveToFirst()) {
-            return ArrayList()
+            return listOf()
         }
 
         while (cursor.moveToNext()) {
@@ -104,19 +105,19 @@ object Suggestions {
         }
     }
 
-    fun getSuggestions(context: Context, id: Long): ArrayList<PreviewProgram> {
+    fun getSuggestions(context: Context, id: Long): MutableList<PreviewProgram> {
         val cursor = context.contentResolver.query(
             TvContractCompat.buildPreviewProgramsUriForChannel(id),
             PreviewProgram.PROJECTION,
             null,
             null,
             null,
-        ) ?: return ArrayList()
+        ) ?: return mutableListOf()
 
-        val previewProgramList = ArrayList<PreviewProgram>()
+        val previewProgramList = mutableListOf<PreviewProgram>()
 
         if (!cursor.moveToFirst()) {
-            return ArrayList()
+            return mutableListOf()
         }
 
         while (cursor.moveToNext()) {
@@ -139,28 +140,28 @@ object Suggestions {
         return previewProgramList
     }
 
-    suspend fun getSuggestionsAsync(context: Context, id: Long): ArrayList<PreviewProgram> {
+    suspend fun getSuggestionsAsync(context: Context, id: Long): MutableList<PreviewProgram> {
         return withContext(Dispatchers.IO) {
             return@withContext getSuggestions(context, id)
         }
     }
 
-    fun setHiddenChannels(context: Context, hiddenChannels: ArrayList<Long>) {
+    fun setHiddenChannels(context: Context, hiddenChannels: MutableList<Long>) {
         val sharedPreferences = context.getSharedPreferences("Channels", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
         val serializedList = hiddenChannels.joinToString(",")
-        editor.putString("hiddenChannels", serializedList)
-        editor.apply()
+        sharedPreferences.edit {
+            putString("hiddenChannels", serializedList)
+        }
     }
 
-    fun getHiddenChannels(context: Context): ArrayList<Long> {
+    fun getHiddenChannels(context: Context): MutableList<Long> {
         val sharedPreferences =
             context.getSharedPreferences("Channels", Context.MODE_PRIVATE)
         val serializedList = sharedPreferences.getString("hiddenChannels", "") ?: ""
         if (serializedList == "") {
-            return ArrayList()
+            return mutableListOf()
         }
-        return ArrayList(serializedList.split(",").map { it.toLong() })
+        return serializedList.split(",").map { it.toLong() }.toMutableList()
     }
 
     fun hideChannel(context: Context, channelId: Long?) {
@@ -197,10 +198,10 @@ object Suggestions {
         notify: Boolean,
     ) {
         val sharedPreferences = context.getSharedPreferences("Channels", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
         val serializedList = channels.joinToString(",")
-        editor.putString("channels", serializedList)
-        editor.apply()
+        sharedPreferences.edit {
+            putString("channels", serializedList)
+        }
 
         if (!notify) {
             return
@@ -210,15 +211,15 @@ object Suggestions {
         onChannelOrderChangedCallback(channels[from], channels[to])
     }
 
-    fun getChannelOrder(context: Context): ArrayList<Long> {
+    fun getChannelOrder(context: Context): MutableList<Long> {
         val sharedPreferences =
             context.getSharedPreferences("Channels", Context.MODE_PRIVATE)
         val serializedList = sharedPreferences.getString("channels", "") ?: ""
         if (serializedList == "") {
-            return ArrayList()
+            return mutableListOf()
         }
 
-        return ArrayList(serializedList.split(",").map { it.toLong() })
+        return serializedList.split(",").map { it.toLong() }.toMutableList()
     }
 
     fun <T, K> List<T>.orderSuggestions(orderIds: List<K>, idSelector: (T) -> K?): List<T> {

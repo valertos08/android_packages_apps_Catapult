@@ -17,8 +17,8 @@ import org.lineageos.tv.launcher.view.WatchNextCard
 
 @SuppressLint("RestrictedApi")
 class WatchNextAdapter(
-    private val mContext: Context,
-    private val mWatchableList: ArrayList<BasePreviewProgram>,
+    private val context: Context,
+    private val watchableList: MutableList<BasePreviewProgram>,
 ) :
     RecyclerView.Adapter<WatchNextAdapter.ViewHolder>() {
 
@@ -36,16 +36,16 @@ class WatchNextAdapter(
 
     private fun handleClick(v: WatchNextCard) {
         val context = v.context
-        context.startActivity(v.mLaunchIntent)
-        Toast.makeText(context, v.mLabel, Toast.LENGTH_SHORT).show()
+        context.startActivity(v.launchIntent)
+        Toast.makeText(context, v.label, Toast.LENGTH_SHORT).show()
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        (viewHolder.itemView as WatchNextCard).setInfo(mWatchableList[i])
+        (viewHolder.itemView as WatchNextCard).setInfo(watchableList[i])
     }
 
     override fun getItemCount(): Int {
-        return mWatchableList.size
+        return watchableList.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -17,13 +17,15 @@ import org.lineageos.tv.launcher.R
 import org.lineageos.tv.launcher.model.AppInfo
 import org.lineageos.tv.launcher.model.Launchable
 
-open class AppCard : Card, View.OnFocusChangeListener {
-    private val mIconView: ImageView by lazy { findViewById(R.id.app_icon) }
-    private val mNameView: TextView by lazy { findViewById(R.id.app_name) }
-    private val mBannerView: ImageView by lazy { findViewById(R.id.app_banner) }
-    private val mIconContainer: LinearLayout by lazy { findViewById(R.id.app_with_icon) }
-    private val mCardContainer: LinearLayout by lazy { findViewById(R.id.card_container) }
-    private var mHasFocus: Boolean = false
+open class AppCard : Card {
+    // Views
+    private val bannerView by lazy { findViewById<ImageView>(R.id.app_banner) }
+    private val cardContainer by lazy { findViewById<LinearLayout>(R.id.card_container) }
+    private val iconContainer by lazy { findViewById<LinearLayout>(R.id.app_with_icon) }
+    private val iconView by lazy { findViewById<ImageView>(R.id.app_icon) }
+    private val nameView by lazy { findViewById<TextView>(R.id.app_name) }
+
+    private var hasFocus: Boolean = false
 
     constructor(context: Context?) : super(context)
 
@@ -38,7 +40,20 @@ open class AppCard : Card, View.OnFocusChangeListener {
     init {
         stateListAnimator =
             AnimatorInflater.loadStateListAnimator(context, R.anim.app_card_state_animator)
-        onFocusChangeListener = this
+
+        setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                this.hasFocus = true
+                nameView.postDelayed({
+                    if (this.hasFocus) {
+                        nameView.isSelected = true
+                    }
+                }, 2000)
+            } else {
+                nameView.isSelected = false
+                this.hasFocus = false
+            }
+        }
     }
 
     override fun inflate() {
@@ -48,33 +63,19 @@ open class AppCard : Card, View.OnFocusChangeListener {
     override fun setCardInfo(appInfo: Launchable) {
         super.setCardInfo(appInfo)
 
-        mNameView.text = appInfo.mLabel
-        mIconView.setImageDrawable(appInfo.mIcon)
+        nameView.text = appInfo.label
+        iconView.setImageDrawable(appInfo.icon)
 
-        if (appInfo is AppInfo && appInfo.mBanner != null) {
+        if (appInfo is AppInfo && appInfo.banner != null) {
             // App with a banner
-            mBannerView.setImageDrawable(appInfo.mBanner)
-            mBannerView.visibility = View.VISIBLE
-            mIconContainer.visibility = View.GONE
-            mCardContainer.background =
+            bannerView.setImageDrawable(appInfo.banner)
+            bannerView.visibility = View.VISIBLE
+            iconContainer.visibility = View.GONE
+            cardContainer.background =
                 AppCompatResources.getDrawable(context, R.drawable.card_border_only)
         } else {
             // App with an icon
-            mIconView.setImageDrawable(appInfo.mIcon)
-        }
-    }
-
-    override fun onFocusChange(v: View, hasFocus: Boolean) {
-        if (hasFocus) {
-            mHasFocus = true
-            mNameView.postDelayed({
-                if (mHasFocus) {
-                    mNameView.isSelected = true
-                }
-            }, 2000)
-        } else {
-            mNameView.isSelected = false
-            mHasFocus = false
+            iconView.setImageDrawable(appInfo.icon)
         }
     }
 }

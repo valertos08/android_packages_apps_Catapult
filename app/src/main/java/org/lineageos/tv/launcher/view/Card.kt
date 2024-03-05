@@ -13,10 +13,10 @@ import org.lineageos.tv.launcher.R
 import org.lineageos.tv.launcher.model.Launchable
 
 abstract class Card : LinearLayout {
-    var mPackageName: String = ""
-    var mLabel: String = ""
-    var mLaunchIntent: Intent? = null
-    var mHasMenu: Boolean = true
+    var packageName: String = ""
+    var label: String = ""
+    var launchIntent: Intent? = null
+    var hasMenu: Boolean = true
 
     constructor(context: Context?) : super(context)
 
@@ -38,9 +38,9 @@ abstract class Card : LinearLayout {
     }
 
     open fun setCardInfo(appInfo: Launchable) {
-        mLabel = appInfo.mLabel
-        mPackageName = appInfo.mPackageName
-        mLaunchIntent = appInfo.mLaunchIntent
-        mHasMenu = appInfo.mHasMenu
+        label = appInfo.label
+        packageName = appInfo.packageName
+        launchIntent = appInfo.launchIntent
+        hasMenu = appInfo.hasMenu
     }
 }

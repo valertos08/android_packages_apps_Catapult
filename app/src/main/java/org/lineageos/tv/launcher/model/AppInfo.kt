@@ -6,15 +6,14 @@
 package org.lineageos.tv.launcher.model
 
 import android.content.Context
-import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.graphics.drawable.Drawable
 
 class AppInfo : Launchable {
-    var mBanner: Drawable?
-    private val mPackageManager: PackageManager = mContext.packageManager
+    var banner: Drawable?
+    private val packageManager: PackageManager = context.packageManager
 
     constructor(resolveInfo: ResolveInfo, context: Context) : super(
         resolveInfo.loadLabel(context.packageManager).toString(),
@@ -22,9 +21,9 @@ class AppInfo : Launchable {
         resolveInfo.loadIcon(context.packageManager),
         context
     ) {
-        mBanner = resolveInfo.activityInfo.loadBanner(mPackageManager)
-        if (mBanner == null) {
-            mBanner = resolveInfo.activityInfo.applicationInfo.loadBanner(mPackageManager)
+        banner = resolveInfo.activityInfo.loadBanner(packageManager)
+        if (banner == null) {
+            banner = resolveInfo.activityInfo.applicationInfo.loadBanner(packageManager)
         }
     }
 
@@ -34,10 +33,8 @@ class AppInfo : Launchable {
         app.loadIcon(context.packageManager),
         context
     ) {
-        mBanner = app.loadBanner(mPackageManager)
+        banner = app.loadBanner(packageManager)
     }
 
-    override fun setIntent(): Intent? {
-        return mPackageManager.getLaunchIntentForPackage(mPackageName)
-    }
+    override fun setIntent() = packageManager.getLaunchIntentForPackage(packageName)
 }

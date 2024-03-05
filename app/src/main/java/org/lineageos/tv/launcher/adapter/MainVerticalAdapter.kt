@@ -16,8 +16,8 @@ import org.lineageos.tv.launcher.utils.Suggestions.orderSuggestions
 import java.util.Collections
 
 class MainVerticalAdapter(
-    private val mContext: Context,
-    private val mRowList: ArrayList<Pair<Long, org.lineageos.tv.launcher.model.MainRowItem>>,
+    private val context: Context,
+    private val rowList: MutableList<Pair<Long, org.lineageos.tv.launcher.model.MainRowItem>>,
 ) :
     RecyclerView.Adapter<MainVerticalAdapter.ViewHolder>() {
 
@@ -25,32 +25,32 @@ class MainVerticalAdapter(
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         val v = (viewHolder.itemView as org.lineageos.tv.launcher.view.MainRowItem)
-        v.setData(mRowList[i].second)
-        v.layoutParams = if (mRowList[i].second.adapter is AppsAdapter) {
+        v.setData(rowList[i].second)
+        v.layoutParams = if (rowList[i].second.adapter is AppsAdapter) {
             LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                mContext.resources.getDimension(R.dimen.main_app_row_height).toInt()
+                context.resources.getDimension(R.dimen.main_app_row_height).toInt()
             )
         } else {
             LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                mContext.resources.getDimension(R.dimen.main_row_height).toInt()
+                context.resources.getDimension(R.dimen.main_row_height).toInt()
             )
         }
     }
 
     override fun getItemCount(): Int {
-        return mRowList.size
+        return rowList.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(org.lineageos.tv.launcher.view.MainRowItem(mContext))
+        return ViewHolder(org.lineageos.tv.launcher.view.MainRowItem(context))
     }
 
     fun removeItem(item: Long) {
-        for ((i, row) in mRowList.withIndex()) {
+        for ((i, row) in rowList.withIndex()) {
             if (row.first == item) {
-                mRowList.remove(row)
+                rowList.remove(row)
                 notifyItemRemoved(i)
                 return
             }
@@ -58,32 +58,32 @@ class MainVerticalAdapter(
     }
 
     fun addItem(item: Pair<Long, org.lineageos.tv.launcher.model.MainRowItem>) {
-        var temp = mRowList.toMutableList()
+        var temp = rowList.toMutableList()
         temp.add(item)
         temp =
-            temp.orderSuggestions(Suggestions.getChannelOrder(mContext)) { it.first } as ArrayList
+            temp.orderSuggestions(Suggestions.getChannelOrder(context)) { it.first } as MutableList
         var index = temp.indexOf(item)
         if (index == -1) {
-            index = (mRowList.size - 1)
+            index = (rowList.size - 1)
         }
-        mRowList.add(index, item)
+        rowList.add(index, item)
         notifyItemInserted(index)
     }
 
     fun isChannelShowing(channelId: Long?): Boolean {
         channelId ?: return false
-        val res = mRowList.find { it.first == channelId }
+        val res = rowList.find { it.first == channelId }
         res ?: return false
         return true
     }
 
     fun findChannelIndex(channelId: Long?): Int {
         channelId ?: return -1
-        return mRowList.indexOfFirst { it.first == channelId }
+        return rowList.indexOfFirst { it.first == channelId }
     }
 
     fun itemMoved(from: Int, to: Int) {
-        Collections.swap(mRowList, from, to)
+        Collections.swap(rowList, from, to)
         notifyItemMoved(from, to)
     }
 }

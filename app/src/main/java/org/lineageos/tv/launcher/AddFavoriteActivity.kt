@@ -5,25 +5,29 @@
 
 package org.lineageos.tv.launcher
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.Gravity
 import android.view.WindowManager
+import androidx.fragment.app.FragmentActivity
 import androidx.leanback.widget.VerticalGridView
 import org.lineageos.tv.launcher.adapter.AllAppsFavoritesAdapter
 
-class AddFavoriteActivity : Activity() {
+class AddFavoriteActivity : FragmentActivity(R.layout.activity_add_favorite) {
+    // Views
+    private val allAppsGridView by lazy { findViewById<VerticalGridView>(R.id.all_apps_add_grid) }
+
+    // Adapters
+    private val allAppsAdapter by lazy { AllAppsFavoritesAdapter(applicationContext) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_favorite)
 
-        val layoutParams = window.attributes
-        layoutParams.gravity = Gravity.END
-        layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT
+        val layoutParams = window.attributes.apply {
+            gravity = Gravity.END
+            width = WindowManager.LayoutParams.WRAP_CONTENT
+        }
         window.attributes = layoutParams
 
-        val allAppsGridView: VerticalGridView = findViewById(R.id.all_apps_add_grid)
-        val allAppsAdapter = AllAppsFavoritesAdapter(applicationContext)
         allAppsGridView.adapter = allAppsAdapter
     }
 }

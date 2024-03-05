@@ -19,36 +19,35 @@ import org.lineageos.tv.launcher.model.Channel
 import org.lineageos.tv.launcher.utils.Suggestions
 import org.lineageos.tv.launcher.utils.Suggestions.orderSuggestions
 
-class ModifyChannelsActivity : FragmentActivity() {
+class ModifyChannelsActivity : FragmentActivity(R.layout.activity_modify_channels) {
+    // Views
+    private val channelsGrid by lazy { findViewById<VerticalGridView>(R.id.modify_channels_grid) }
+    private val progressLoadingChannels by lazy { findViewById<ProgressBar>(R.id.progress_loading_channels) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_modify_channels)
 
-        val channelsGrid: VerticalGridView = findViewById(R.id.modify_channels_grid)
         val channelOrder = Suggestions.getChannelOrder(this)
 
-        val layoutParams = window.attributes
-        layoutParams.gravity = Gravity.END
-        layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT
-        layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT
+        val layoutParams = window.attributes.apply {
+            gravity = Gravity.END
+            width = WindowManager.LayoutParams.WRAP_CONTENT
+            height = WindowManager.LayoutParams.MATCH_PARENT
+        }
         window.attributes = layoutParams
 
         lifecycleScope.launch {
-            val channels = ArrayList<Channel>()
-            channels.add(Channel(Channel.FAVORITE_APPS_ID, getString(R.string.favorites)))
-            channels.add(Channel(Channel.WATCH_NEXT_ID, getString(R.string.watch_next)))
-            val previewChannels =
-                Suggestions.getPreviewChannelsAsync(this@ModifyChannelsActivity)
-            previewChannels.map {
-                channels.add(
+            val channels = listOf(
+                Channel(Channel.FAVORITE_APPS_ID, getString(R.string.favorites)),
+                Channel(Channel.WATCH_NEXT_ID, getString(R.string.watch_next)),
+                *Suggestions.getPreviewChannelsAsync(this@ModifyChannelsActivity).map {
                     Channel(
                         it.id,
                         Suggestions.getChannelTitle(this@ModifyChannelsActivity, it)
                     )
-                )
-            }
-            channels.add(Channel(Channel.ALL_APPS_ID, getString(R.string.other_apps)))
+                }.toTypedArray(),
+                Channel(Channel.ALL_APPS_ID, getString(R.string.other_apps)),
+            )
 
             // Display the data & hide spinner
             channelsGrid.adapter =
@@ -56,7 +55,7 @@ class ModifyChannelsActivity : FragmentActivity() {
                     this@ModifyChannelsActivity,
                     channels.orderSuggestions(channelOrder) { it.id })
             channelsGrid.visibility = View.VISIBLE
-            findViewById<ProgressBar>(R.id.progress_loading_channels).visibility = View.GONE
+            progressLoadingChannels.visibility = View.GONE
         }
     }
 }
