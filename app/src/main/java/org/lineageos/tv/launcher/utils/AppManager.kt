@@ -1,10 +1,8 @@
 package org.lineageos.tv.launcher.utils
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import org.lineageos.tv.launcher.MainActivity
 import org.lineageos.tv.launcher.model.AppInfo
 import org.lineageos.tv.launcher.model.Launchable
 

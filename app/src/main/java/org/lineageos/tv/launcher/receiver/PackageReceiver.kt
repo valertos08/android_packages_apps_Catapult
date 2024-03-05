@@ -3,9 +3,8 @@ package org.lineageos.tv.launcher.receiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 
-class PackageReceiver: BroadcastReceiver() {
+class PackageReceiver : BroadcastReceiver() {
     companion object {
         internal var onPackageInstalledCallback: (packageName: String) -> Unit = {}
         internal var onPackageUninstalledCallback: (packageName: String) -> Unit = {}

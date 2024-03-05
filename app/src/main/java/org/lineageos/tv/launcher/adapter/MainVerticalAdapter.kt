@@ -21,14 +21,16 @@ class MainVerticalAdapter(
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         val v = (viewHolder.itemView as org.lineageos.tv.launcher.view.MainRowItem)
         v.setData(mRowList[i].second)
-        v.layoutParams =  if (mRowList[i].second.adapter is AppsAdapter) {
+        v.layoutParams = if (mRowList[i].second.adapter is AppsAdapter) {
             LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                mContext.resources.getDimension(R.dimen.main_app_row_height).toInt())
+                mContext.resources.getDimension(R.dimen.main_app_row_height).toInt()
+            )
         } else {
             LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                mContext.resources.getDimension(R.dimen.main_row_height).toInt())
+                mContext.resources.getDimension(R.dimen.main_row_height).toInt()
+            )
         }
     }
 

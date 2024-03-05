@@ -23,7 +23,7 @@ object Suggestions {
     internal var onChannelShownCallback: (channelId: Long) -> Unit = {}
     internal var onChannelSelectedCallback: (channelId: Long, index: Int) -> Unit = { _, _ -> }
     internal var onChannelOrderChangedCallback: (moveChannelId: Long?, otherChannelId: Long?) -> Unit =
-        { _, _, -> }
+        { _, _ -> }
 
     fun getWatchNextPrograms(context: Context): List<WatchNextProgram> {
         val cursor = context.contentResolver.query(

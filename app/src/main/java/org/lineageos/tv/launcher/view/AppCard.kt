@@ -51,7 +51,8 @@ open class AppCard : Card, View.OnFocusChangeListener {
             mBannerView.setImageDrawable(appInfo.mBanner)
             mBannerView.visibility = View.VISIBLE
             mIconContainer.visibility = View.GONE
-            mCardContainer.background = AppCompatResources.getDrawable(context, R.drawable.card_border_only)
+            mCardContainer.background =
+                AppCompatResources.getDrawable(context, R.drawable.card_border_only)
         } else {
             // App with an icon
             mIconView.setImageDrawable(appInfo.mIcon)

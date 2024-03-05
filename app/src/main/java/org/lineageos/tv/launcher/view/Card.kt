@@ -3,9 +3,7 @@ package org.lineageos.tv.launcher.view
 import android.content.Context
 import android.content.Intent
 import android.util.AttributeSet
-import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
 import org.lineageos.tv.launcher.R
 import org.lineageos.tv.launcher.model.Launchable
 

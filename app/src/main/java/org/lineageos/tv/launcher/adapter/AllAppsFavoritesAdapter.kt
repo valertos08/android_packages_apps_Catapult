@@ -3,8 +3,8 @@ package org.lineageos.tv.launcher.adapter
 import android.content.Context
 import android.view.ViewGroup
 import org.lineageos.tv.launcher.utils.AppManager
-import org.lineageos.tv.launcher.view.Card
 import org.lineageos.tv.launcher.view.AddFavoriteCard
+import org.lineageos.tv.launcher.view.Card
 
 class AllAppsFavoritesAdapter(context: Context) : AppsAdapter(context) {
     private var mFavoritePackageNames = ArrayList<String>()

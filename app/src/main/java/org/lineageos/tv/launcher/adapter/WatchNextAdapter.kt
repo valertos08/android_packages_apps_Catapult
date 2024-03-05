@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.tvprovider.media.tv.BasePreviewProgram
-import androidx.tvprovider.media.tv.WatchNextProgram
 import org.lineageos.tv.launcher.view.WatchNextCard
 
 

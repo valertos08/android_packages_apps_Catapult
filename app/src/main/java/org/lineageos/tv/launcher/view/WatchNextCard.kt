@@ -48,12 +48,15 @@ class WatchNextCard : Card, View.OnFocusChangeListener {
             TvContractCompat.PreviewProgramColumns.ASPECT_RATIO_16_9 -> {
                 findViewById(R.id.title_16_9)
             }
+
             TvContractCompat.PreviewProgramColumns.ASPECT_RATIO_4_3 -> {
                 findViewById(R.id.title_16_9)
             }
+
             TvContractCompat.PreviewProgramColumns.ASPECT_RATIO_3_2 -> {
                 findViewById(R.id.title_3_2)
             }
+
             else -> {
                 findViewById(R.id.title_4_3)
             }
