@@ -31,11 +31,11 @@
 
         <ImageButton
             android:id="@+id/settings_button"
-            style="@style/SettingsButton"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@drawable/settings_button_background"
             android:contentDescription="@string/settings"
+            android:padding="12dp"
             android:src="@drawable/ic_settings"
             android:stateListAnimator="@anim/app_card_state_animator"
             android:tint="@color/settings_color" />
