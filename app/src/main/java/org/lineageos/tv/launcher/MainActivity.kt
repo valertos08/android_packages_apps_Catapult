@@ -101,9 +101,8 @@ class MainActivity : FragmentActivity(R.layout.activity_main) {
         if (Channel.ALL_APPS_ID !in hiddenChannels) {
             appsAdapter.removeItem(packageName)
         }
-        if (Channel.FAVORITE_APPS_ID !in hiddenChannels) {
-            favoritesAdapter.removeItem(packageName)
-        }
+
+        favoritesAdapter.removeItem(packageName)
         AppManager.removeFavoriteApp(this, packageName)
     }
 
