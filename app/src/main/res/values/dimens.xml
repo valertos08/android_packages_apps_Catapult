@@ -7,5 +7,5 @@
     <dimen name="card_width_4_3">112dp</dimen>
     <dimen name="card_width_3_2">126dp</dimen>
     <dimen name="main_row_height">164dp</dimen>
-    <dimen name="main_app_row_height">122dp</dimen>
+    <dimen name="main_app_row_height">130dp</dimen>
 </resources>

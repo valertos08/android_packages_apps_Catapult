@@ -26,7 +26,7 @@ class MainVerticalAdapter(
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         val v = (viewHolder.itemView as org.lineageos.tv.launcher.view.MainRowItem)
         v.setData(rowList[i].second)
-        v.layoutParams = if (rowList[i].second.adapter is AppsAdapter) {
+        v.layoutParams = if (rowList[i].second.adapter is TvAdapter<*>) {
             LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 context.resources.getDimension(R.dimen.main_app_row_height).toInt()
