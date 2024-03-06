@@ -13,6 +13,8 @@ import androidx.core.view.isVisible
 import org.lineageos.tv.launcher.R
 
 class FavoriteCard : AppCard {
+    override val menuResId = R.menu.favorite_app_long_press
+
     // Views
     private val moveOverlayView by lazy { findViewById<ImageView>(R.id.app_move_handle) }
 

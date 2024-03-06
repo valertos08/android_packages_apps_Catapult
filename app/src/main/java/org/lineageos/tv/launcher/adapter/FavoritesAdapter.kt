@@ -151,7 +151,7 @@ class FavoritesAdapter(context: Context) : TvAdapter<FavoriteCard>(context) {
             return true
         }
 
-        showPopupMenu(card, R.menu.favorite_app_long_press)
+        card.showPopupMenu()
         return true
     }
 

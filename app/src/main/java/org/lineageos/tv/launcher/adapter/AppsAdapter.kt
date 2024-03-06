@@ -26,4 +26,9 @@ class AppsAdapter(context: Context) : TvAdapter<AppCard>(context) {
 
         return ViewHolder(itemView)
     }
+
+    override fun handleLongClick(card: AppCard): Boolean {
+        card.showPopupMenu()
+        return true
+    }
 }

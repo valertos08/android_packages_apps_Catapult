@@ -11,13 +11,18 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import org.lineageos.tv.launcher.R
 import org.lineageos.tv.launcher.model.AppInfo
 import org.lineageos.tv.launcher.model.Launchable
+import org.lineageos.tv.launcher.utils.AppManager
+import kotlin.reflect.safeCast
 
 open class AppCard : Card {
+    protected open val menuResId = R.menu.app_long_press
+
     // Views
     private val bannerView by lazy { findViewById<ImageView>(R.id.app_banner) }
     private val cardContainer by lazy { findViewById<LinearLayout>(R.id.card_container) }
@@ -77,5 +82,39 @@ open class AppCard : Card {
             // App with an icon
             iconView.setImageDrawable(appInfo.icon)
         }
+    }
+
+    fun showPopupMenu() {
+        val popupMenu = PopupMenu(context, this)
+        popupMenu.menuInflater.inflate(menuResId, popupMenu.menu)
+        popupMenu.setForceShowIcon(true)
+
+        popupMenu.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.menu_uninstall -> {
+                    AppManager.uninstallApp(context, packageName)
+                    true
+                }
+
+                R.id.menu_mark_as_favorite -> {
+                    AppManager.addFavoriteApp(context, packageName)
+                    true
+                }
+
+                R.id.menu_remove_favorite -> {
+                    AppManager.removeFavoriteApp(context, packageName)
+                    true
+                }
+
+                R.id.menu_move -> {
+                    FavoriteCard::class.safeCast(this)?.setMoving()
+                    true
+                }
+
+                else -> false
+            }
+        }
+
+        popupMenu.show()
     }
 }
