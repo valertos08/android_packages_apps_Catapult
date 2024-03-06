@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/top_bar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clipChildren="false"
@@ -12,10 +14,46 @@
     android:paddingTop="32dp">
 
     <TextView
+        android:id="@+id/assistant_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search"
-        android:textAppearance="@style/TextAppearance.Leanback.Header" />
+        android:text="@string/search"
+        android:drawableStart="@drawable/ic_google_assistant"
+        android:drawablePadding="12dp"
+        android:textAppearance="@style/TextAppearance.Leanback.Header"
+        android:focusable="true"
+        tools:ignore="UseCompatTextViewDrawableXml" />
+
+    <LinearLayout
+        android:id="@+id/assistant_buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <ImageButton
+            android:id="@+id/voice_assistant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/settings_button_background"
+            android:contentDescription="@string/settings"
+            android:padding="12dp"
+            android:src="@drawable/ic_mic"
+            android:stateListAnimator="@anim/app_card_state_animator"
+            android:tint="@color/settings_color"
+            tools:ignore="UseAppTint" />
+
+        <ImageButton
+            android:id="@+id/keyboard_assistant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/settings_button_background"
+            android:contentDescription="@string/settings"
+            android:padding="12dp"
+            android:src="@drawable/ic_keyboard"
+            android:stateListAnimator="@anim/app_card_state_animator"
+            android:tint="@color/settings_color"
+            tools:ignore="UseAppTint" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"

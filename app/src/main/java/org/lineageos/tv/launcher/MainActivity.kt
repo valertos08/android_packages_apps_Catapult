@@ -10,7 +10,15 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.transition.Slide
+import android.transition.TransitionManager
+import android.view.Gravity
+import android.view.View
 import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.leanback.widget.VerticalGridView
 import androidx.lifecycle.lifecycleScope
@@ -31,8 +39,13 @@ import org.lineageos.tv.launcher.utils.Suggestions.orderSuggestions
 
 class MainActivity : FragmentActivity(R.layout.activity_main) {
     // Views
+    private val assistantButtonsContainer by lazy { findViewById<LinearLayout>(R.id.assistant_buttons) }
+    private val assistantShowButton by lazy { findViewById<TextView>(R.id.assistant_title) }
+    private val keyboardAssistantButton by lazy { findViewById<ImageButton>(R.id.keyboard_assistant) }
     private val mainVerticalGridView by lazy { findViewById<VerticalGridView>(R.id.main_vertical_grid) }
     private val settingButton by lazy { findViewById<ImageButton>(R.id.settings_button) }
+    private val topBarContainer by lazy { findViewById<LinearLayout>(R.id.top_bar) }
+    private val voiceAssistantButton by lazy { findViewById<ImageButton>(R.id.voice_assistant) }
 
     // Adapters
     private val favoritesAdapter by lazy { FavoritesAdapter(this@MainActivity) }
@@ -80,6 +93,14 @@ class MainActivity : FragmentActivity(R.layout.activity_main) {
             addDataScheme("package")
         }
         registerReceiver(packageReceiver, intentFilter)
+
+        val assistIntent = Intent(Intent.ACTION_ASSIST)
+        if (assistIntent.resolveActivity(packageManager) != null) {
+            setupAssistantButtons(assistIntent)
+        } else {
+            assistantShowButton.isInvisible = true
+            assistantButtonsContainer.isInvisible = true
+        }
     }
 
     override fun onDestroy() {
@@ -187,6 +208,48 @@ class MainActivity : FragmentActivity(R.layout.activity_main) {
             val pos = mainVerticalAdapter.findChannelIndex(channelId)
             mainVerticalGridView.layoutManager?.scrollToPosition(pos)
         }
+    }
+
+    private fun setupAssistantButtons(assistIntent: Intent) {
+        voiceAssistantButton.setOnClickListener {
+            startActivity(assistIntent)
+        }
+
+        val keyboardAssistantIntent = Intent(assistIntent).apply {
+            putExtra(Intent.EXTRA_ASSIST_INPUT_HINT_KEYBOARD, true)
+        }
+        keyboardAssistantButton.setOnClickListener {
+            startActivity(keyboardAssistantIntent)
+        }
+
+        val transition = Slide().apply {
+            slideEdge = Gravity.START
+            duration = 400
+        }
+        assistantShowButton.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                transition.removeTarget(assistantShowButton)
+                transition.addTarget(assistantButtonsContainer)
+                TransitionManager.beginDelayedTransition(topBarContainer, transition)
+                assistantShowButton.isVisible = false
+                assistantButtonsContainer.isVisible = true
+            }
+        }
+
+        val assistantButtonFocusListener = View.OnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                if (!keyboardAssistantButton.hasFocus() && !voiceAssistantButton.hasFocus()) {
+                    transition.removeTarget(assistantButtonsContainer)
+                    transition.addTarget(assistantShowButton)
+                    TransitionManager.beginDelayedTransition(topBarContainer, transition)
+                    assistantButtonsContainer.isVisible = false
+                    assistantShowButton.isVisible = true
+                }
+            }
+        }
+
+        keyboardAssistantButton.onFocusChangeListener = assistantButtonFocusListener
+        voiceAssistantButton.onFocusChangeListener = assistantButtonFocusListener
     }
 
     private suspend fun getMainRows(): MutableList<Pair<Long, MainRowItem>> {
