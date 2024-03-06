@@ -41,6 +41,8 @@ class MainActivity : FragmentActivity(R.layout.activity_main) {
 
     private lateinit var channels: List<PreviewChannel>
 
+    private val packageReceiver by lazy { PackageReceiver() }
+
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,7 +79,13 @@ class MainActivity : FragmentActivity(R.layout.activity_main) {
             addAction(Intent.ACTION_PACKAGE_FULLY_REMOVED)
             addDataScheme("package")
         }
-        registerReceiver(PackageReceiver(), intentFilter)
+        registerReceiver(packageReceiver, intentFilter)
+    }
+
+    override fun onDestroy() {
+        unregisterReceiver(packageReceiver)
+
+        super.onDestroy()
     }
 
     private fun onPackageInstalled(packageName: String) {
