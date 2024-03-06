@@ -37,6 +37,10 @@ class MainVerticalAdapter(
                 context.resources.getDimension(R.dimen.main_row_height).toInt()
             )
         }
+
+        if (i == 0) {
+            v.requestFocus()
+        }
     }
 
     override fun getItemCount(): Int {

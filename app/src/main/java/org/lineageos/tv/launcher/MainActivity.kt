@@ -101,6 +101,8 @@ class MainActivity : FragmentActivity(R.layout.activity_main) {
             assistantShowButton.isInvisible = true
             assistantButtonsContainer.isInvisible = true
         }
+
+        settingButton.requestFocus()
     }
 
     override fun onDestroy() {
