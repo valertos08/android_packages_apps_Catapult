@@ -89,6 +89,13 @@ open class AppCard : Card {
         popupMenu.menuInflater.inflate(menuResId, popupMenu.menu)
         popupMenu.setForceShowIcon(true)
 
+        // See if this card is already a favorite
+        if (packageName in AppManager.getFavoriteApps(context)) {
+            popupMenu.menu.removeItem(R.id.menu_mark_as_favorite)
+        } else {
+            popupMenu.menu.removeItem(R.id.menu_remove_favorite)
+        }
+
         popupMenu.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_uninstall -> {

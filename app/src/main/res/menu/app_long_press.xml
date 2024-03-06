@@ -6,6 +6,11 @@
         android:iconTint="@android:color/white"
         android:title="@string/mark_as_favorite" />
     <item
+        android:id="@+id/menu_remove_favorite"
+        android:icon="@drawable/ic_favorite"
+        android:iconTint="@android:color/white"
+        android:title="@string/remove_favorite" />
+    <item
         android:id="@+id/menu_uninstall"
         android:icon="@drawable/ic_delete"
         android:iconTint="@android:color/white"
