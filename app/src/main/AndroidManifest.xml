@@ -24,7 +24,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TvTrebuchet">
+        android:theme="@style/Theme.Catapult">
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -37,9 +37,9 @@
         </activity>
         <activity
             android:name=".AddFavoriteActivity"
-            android:theme="@style/Theme.TvTrebuchet.AddFavorite" />
+            android:theme="@style/Theme.Catapult.SideActivity" />
         <activity
             android:name=".ModifyChannelsActivity"
-            android:theme="@style/Theme.TvTrebuchet.AddFavorite" />
+            android:theme="@style/Theme.Catapult.SideActivity" />
     </application>
 </manifest>

@@ -1,11 +1,11 @@
 <resources>
 
-    <style name="Theme.TvTrebuchet" parent="Theme.Leanback">
+    <style name="Theme.Catapult" parent="Theme.Leanback">
         <item name="android:windowBackground">#121212</item>
         <item name="defaultSectionHeaderColor">#FFFFFF</item>
     </style>
 
-    <style name="Theme.TvTrebuchet.AddFavorite" parent="Theme.Leanback">
+    <style name="Theme.Catapult.SideActivity" parent="Theme.Leanback">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowIsFloating">true</item>
