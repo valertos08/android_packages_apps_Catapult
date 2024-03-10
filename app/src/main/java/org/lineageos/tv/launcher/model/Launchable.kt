@@ -9,7 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 
-open class Launchable(
+sealed class Launchable(
     val label: String,
     val packageName: String,
     val icon: Drawable,
