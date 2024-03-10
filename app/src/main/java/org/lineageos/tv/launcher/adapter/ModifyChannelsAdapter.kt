@@ -5,149 +5,138 @@
 
 package org.lineageos.tv.launcher.adapter
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.view.KeyEvent
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Switch
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.lineageos.tv.launcher.R
 import org.lineageos.tv.launcher.model.Channel
-import org.lineageos.tv.launcher.utils.Suggestions
+import org.lineageos.tv.launcher.model.InternalChannel
 import org.lineageos.tv.launcher.view.ToggleChannelView
 import java.util.Collections
 
-class ModifyChannelsAdapter(private val mContext: Context, private val mChannels: List<Channel>) :
-    RecyclerView.Adapter<ModifyChannelsAdapter.ViewHolder>() {
+class ModifyChannelsAdapter :
+    ListAdapter<Pair<Channel, Boolean>, ModifyChannelsAdapter.ViewHolder>(diffCallback) {
+    var onChannelToggled: (channel: Channel, enabled: Boolean) -> Unit = { _, _ -> }
+    var onOrderChanged: (channels: List<Channel>) -> Unit = {}
 
-    val hiddenChannels by lazy { Suggestions.getHiddenChannels(mContext) }
+    inner class ViewHolder(
+        private val toggleChannelView: ToggleChannelView,
+    ) : RecyclerView.ViewHolder(toggleChannelView) {
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener, View.OnLongClickListener, View.OnKeyListener {
-
-        @SuppressLint("UseSwitchCompatOrMaterialCode") // Not available for leanback
-        val mSwitch: Switch = itemView.findViewById(R.id.state_switch)
+        @Suppress("UseSwitchCompatOrMaterialCode") // Not available for leanback
+        val switch = itemView.findViewById<Switch>(R.id.state_switch)!!
 
         init {
-            itemView.setOnClickListener(this)
-            itemView.setOnLongClickListener(this)
-            itemView.setOnKeyListener(this)
-        }
-
-        override fun onClick(v: View) {
-            v as ToggleChannelView
-
-            if (v.moving) {
-                v.setMoveDone()
-                return
-            }
-
-            if (!mSwitch.isEnabled) {
-                return
-            }
-
-            if (mSwitch.isChecked) {
-                mSwitch.isChecked = false
-                Suggestions.hideChannel(mContext, v.channelId)
-                v.channelId?.let { hiddenChannels.add(it) }
-            } else {
-                mSwitch.isChecked = true
-                Suggestions.showChannel(mContext, v.channelId)
-                hiddenChannels.remove(v.channelId)
-            }
-        }
-
-        override fun onLongClick(v: View): Boolean {
-            v as ToggleChannelView
-            v.setMoving()
-            v.channelId?.let { Suggestions.onChannelSelectedCallback(it, bindingAdapterPosition) }
-            return true
-        }
-
-        override fun onKey(v: View?, keyCode: Int, keyEvent: KeyEvent): Boolean {
-            v as ToggleChannelView
-
-            // Leave center key for onClick handler
-            if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
-                return false
-            }
-
-            // Only handle keyDown events here
-            if (keyEvent.action != KeyEvent.ACTION_DOWN) {
-                return v.moving
-            }
-
-            val pos = bindingAdapterPosition
-            when (keyCode) {
-                KeyEvent.KEYCODE_BACK -> {
-                    if (v.moving) {
-                        v.setMoveDone()
-                        return true
-                    }
-                    return false
+            toggleChannelView.setOnClickListener {
+                if (toggleChannelView.moving) {
+                    toggleChannelView.setMoveDone()
+                    return@setOnClickListener
                 }
 
-                KeyEvent.KEYCODE_DPAD_UP -> {
-                    if (v.moving) {
-                        if (pos == 0) {
-                            return true
+                if (!switch.isEnabled) {
+                    return@setOnClickListener
+                }
+
+                toggleChannelView.channel?.let {
+                    onChannelToggled(it, !switch.isChecked)
+                }
+            }
+
+            itemView.setOnLongClickListener {
+                toggleChannelView.setMoving()
+
+                return@setOnLongClickListener true
+            }
+
+            itemView.setOnKeyListener { _, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
+                    return@setOnKeyListener false
+                }
+
+                // Only handle keyDown events here
+                if (event.action != KeyEvent.ACTION_DOWN) {
+                    return@setOnKeyListener toggleChannelView.moving
+                }
+
+                val list = currentList.toMutableList()
+                val pos = bindingAdapterPosition
+
+                when (keyCode) {
+                    KeyEvent.KEYCODE_BACK -> {
+                        if (toggleChannelView.moving) {
+                            toggleChannelView.setMoveDone()
+                            return@setOnKeyListener true
                         }
-                        Collections.swap(mChannels, pos, pos - 1)
-                        notifyItemMoved(pos, pos - 1)
-                        Suggestions.saveChannelOrder(
-                            mContext, pos, pos - 1, mChannels.map { it.id },
-                            v.channelId !in hiddenChannels
-                        )
-                        return true
+                        return@setOnKeyListener false
                     }
-                }
 
-                KeyEvent.KEYCODE_DPAD_DOWN -> {
-                    if (v.moving) {
-                        if (pos == mChannels.size - 1) {
-                            return true
+                    KeyEvent.KEYCODE_DPAD_UP -> {
+                        if (toggleChannelView.moving) {
+                            if (pos == 0) {
+                                return@setOnKeyListener true
+                            }
+                            Collections.swap(list, pos, pos - 1)
+                            onOrderChanged(list.map { it.first })
+                            return@setOnKeyListener true
                         }
-                        Collections.swap(mChannels, pos, pos + 1)
-                        notifyItemMoved(pos, pos + 1)
-                        Suggestions.saveChannelOrder(
-                            mContext, pos, pos + 1, mChannels.map { it.id },
-                            v.channelId !in hiddenChannels
-                        )
-                        return true
+                    }
+
+                    KeyEvent.KEYCODE_DPAD_DOWN -> {
+                        if (toggleChannelView.moving) {
+                            if (pos == list.size - 1) {
+                                return@setOnKeyListener true
+                            }
+                            Collections.swap(list, pos, pos + 1)
+                            onOrderChanged(list.map { it.first })
+                            return@setOnKeyListener true
+                        }
                     }
                 }
+
+                return@setOnKeyListener false
             }
+        }
 
-            return false
+        fun bind(channel: Pair<Channel, Boolean>) {
+            toggleChannelView.setData(channel.first, channel.second)
+
+            if (channel.first.id == InternalChannel.FAVORITE_APPS.id) {
+                toggleChannelView.disableToggle()
+            }
         }
     }
 
-    override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        var hidden = false
-        if (hiddenChannels.contains(mChannels[i].id)) {
-            hidden = true
-        }
-        val v = viewHolder.itemView as ToggleChannelView
-        v.setData(mChannels[i], hidden)
-
-        if (mChannels[i].id == Channel.FAVORITE_APPS_ID) {
-            v.disableToggle()
-        }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int {
-        return mChannels.size
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
+        ToggleChannelView(parent.context).apply {
+            layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+        }
+    )
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = ToggleChannelView(parent.context)
+    companion object {
+        private val diffCallback = object : DiffUtil.ItemCallback<Pair<Channel, Boolean>>() {
+            override fun areItemsTheSame(
+                oldItem: Pair<Channel, Boolean>,
+                newItem: Pair<Channel, Boolean>,
+            ) = oldItem.first.id == newItem.first.id
 
-        itemView.layoutParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-
-        return ViewHolder(itemView)
+            override fun areContentsTheSame(
+                oldItem: Pair<Channel, Boolean>,
+                newItem: Pair<Channel, Boolean>,
+            ) = compareValuesBy(
+                oldItem, newItem,
+                { it.first.title },
+                { it.second },
+            ) == 0
+        }
     }
 }

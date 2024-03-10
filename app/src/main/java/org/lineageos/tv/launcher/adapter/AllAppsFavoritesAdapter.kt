@@ -5,43 +5,67 @@
 
 package org.lineageos.tv.launcher.adapter
 
-import android.content.Context
 import android.view.ViewGroup
-import org.lineageos.tv.launcher.utils.AppManager
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import org.lineageos.tv.launcher.ext.pixelsEqualTo
+import org.lineageos.tv.launcher.model.AppInfo
 import org.lineageos.tv.launcher.view.AddFavoriteCard
 
-class AllAppsFavoritesAdapter(context: Context) : TvAdapter<AddFavoriteCard>(context) {
-    private var favoritePackageNames = AppManager.getFavoriteApps(context)
+class AllAppsFavoritesAdapter :
+    ListAdapter<Pair<AppInfo, Boolean>, AllAppsFavoritesAdapter.ViewHolder>(diffCallback) {
+    var onFavoriteChanged: (packageName: String, favorite: Boolean) -> Unit = { _, _ -> }
 
-    override fun handleClick(card: AddFavoriteCard) {
-        if (favoritePackageNames.contains(card.packageName)) {
-            AppManager.removeFavoriteApp(context, card.packageName)
-            card.setActionAdd()
-        } else {
-            AppManager.addFavoriteApp(context, card.packageName)
-            card.setActionRemove()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
+        AddFavoriteCard(parent.context).apply {
+            layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
         }
+    )
 
-        favoritePackageNames = AppManager.getFavoriteApps(context)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 
-    override fun onBindViewHolder(viewHolder: TvAdapter<AddFavoriteCard>.ViewHolder, i: Int) {
-        val card = viewHolder.itemView as AddFavoriteCard
-        card.setCardInfo(launchablesList[i])
+    inner class ViewHolder(private val card: AddFavoriteCard) : RecyclerView.ViewHolder(card) {
+        init {
+            card.apply {
+                setOnClickListener {
+                    val packageName = card.packageName
 
-        if (favoritePackageNames.contains(launchablesList[i].packageName)) {
-            card.setActionRemove()
+                    currentList.find {
+                        it.first.packageName == card.packageName
+                    }?.let {
+                        onFavoriteChanged(packageName, !it.second)
+                    }
+                }
+            }
+        }
+
+        fun bind(item: Pair<AppInfo, Boolean>) {
+            card.setCardInfo(item.first)
+            card.setActionToggle(item.second)
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = AddFavoriteCard(parent.context)
+    companion object {
+        private val diffCallback = object : DiffUtil.ItemCallback<Pair<AppInfo, Boolean>>() {
+            override fun areItemsTheSame(
+                oldItem: Pair<AppInfo, Boolean>,
+                newItem: Pair<AppInfo, Boolean>
+            ) = oldItem.first.packageName == newItem.first.packageName
 
-        itemView.layoutParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-
-        return ViewHolder(itemView)
+            override fun areContentsTheSame(
+                oldItem: Pair<AppInfo, Boolean>,
+                newItem: Pair<AppInfo, Boolean>
+            ) = compareValuesBy(
+                oldItem, newItem,
+                { it.first.label },
+                { it.second },
+            ) == 0 && oldItem.first.icon.pixelsEqualTo(newItem.first.icon)
+        }
     }
 }

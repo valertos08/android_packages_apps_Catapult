@@ -20,7 +20,7 @@ class ToggleChannelView : LinearLayout {
     private val switch by lazy { findViewById<Switch>(R.id.state_switch) }
 
     var moving = false
-    var channelId: Long? = null
+    var channel: Channel? = null
 
     constructor(context: Context) : super(context)
 
@@ -40,10 +40,10 @@ class ToggleChannelView : LinearLayout {
             AppCompatResources.getDrawable(context, R.drawable.favorites_app_card_background)
     }
 
-    fun setData(channel: Channel, hidden: Boolean) {
+    fun setData(channel: Channel, enabled: Boolean) {
+        this.channel = channel
         titleView.text = channel.title
-        channelId = channel.id
-        switch.isChecked = !hidden
+        switch.isChecked = enabled
     }
 
     fun disableToggle() {

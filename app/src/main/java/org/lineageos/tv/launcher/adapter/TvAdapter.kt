@@ -1,20 +1,29 @@
+/*
+ * SPDX-FileCopyrightText: 2024 The LineageOS Project
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package org.lineageos.tv.launcher.adapter
 
-import android.content.Context
-import android.content.pm.ApplicationInfo
 import android.view.KeyEvent
 import android.widget.Toast
+import androidx.annotation.CallSuper
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import org.lineageos.tv.launcher.model.AppInfo
-import org.lineageos.tv.launcher.utils.AppManager
+import org.lineageos.tv.launcher.ext.pixelsEqualTo
+import org.lineageos.tv.launcher.model.Launchable
 import org.lineageos.tv.launcher.view.Card
 
-abstract class TvAdapter<T : Card>(protected val context: Context) :
-    RecyclerView.Adapter<TvAdapter<T>.ViewHolder>() {
+abstract class TvAdapter<L : Launchable, C : Card> : ListAdapter<L, TvAdapter<L, C>.ViewHolder>(
+    getDiffCallback()
+) {
+    @CallSuper
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(getItem(position))
+    }
 
-    val launchablesList by lazy { getAppsList().toMutableList() }
-
-    inner class ViewHolder(val card: T) : RecyclerView.ViewHolder(card) {
+    inner class ViewHolder(private val card: C) : RecyclerView.ViewHolder(card) {
         init {
             card.apply {
                 setOnClickListener {
@@ -28,38 +37,38 @@ abstract class TvAdapter<T : Card>(protected val context: Context) :
                 }
             }
         }
+
+        fun bind(item: L) {
+            card.setCardInfo(item)
+        }
     }
 
-    open fun handleClick(card: T) {
+    open fun handleClick(card: C) {
         val context = card.context
         context.startActivity(card.launchIntent)
         Toast.makeText(context, card.label, Toast.LENGTH_SHORT).show()
     }
 
-    open fun handleLongClick(card: T): Boolean {
-        return true
-    }
+    open fun handleLongClick(card: C) = false
 
     open fun handleKey(
-        card: T, keyCode: Int, event: KeyEvent?, bindingAdapterPosition: Int
+        card: C,
+        keyCode: Int,
+        event: KeyEvent?,
+        bindingAdapterPosition: Int,
     ) = false
 
-    open fun getAppsList() = AppManager.getInstalledApps(context)
+    companion object {
+        private fun <T : Launchable> getDiffCallback() = object : DiffUtil.ItemCallback<T>() {
+            override fun areItemsTheSame(
+                oldItem: T,
+                newItem: T,
+            ) = oldItem.packageName == newItem.packageName
 
-    override fun getItemCount() = launchablesList.size
-
-    fun removeItem(packageName: String) {
-        val index = launchablesList.indexOfFirst { it.packageName == packageName }
-        if (index != -1) {
-            launchablesList.removeAt(index)
-            notifyItemRemoved(index)
+            override fun areContentsTheSame(
+                oldItem: T,
+                newItem: T,
+            ) = oldItem.label == newItem.label && oldItem.icon.pixelsEqualTo(newItem.icon)
         }
-    }
-
-    open fun addItem(packageName: String) {
-        val ai: ApplicationInfo = context.packageManager.getApplicationInfo(packageName, 0)
-        val appInfo = AppInfo(ai, context)
-        launchablesList.add(launchablesList.size, appInfo)
-        notifyItemInserted(launchablesList.size)
     }
 }

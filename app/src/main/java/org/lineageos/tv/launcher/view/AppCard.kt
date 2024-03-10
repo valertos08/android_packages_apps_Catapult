@@ -104,12 +104,12 @@ open class AppCard : Card {
                 }
 
                 R.id.menu_mark_as_favorite -> {
-                    AppManager.addFavoriteApp(context, packageName)
+                    AppManager.toggleFavoriteApp(context, packageName, true)
                     true
                 }
 
                 R.id.menu_remove_favorite -> {
-                    AppManager.removeFavoriteApp(context, packageName)
+                    AppManager.toggleFavoriteApp(context, packageName, false)
                     true
                 }
 

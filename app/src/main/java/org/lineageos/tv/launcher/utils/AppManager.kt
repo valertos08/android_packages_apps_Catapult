@@ -8,60 +8,46 @@ package org.lineageos.tv.launcher.utils
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.core.content.edit
+import androidx.preference.PreferenceManager
+import org.lineageos.tv.launcher.ext.favoriteApps
 import org.lineageos.tv.launcher.model.AppInfo
-import org.lineageos.tv.launcher.model.Launchable
 
 object AppManager {
-    internal var onFavoriteAddedCallback: (packageName: String) -> Unit = {}
-    internal var onFavoriteRemovedCallback: (packageName: String) -> Unit = {}
+    fun updateFavoriteApps(context: Context, installedApps: List<AppInfo>) {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        val favoriteApps = sharedPreferences.favoriteApps.toMutableList()
 
-    fun getInstalledApps(context: Context): List<Launchable> {
-        val pm = context.packageManager
-        val intent = Intent(Intent.ACTION_MAIN, null).apply {
-            addCategory(Intent.CATEGORY_LAUNCHER)
+        // Remove apps from favorite if they got uninstalled
+        installedApps.map { it.packageName }.let { installedPackageNames ->
+            favoriteApps.filter { favoriteApp ->
+                !installedPackageNames.contains(favoriteApp)
+            }
+        }.forEach { uninstalledFavoriteApp ->
+            favoriteApps.remove(uninstalledFavoriteApp)
         }
 
-        return pm.queryIntentActivities(intent, 0).map {
-            AppInfo(it, context)
+        sharedPreferences.favoriteApps = favoriteApps
+    }
+
+    fun toggleFavoriteApp(context: Context, packageName: String, favorite: Boolean) {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        val favoriteApps = sharedPreferences.favoriteApps.toMutableList()
+
+        if (favorite) {
+            if (!favoriteApps.contains(packageName)) {
+                favoriteApps.add(packageName)
+            }
+        } else {
+            favoriteApps.remove(packageName)
         }
-    }
 
-    fun removeFavoriteApp(context: Context, packageName: String) {
-        val favoriteApps = getFavoriteApps(context).toMutableList()
-        favoriteApps.remove(packageName)
-        setFavorites(context, favoriteApps)
-
-        // Notify
-        onFavoriteRemovedCallback(packageName)
-    }
-
-
-    fun addFavoriteApp(context: Context, packageName: String) {
-        val favoriteApps = getFavoriteApps(context).toMutableList()
-        favoriteApps.add(packageName)
-        setFavorites(context, favoriteApps)
-
-        // Notify
-        onFavoriteAddedCallback(packageName)
+        sharedPreferences.favoriteApps = favoriteApps
     }
 
     fun getFavoriteApps(context: Context): List<String> {
-        val sharedPreferences =
-            context.getSharedPreferences("Favorites", Context.MODE_PRIVATE)
-        val serializedList = sharedPreferences.getString("favoriteApps", "") ?: ""
-        if (serializedList == "") {
-            return mutableListOf()
-        }
-        return serializedList.split(",")
-    }
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
-    fun setFavorites(context: Context, newFavoritesSet: MutableList<String>) {
-        val sharedPreferences = context.getSharedPreferences("Favorites", Context.MODE_PRIVATE)
-        val serializedList = newFavoritesSet.joinToString(",")
-        sharedPreferences.edit {
-            putString("favoriteApps", serializedList)
-        }
+        return sharedPreferences.favoriteApps
     }
 
     fun uninstallApp(context: Context, packageName: String) {

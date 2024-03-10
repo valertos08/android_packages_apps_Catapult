@@ -5,13 +5,29 @@
 
 package org.lineageos.tv.launcher.model
 
+import android.content.Context
+import androidx.tvprovider.media.tv.PreviewChannel
+import org.lineageos.tv.launcher.R
+
 class Channel(
     val id: Long,
     val title: String,
+    val previewChannel: PreviewChannel? = null,
 ) {
     companion object {
-        const val FAVORITE_APPS_ID: Long = -2
-        const val ALL_APPS_ID: Long = -3
-        const val WATCH_NEXT_ID: Long = -4
+        fun getFavoritesAppsChannel(context: Context) = Channel(
+            InternalChannel.FAVORITE_APPS.id,
+            context.getString(R.string.favorites)
+        )
+
+        fun getAllAppsChannel(context: Context) = Channel(
+            InternalChannel.ALL_APPS.id,
+            context.getString(R.string.other_apps)
+        )
+
+        fun getWatchNextChannel(context: Context) = Channel(
+            InternalChannel.WATCH_NEXT.id,
+            context.getString(R.string.watch_next)
+        )
     }
 }

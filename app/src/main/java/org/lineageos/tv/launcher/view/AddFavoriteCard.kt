@@ -39,15 +39,14 @@ class AddFavoriteCard : Card {
         inflate(context, R.layout.favorites_add_app_card, this)
     }
 
-    fun setActionAdd() {
-        actionIconView.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.ic_add))
-    }
-
-    fun setActionRemove() {
+    fun setActionToggle(favorite: Boolean) {
         actionIconView.setImageDrawable(
             AppCompatResources.getDrawable(
                 context,
-                R.drawable.ic_remove
+                when (favorite) {
+                    true -> R.drawable.ic_remove
+                    false -> R.drawable.ic_add
+                }
             )
         )
     }

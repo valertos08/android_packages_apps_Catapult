@@ -6,7 +6,6 @@
 package org.lineageos.tv.launcher.view
 
 import android.animation.AnimatorInflater
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.ImageView
@@ -54,7 +53,7 @@ class WatchNextCard : Card {
         inflate(context, R.layout.watch_next_card, this)
     }
 
-    @SuppressLint("RestrictedApi")
+    @Suppress("RestrictedApi")
     fun setInfo(info: BasePreviewProgram) {
         // Choose correct size title for the preview
         title = when (info.posterArtAspectRatio) {

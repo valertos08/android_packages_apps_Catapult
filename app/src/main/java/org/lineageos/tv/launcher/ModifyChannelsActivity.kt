@@ -7,27 +7,55 @@ package org.lineageos.tv.launcher
 
 import android.os.Bundle
 import android.view.Gravity
-import android.view.View
 import android.view.WindowManager
 import android.widget.ProgressBar
+import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.leanback.widget.VerticalGridView
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.preference.PreferenceManager
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.lineageos.tv.launcher.adapter.ModifyChannelsAdapter
-import org.lineageos.tv.launcher.model.Channel
+import org.lineageos.tv.launcher.ext.knownChannels
+import org.lineageos.tv.launcher.utils.PermissionsGatedCallback
 import org.lineageos.tv.launcher.utils.Suggestions
-import org.lineageos.tv.launcher.utils.Suggestions.orderSuggestions
+import org.lineageos.tv.launcher.viewmodels.ModifyChannelsViewModel
 
 class ModifyChannelsActivity : FragmentActivity(R.layout.activity_modify_channels) {
+    // View models
+    private val model: ModifyChannelsViewModel by viewModels()
+
     // Views
     private val channelsGrid by lazy { findViewById<VerticalGridView>(R.id.modify_channels_grid) }
     private val progressLoadingChannels by lazy { findViewById<ProgressBar>(R.id.progress_loading_channels) }
 
+    // Adapters
+    private val modifyChannelsAdapter by lazy { ModifyChannelsAdapter() }
+
+    private val sharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(this)!!
+    }
+
+    private val permissionsGatedCallback = PermissionsGatedCallback(this) {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                model.channelsToEnabled.collectLatest {
+                    modifyChannelsAdapter.submitList(it.toList())
+
+                    // Display the data & hide spinner
+                    channelsGrid.isVisible = true
+                    progressLoadingChannels.isVisible = false
+                }
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val channelOrder = Suggestions.getChannelOrder(this)
 
         val layoutParams = window.attributes.apply {
             gravity = Gravity.END
@@ -36,26 +64,15 @@ class ModifyChannelsActivity : FragmentActivity(R.layout.activity_modify_channel
         }
         window.attributes = layoutParams
 
-        lifecycleScope.launch {
-            val channels = listOf(
-                Channel(Channel.FAVORITE_APPS_ID, getString(R.string.favorites)),
-                Channel(Channel.WATCH_NEXT_ID, getString(R.string.watch_next)),
-                *Suggestions.getPreviewChannelsAsync(this@ModifyChannelsActivity).map {
-                    Channel(
-                        it.id,
-                        Suggestions.getChannelTitle(this@ModifyChannelsActivity, it)
-                    )
-                }.toTypedArray(),
-                Channel(Channel.ALL_APPS_ID, getString(R.string.other_apps)),
-            )
-
-            // Display the data & hide spinner
-            channelsGrid.adapter =
-                ModifyChannelsAdapter(
-                    this@ModifyChannelsActivity,
-                    channels.orderSuggestions(channelOrder) { it.id })
-            channelsGrid.visibility = View.VISIBLE
-            progressLoadingChannels.visibility = View.GONE
+        modifyChannelsAdapter.onChannelToggled = { channel, enabled ->
+            Suggestions.toggleChannel(this, channel.id, enabled)
         }
+        modifyChannelsAdapter.onOrderChanged = {
+            sharedPreferences.knownChannels = it.map { channel -> channel.id }
+        }
+
+        channelsGrid.adapter = modifyChannelsAdapter
+
+        permissionsGatedCallback.runAfterPermissionsCheck()
     }
 }

@@ -5,48 +5,56 @@
 
 package org.lineageos.tv.launcher.adapter
 
-import android.annotation.SuppressLint
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.tvprovider.media.tv.BasePreviewProgram
+import androidx.tvprovider.media.tv.WatchNextProgram
 import org.lineageos.tv.launcher.view.WatchNextCard
 
-@SuppressLint("RestrictedApi")
-class WatchNextAdapter(
-    private val watchableList: MutableList<BasePreviewProgram>,
-) : RecyclerView.Adapter<WatchNextAdapter.ViewHolder>() {
+class WatchNextAdapter : ListAdapter<WatchNextProgram, WatchNextAdapter.ViewHolder>(DIFF_UTIL) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
+        WatchNextCard(parent.context).apply {
+            layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+            )
+            descendantFocusability = ViewGroup.FOCUS_BLOCK_DESCENDANTS
+        }
+    )
 
-    inner class ViewHolder(val card: WatchNextCard) : RecyclerView.ViewHolder(card) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(getItem(position))
+    }
+
+    inner class ViewHolder(private val card: WatchNextCard) : RecyclerView.ViewHolder(card) {
         init {
             card.setOnClickListener {
-                handleClick(card)
+                val context = card.context
+
+                context.startActivity(card.launchIntent)
+                Toast.makeText(context, card.label, Toast.LENGTH_SHORT).show()
             }
+        }
+
+        fun bind(watchNextProgram: WatchNextProgram) {
+            card.setInfo(watchNextProgram)
         }
     }
 
-    private fun handleClick(v: WatchNextCard) {
-        val context = v.context
-        context.startActivity(v.launchIntent)
-        Toast.makeText(context, v.label, Toast.LENGTH_SHORT).show()
-    }
+    companion object {
+        @Suppress("RestrictedApi")
+        private val DIFF_UTIL = object : DiffUtil.ItemCallback<WatchNextProgram>() {
+            override fun areItemsTheSame(
+                oldItem: WatchNextProgram,
+                newItem: WatchNextProgram
+            ) = oldItem.id == oldItem.id
 
-    override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        viewHolder.card.setInfo(watchableList[i])
-    }
-
-    override fun getItemCount() = watchableList.size
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = WatchNextCard(parent.context)
-
-        itemView.layoutParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-        )
-
-        itemView.descendantFocusability = ViewGroup.FOCUS_BLOCK_DESCENDANTS
-
-        return ViewHolder(itemView)
+            override fun areContentsTheSame(
+                oldItem: WatchNextProgram,
+                newItem: WatchNextProgram
+            ) = oldItem.hasAnyUpdatedValues(newItem)
+        }
     }
 }

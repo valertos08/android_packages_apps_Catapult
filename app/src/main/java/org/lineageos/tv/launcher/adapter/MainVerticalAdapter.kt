@@ -5,89 +5,60 @@
 
 package org.lineageos.tv.launcher.adapter
 
-import android.content.Context
-import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
+import androidx.core.view.updateLayoutParams
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.lineageos.tv.launcher.R
-import org.lineageos.tv.launcher.utils.Suggestions
-import org.lineageos.tv.launcher.utils.Suggestions.orderSuggestions
-import java.util.Collections
+import org.lineageos.tv.launcher.model.MainRowItem
+import org.lineageos.tv.launcher.view.MainRowItemView
 
-class MainVerticalAdapter(
-    private val context: Context,
-    private val rowList: MutableList<Pair<Long, org.lineageos.tv.launcher.model.MainRowItem>>,
-) :
-    RecyclerView.Adapter<MainVerticalAdapter.ViewHolder>() {
+class MainVerticalAdapter :
+    ListAdapter<Pair<Long, MainRowItem>, MainVerticalAdapter.ViewHolder>(diffCallback) {
+    inner class ViewHolder(
+        private val mainRowItemView: MainRowItemView,
+    ) : RecyclerView.ViewHolder(mainRowItemView) {
+        fun bind(item: Pair<Long, MainRowItem>, position: Int) {
+            mainRowItemView.setData(item.second)
+            mainRowItemView.updateLayoutParams {
+                width = ViewGroup.LayoutParams.MATCH_PARENT
+                height = mainRowItemView.resources.getDimension(
+                    if (item.second.adapter is TvAdapter<*, *>) {
+                        R.dimen.main_app_row_height
+                    } else {
+                        R.dimen.main_row_height
+                    }
+                ).toInt()
+            }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-
-    override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        val v = (viewHolder.itemView as org.lineageos.tv.launcher.view.MainRowItem)
-        v.setData(rowList[i].second)
-        v.layoutParams = if (rowList[i].second.adapter is TvAdapter<*>) {
-            LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                context.resources.getDimension(R.dimen.main_app_row_height).toInt()
-            )
-        } else {
-            LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                context.resources.getDimension(R.dimen.main_row_height).toInt()
-            )
-        }
-
-        if (i == 0) {
-            v.requestFocus()
-        }
-    }
-
-    override fun getItemCount(): Int {
-        return rowList.size
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(org.lineageos.tv.launcher.view.MainRowItem(context))
-    }
-
-    fun removeItem(item: Long) {
-        for ((i, row) in rowList.withIndex()) {
-            if (row.first == item) {
-                rowList.remove(row)
-                notifyItemRemoved(i)
-                return
+            if (position == 0) {
+                mainRowItemView.requestFocus()
             }
         }
     }
 
-    fun addItem(item: Pair<Long, org.lineageos.tv.launcher.model.MainRowItem>) {
-        var temp = rowList.toMutableList()
-        temp.add(item)
-        temp =
-            temp.orderSuggestions(Suggestions.getChannelOrder(context)) { it.first } as MutableList
-        var index = temp.indexOf(item)
-        if (index == -1) {
-            index = (rowList.size - 1)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(getItem(position), position)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
+        MainRowItemView(parent.context)
+    )
+
+    companion object {
+        private val diffCallback = object : DiffUtil.ItemCallback<Pair<Long, MainRowItem>>() {
+            override fun areItemsTheSame(
+                oldItem: Pair<Long, MainRowItem>,
+                newItem: Pair<Long, MainRowItem>
+            ) = oldItem.first == newItem.first
+
+            @Suppress("DiffUtilEquals")
+            override fun areContentsTheSame(
+                oldItem: Pair<Long, MainRowItem>,
+                newItem: Pair<Long, MainRowItem>
+            ) = oldItem.second.label == newItem.second.label
+                    && oldItem.second.adapter === newItem.second.adapter
         }
-        rowList.add(index, item)
-        notifyItemInserted(index)
-    }
-
-    fun isChannelShowing(channelId: Long?): Boolean {
-        channelId ?: return false
-        val res = rowList.find { it.first == channelId }
-        res ?: return false
-        return true
-    }
-
-    fun findChannelIndex(channelId: Long?): Int {
-        channelId ?: return -1
-        return rowList.indexOfFirst { it.first == channelId }
-    }
-
-    fun itemMoved(from: Int, to: Int) {
-        Collections.swap(rowList, from, to)
-        notifyItemMoved(from, to)
     }
 }
