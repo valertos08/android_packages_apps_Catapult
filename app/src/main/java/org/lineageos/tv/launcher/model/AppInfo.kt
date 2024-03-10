@@ -36,5 +36,5 @@ class AppInfo : Launchable {
         banner = app.loadBanner(packageManager)
     }
 
-    override fun setIntent() = packageManager.getLaunchIntentForPackage(packageName)
+    override fun setIntent() = packageManager.getLeanbackLaunchIntentForPackage(packageName)
 }

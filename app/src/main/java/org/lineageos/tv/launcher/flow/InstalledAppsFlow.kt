@@ -15,7 +15,7 @@ import org.lineageos.tv.launcher.model.AppInfo
 class InstalledAppsFlow(private val context: Context) {
     private val packageManager = context.packageManager
     private val launcherIntent = Intent(Intent.ACTION_MAIN).apply {
-        addCategory(Intent.CATEGORY_LAUNCHER)
+        addCategory(Intent.CATEGORY_LEANBACK_LAUNCHER)
     }
 
     fun flow() = IntentFilter().apply {
