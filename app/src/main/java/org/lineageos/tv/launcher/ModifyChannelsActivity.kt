@@ -10,6 +10,7 @@ import android.view.Gravity
 import android.view.WindowManager
 import android.widget.ProgressBar
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.leanback.widget.VerticalGridView
@@ -25,7 +26,7 @@ import org.lineageos.tv.launcher.utils.PermissionsGatedCallback
 import org.lineageos.tv.launcher.utils.Suggestions
 import org.lineageos.tv.launcher.viewmodels.ModifyChannelsViewModel
 
-class ModifyChannelsActivity : FragmentActivity(R.layout.activity_modify_channels) {
+class ModifyChannelsActivity : AppCompatActivity(R.layout.activity_modify_channels) {
     // View models
     private val model: ModifyChannelsViewModel by viewModels()
 
