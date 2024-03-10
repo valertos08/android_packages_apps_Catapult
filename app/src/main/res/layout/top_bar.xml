@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/top_bar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -18,11 +18,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/search"
-        android:drawableStart="@drawable/ic_google_assistant"
         android:drawablePadding="12dp"
-        android:textAppearance="@style/TextAppearance.Leanback.Header"
+        android:textAppearance="?attr/textAppearanceTitleLarge"
         android:focusable="true"
-        tools:ignore="UseCompatTextViewDrawableXml" />
+        app:drawableStartCompat="@drawable/ic_google_assistant" />
 
     <LinearLayout
         android:id="@+id/assistant_buttons"
@@ -34,25 +33,27 @@
             android:id="@+id/voice_assistant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/settings_button_background"
+            android:layout_margin="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:backgroundTint="?attr/colorSecondaryContainer"
             android:contentDescription="@string/settings"
-            android:padding="12dp"
+            android:padding="4dp"
             android:src="@drawable/ic_mic"
             android:stateListAnimator="@animator/app_card_state_animator"
-            android:tint="@color/settings_color"
-            tools:ignore="UseAppTint" />
+            app:tint="@color/settings_color" />
 
         <ImageButton
             android:id="@+id/keyboard_assistant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/settings_button_background"
+            android:layout_margin="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:backgroundTint="?attr/colorSecondaryContainer"
             android:contentDescription="@string/settings"
-            android:padding="12dp"
+            android:padding="4dp"
             android:src="@drawable/ic_keyboard"
             android:stateListAnimator="@animator/app_card_state_animator"
-            android:tint="@color/settings_color"
-            tools:ignore="UseAppTint" />
+            app:tint="@color/settings_color" />
     </LinearLayout>
 
     <LinearLayout
@@ -65,18 +66,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
-            android:textAppearance="@style/TextAppearance.Leanback.Header" />
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
 
         <ImageButton
             android:id="@+id/settings_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/settings_button_background"
+            android:layout_margin="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:backgroundTint="?attr/colorSecondaryContainer"
             android:contentDescription="@string/settings"
-            android:padding="12dp"
+            android:padding="4dp"
             android:src="@drawable/ic_settings"
             android:stateListAnimator="@animator/app_card_state_animator"
-            android:tint="@color/settings_color" />
+            app:tint="@color/settings_color" />
     </LinearLayout>
 
 </LinearLayout>

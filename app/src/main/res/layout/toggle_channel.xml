@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:gravity="center_vertical"
-    android:background="@drawable/favorites_app_card_background"
-    android:paddingStart="12dp"
-    android:paddingEnd="12dp">
+    android:paddingHorizontal="12dp">
 
     <TextView
         android:id="@+id/title"
@@ -15,11 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"/>
 
-    <Switch
+    <com.google.android.material.materialswitch.MaterialSwitch
         android:id="@+id/state_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:focusable="false"
-        android:clickable="false"
-        tools:ignore="UseSwitchCompatOrMaterialXml"/>
+        android:clickable="false" />
 </LinearLayout>

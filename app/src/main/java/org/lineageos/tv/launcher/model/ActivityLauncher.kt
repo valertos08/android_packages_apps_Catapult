@@ -8,6 +8,8 @@ package org.lineageos.tv.launcher.model
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
+import com.google.android.material.R
+import org.lineageos.tv.launcher.ext.getAttributeColor
 
 class ActivityLauncher(
     label: String,
@@ -18,7 +20,7 @@ class ActivityLauncher(
     override var hasMenu: Boolean = false
 
     init {
-        icon.setTint(this.context.getColor(android.R.color.black))
+        icon.setTint(context.getAttributeColor(R.attr.colorOnSecondaryContainer))
     }
 
     override fun setIntent() = intent

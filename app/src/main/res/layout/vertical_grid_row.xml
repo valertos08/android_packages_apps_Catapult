@@ -7,14 +7,13 @@
     <!-- Favorites Row -->
     <TextView
         android:id="@+id/title"
-        style="@style/TextAppearance.Leanback.Header.Section"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:textAppearance="?attr/textAppearanceTitleSmall" />
 
     <androidx.leanback.widget.HorizontalGridView
         android:id="@+id/horizontal_grid"
-        style="AppListGridStyle"
         android:layout_width="match_parent"
         android:layout_height="128dp"
         android:layout_marginTop="8dp"

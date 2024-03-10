@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="WatchNextCardTitle" parent="Widget.Leanback.Row.Header.Description">
+    <style name="WatchNextCardTitle" parent="TextAppearance.Material3.TitleSmall">
         <item name="android:textAlignment">center</item>
         <item name="android:maxLines">1</item>
-        <item name="android:textColor">"@android:color/white"</item>
+        <item name="android:textColor">@android:color/white</item>
         <item name="android:visibility">gone</item>
         <item name="android:ellipsize">marquee</item>
         <item name="android:marqueeRepeatLimit">marquee_forever</item>
         <item name="android:singleLine">true</item>
     </style>
 
-    <style name="SideActivityHeaderStyle" parent="TextAppearance.Leanback.Header">
+    <style name="SideActivityHeaderStyle" parent="TextAppearance.Material3.HeadlineMedium">
         <item name="android:layout_marginTop">60dp</item>
         <item name="android:layout_marginBottom">30dp</item>
         <item name="android:layout_marginStart">20dp</item>

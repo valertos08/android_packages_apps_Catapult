@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import org.lineageos.tv.launcher.R
+import org.lineageos.tv.launcher.ext.getAttributeResourceId
 import org.lineageos.tv.launcher.model.Launchable
 
 class AddFavoriteCard @JvmOverloads constructor(
@@ -23,8 +24,9 @@ class AddFavoriteCard @JvmOverloads constructor(
 
     init {
         inflate(context, R.layout.favorites_add_app_card, this)
-        background =
-            AppCompatResources.getDrawable(context, R.drawable.favorites_app_card_background)
+        setBackgroundResource(
+            context.getAttributeResourceId(android.R.attr.selectableItemBackground)
+        )
     }
 
     fun setActionToggle(favorite: Boolean) {

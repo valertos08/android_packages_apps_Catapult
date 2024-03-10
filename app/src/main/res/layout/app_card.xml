@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/card_border_only"
-        android:backgroundTint="@android:color/black"
+        android:backgroundTint="?attr/colorOnSecondaryContainer"
         android:clipToOutline="true"
         android:visibility="gone" />
 
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:textColor="@android:color/black"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:singleLine="true"
             android:ellipsize="marquee" />
 

@@ -9,15 +9,15 @@ import android.animation.AnimatorInflater
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.tvprovider.media.tv.BasePreviewProgram
 import androidx.tvprovider.media.tv.TvContractCompat
 import coil.load
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import org.lineageos.tv.launcher.R
+import org.lineageos.tv.launcher.ext.getAttributeResourceId
 
 class WatchNextCard @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -25,7 +25,7 @@ class WatchNextCard @JvmOverloads constructor(
     // Views
     private val bannerView: ImageView by lazy { findViewById(R.id.app_banner) }
     private var title: TextView? = null
-    private val progressView by lazy { findViewById<ProgressBar>(R.id.watch_progress) }
+    private val progressView by lazy { findViewById<LinearProgressIndicator>(R.id.watch_progress) }
 
     init {
         inflate(context, R.layout.watch_next_card, this)
@@ -80,7 +80,11 @@ class WatchNextCard @JvmOverloads constructor(
         }
 
         bannerView.load(info.posterArtUri) {
-            placeholder(AppCompatResources.getDrawable(context, R.drawable.watch_next_placeholder))
+            placeholder(
+                context.getAttributeResourceId(
+                    com.google.android.material.R.attr.colorSecondaryContainer
+                )
+            )
             crossfade(500)
         }
     }

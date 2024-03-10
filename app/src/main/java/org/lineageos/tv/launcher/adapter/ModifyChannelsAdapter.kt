@@ -7,10 +7,10 @@ package org.lineageos.tv.launcher.adapter
 
 import android.view.KeyEvent
 import android.view.ViewGroup
-import android.widget.Switch
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.materialswitch.MaterialSwitch
 import org.lineageos.tv.launcher.R
 import org.lineageos.tv.launcher.model.Channel
 import org.lineageos.tv.launcher.model.InternalChannel
@@ -26,8 +26,7 @@ class ModifyChannelsAdapter :
         private val toggleChannelView: ToggleChannelView,
     ) : RecyclerView.ViewHolder(toggleChannelView) {
 
-        @Suppress("UseSwitchCompatOrMaterialCode") // Not available for leanback
-        val switch = itemView.findViewById<Switch>(R.id.state_switch)!!
+        val switch = itemView.findViewById<MaterialSwitch>(R.id.state_switch)!!
 
         init {
             toggleChannelView.setOnClickListener {
