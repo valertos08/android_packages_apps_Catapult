@@ -19,23 +19,17 @@ import androidx.tvprovider.media.tv.TvContractCompat
 import coil.load
 import org.lineageos.tv.launcher.R
 
-class WatchNextCard : Card {
+class WatchNextCard @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : Card(context, attrs, defStyleAttr) {
     // Views
     private val bannerView: ImageView by lazy { findViewById(R.id.app_banner) }
     private var title: TextView? = null
     private val progressView by lazy { findViewById<ProgressBar>(R.id.watch_progress) }
 
-    constructor(context: Context?) : super(context)
-
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
-
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    )
-
     init {
+        inflate(context, R.layout.watch_next_card, this)
+
         stateListAnimator =
             AnimatorInflater.loadStateListAnimator(context, R.animator.app_card_state_animator)
 
@@ -47,10 +41,6 @@ class WatchNextCard : Card {
                 title?.isSelected = false
             }
         }
-    }
-
-    override fun inflate() {
-        inflate(context, R.layout.watch_next_card, this)
     }
 
     @Suppress("RestrictedApi")

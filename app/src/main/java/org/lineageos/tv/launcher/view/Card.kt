@@ -9,33 +9,15 @@ import android.content.Context
 import android.content.Intent
 import android.util.AttributeSet
 import android.widget.LinearLayout
-import org.lineageos.tv.launcher.R
 import org.lineageos.tv.launcher.model.Launchable
 
-abstract class Card : LinearLayout {
+abstract class Card @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : LinearLayout(context, attrs, defStyleAttr) {
     var packageName: String = ""
     var label: String = ""
     var launchIntent: Intent? = null
     var hasMenu: Boolean = true
-
-    constructor(context: Context?) : super(context)
-
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
-
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    )
-
-    init {
-        // TODO: fix?
-        inflate()
-    }
-
-    open fun inflate() {
-        inflate(context, R.layout.app_card, this)
-    }
 
     open fun setCardInfo(appInfo: Launchable) {
         label = appInfo.label

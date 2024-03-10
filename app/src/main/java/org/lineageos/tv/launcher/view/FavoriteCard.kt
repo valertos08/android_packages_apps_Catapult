@@ -12,7 +12,9 @@ import android.widget.ImageView
 import androidx.core.view.isVisible
 import org.lineageos.tv.launcher.R
 
-class FavoriteCard : AppCard {
+class FavoriteCard @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : AppCardCommon(context, attrs, defStyleAttr) {
     override val menuResId = R.menu.favorite_app_long_press
 
     // Views
@@ -20,23 +22,11 @@ class FavoriteCard : AppCard {
 
     var moving: Boolean = false
 
-    constructor(context: Context?) : super(context)
-
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
-
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    )
-
     init {
+        inflate(context, R.layout.favorites_app_card, this)
+
         stateListAnimator =
             AnimatorInflater.loadStateListAnimator(context, R.animator.app_card_state_animator)
-    }
-
-    override fun inflate() {
-        inflate(context, R.layout.favorites_app_card, this)
     }
 
     fun setMoving() {
