@@ -38,7 +38,7 @@
             android:contentDescription="@string/settings"
             android:padding="12dp"
             android:src="@drawable/ic_mic"
-            android:stateListAnimator="@anim/app_card_state_animator"
+            android:stateListAnimator="@animator/app_card_state_animator"
             android:tint="@color/settings_color"
             tools:ignore="UseAppTint" />
 
@@ -50,7 +50,7 @@
             android:contentDescription="@string/settings"
             android:padding="12dp"
             android:src="@drawable/ic_keyboard"
-            android:stateListAnimator="@anim/app_card_state_animator"
+            android:stateListAnimator="@animator/app_card_state_animator"
             android:tint="@color/settings_color"
             tools:ignore="UseAppTint" />
     </LinearLayout>
@@ -75,7 +75,7 @@
             android:contentDescription="@string/settings"
             android:padding="12dp"
             android:src="@drawable/ic_settings"
-            android:stateListAnimator="@anim/app_card_state_animator"
+            android:stateListAnimator="@animator/app_card_state_animator"
             android:tint="@color/settings_color" />
     </LinearLayout>
 

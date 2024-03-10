@@ -4,13 +4,13 @@
         <set>
             <objectAnimator
                 android:duration="75"
-                android:interpolator="@interpolator/control_state"
+                android:interpolator="@anim/control_state"
                 android:propertyName="scaleX"
                 android:valueTo="0.99"
                 android:valueType="floatType" />
             <objectAnimator
                 android:duration="75"
-                android:interpolator="@interpolator/control_state"
+                android:interpolator="@anim/control_state"
                 android:propertyName="scaleY"
                 android:valueTo="0.99"
                 android:valueType="floatType" />
@@ -21,13 +21,13 @@
         <set>
             <objectAnimator
                 android:duration="300"
-                android:interpolator="@interpolator/control_state"
+                android:interpolator="@anim/control_state"
                 android:propertyName="scaleX"
                 android:valueTo="1.11"
                 android:valueType="floatType" />
             <objectAnimator
                 android:duration="300"
-                android:interpolator="@interpolator/control_state"
+                android:interpolator="@anim/control_state"
                 android:propertyName="scaleY"
                 android:valueTo="1.11"
                 android:valueType="floatType" />
@@ -37,13 +37,13 @@
         <set>
             <objectAnimator
                 android:duration="100"
-                android:interpolator="@interpolator/control_state"
+                android:interpolator="@anim/control_state"
                 android:propertyName="scaleX"
                 android:valueTo="1.0"
                 android:valueType="floatType" />
             <objectAnimator
                 android:duration="100"
-                android:interpolator="@interpolator/control_state"
+                android:interpolator="@anim/control_state"
                 android:propertyName="scaleY"
                 android:valueTo="1.0"
                 android:valueType="floatType" />

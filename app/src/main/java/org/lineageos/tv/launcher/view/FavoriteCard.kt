@@ -32,7 +32,7 @@ class FavoriteCard : AppCard {
 
     init {
         stateListAnimator =
-            AnimatorInflater.loadStateListAnimator(context, R.anim.app_card_state_animator)
+            AnimatorInflater.loadStateListAnimator(context, R.animator.app_card_state_animator)
     }
 
     override fun inflate() {
