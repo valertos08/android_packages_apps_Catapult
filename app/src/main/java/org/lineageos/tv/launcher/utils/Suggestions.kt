@@ -30,8 +30,13 @@ object Suggestions {
     }
 
     fun getChannelTitle(context: Context, previewChannel: PreviewChannel): String {
+        val appName = previewChannel.getAppName(context)
+        if (appName.isEmpty()) {
+            return previewChannel.displayName.toString()
+        }
+
         return context.resources.getString(
-            R.string.channel_title, previewChannel.getAppName(context), previewChannel.displayName
+            R.string.channel_title, appName, previewChannel.displayName
         )
     }
 
