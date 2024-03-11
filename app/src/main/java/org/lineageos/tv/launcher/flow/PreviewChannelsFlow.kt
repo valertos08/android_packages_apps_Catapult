@@ -24,7 +24,8 @@ class PreviewChannelsFlow(private val context: Context) : QueryFlow<PreviewChann
     override fun flowData() = flowCursor().mapEachRow { it, _ ->
         it.takeUnless {
             // TODO: Google bug, to report to them... https://nekobin.com/rolulodudo
-            it.getString(PreviewChannel.Columns.COL_APP_LINK_INTENT_URI).isNullOrEmpty()
+            it.getString(PreviewChannel.Columns.COL_APP_LINK_INTENT_URI).isNullOrEmpty() ||
+                    it.getString(PreviewChannel.Columns.COL_DESCRIPTION) == null
         }?.let {
             PreviewChannel.fromCursor(it)
         }
