@@ -80,7 +80,7 @@ class FavoritesAdapter : TvAdapter<Launchable, FavoriteCard>() {
 
             KeyEvent.KEYCODE_DPAD_RIGHT -> {
                 if (card.moving) {
-                    if (bindingAdapterPosition == currentList.size - 1) {
+                    if (bindingAdapterPosition == currentList.size - 1 - STATIC_ITEMS) {
                         return true
                     }
 
@@ -132,6 +132,8 @@ class FavoritesAdapter : TvAdapter<Launchable, FavoriteCard>() {
     }
 
     companion object {
+        const val STATIC_ITEMS = 2
+
         fun createAddFavoriteEntry(context: Context): Launchable {
             return ActivityLauncher(
                 context.getString(R.string.new_favorite),

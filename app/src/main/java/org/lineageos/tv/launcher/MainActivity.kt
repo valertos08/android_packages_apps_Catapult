@@ -114,17 +114,17 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 model.favoriteApps.collectLatest {
                     favoritesAdapter.submitList(
-                        listOf(
-                            FavoritesAdapter.createAddFavoriteEntry(this@MainActivity),
-                            FavoritesAdapter.createModifyChannelsEntry(this@MainActivity),
-                        ) + it.mapNotNull {
+                        it.mapNotNull {
                             runCatching {
                                 AppInfo(
                                     packageManager.getApplicationInfo(it, 0),
                                     this@MainActivity
                                 )
                             }.getOrNull()
-                        }
+                        } + listOf(
+                            FavoritesAdapter.createAddFavoriteEntry(this@MainActivity),
+                            FavoritesAdapter.createModifyChannelsEntry(this@MainActivity),
+                        )
                     )
                 }
             }
