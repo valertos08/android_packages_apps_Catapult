@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="WatchNextCardTitle" parent="TextAppearance.Material3.TitleSmall">
         <item name="android:textAlignment">center</item>
         <item name="android:maxLines">1</item>

@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:height="84dp">
+    <item android:height="84dp">
         <shape android:shape="rectangle">
             <solid android:color="#80000000" />
             <corners android:radius="10dp" />
         </shape>
     </item>
 
-    <item android:drawable="@drawable/ic_arrow_left"
-        android:right="60dp"
+    <item
         android:width="49dp"
         android:height="60dp"
-        android:gravity="center" />
+        android:drawable="@drawable/ic_arrow_left"
+        android:gravity="center"
+        android:right="60dp" />
 
-    <item android:drawable="@drawable/ic_arrow_right"
-        android:left="85dp"
+    <item
         android:width="49dp"
         android:height="60dp"
-        android:gravity="center" />
+        android:drawable="@drawable/ic_arrow_right"
+        android:gravity="center"
+        android:left="85dp" />
 </layer-list>

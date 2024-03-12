@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:maxWidth="@dimen/card_width"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginEnd="12dp"
@@ -8,22 +7,24 @@
     android:clipChildren="false"
     android:clipToPadding="false"
     android:longClickable="true"
+    android:maxWidth="@dimen/card_width"
     android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/card_height"
+        android:background="@drawable/card_border_only"
         android:clipChildren="true"
-        android:clipToOutline="true"
-        android:background="@drawable/card_border_only">
+        android:clipToOutline="true">
+
         <ImageView
             android:id="@+id/app_banner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
             android:background="@drawable/card_border_only"
             android:backgroundTint="@android:color/black"
             android:clipToOutline="true"
-            android:layout_gravity="center_horizontal"
             android:visibility="gone" />
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -36,19 +37,19 @@
 
     <TextView
         android:id="@+id/title_16_9"
+        style="@style/WatchNextCardTitle"
         android:layout_width="@dimen/card_width"
-        android:layout_height="wrap_content"
-        style="@style/WatchNextCardTitle" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/title_4_3"
+        style="@style/WatchNextCardTitle"
         android:layout_width="@dimen/card_width_4_3"
-        android:layout_height="wrap_content"
-        style="@style/WatchNextCardTitle" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/title_3_2"
+        style="@style/WatchNextCardTitle"
         android:layout_width="@dimen/card_width_3_2"
-        android:layout_height="wrap_content"
-        style="@style/WatchNextCardTitle" />
+        android:layout_height="wrap_content" />
 </LinearLayout>

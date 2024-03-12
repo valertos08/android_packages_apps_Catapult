@@ -101,11 +101,12 @@ class LauncherViewModel(application: Application) : AndroidViewModel(application
             initialValue = listOf(),
         )
 
-    private fun getPreviewPrograms(channelId: Long) = LauncherRepository.previewPrograms(context, channelId)
-        .flowOn(Dispatchers.IO)
-        .stateIn(
-            viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
-            initialValue = listOf(),
-        )
+    private fun getPreviewPrograms(channelId: Long) =
+        LauncherRepository.previewPrograms(context, channelId)
+            .flowOn(Dispatchers.IO)
+            .stateIn(
+                viewModelScope,
+                started = SharingStarted.WhileSubscribed(),
+                initialValue = listOf(),
+            )
 }

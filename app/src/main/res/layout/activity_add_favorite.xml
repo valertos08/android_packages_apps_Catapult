@@ -6,10 +6,10 @@
     android:orientation="vertical">
 
     <TextView
+        style="@style/SideActivityHeaderStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/modify_favorites"
-        style="@style/SideActivityHeaderStyle" />
+        android:text="@string/modify_favorites" />
 
     <androidx.leanback.widget.VerticalGridView
         android:id="@+id/all_apps_add_grid"

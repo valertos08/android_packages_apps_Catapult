@@ -9,7 +9,6 @@
              - ?android:attr/colorPrimaryDark -> ?attr/colorPrimaryDark
              - Removed android:colorPrimary and android:colorPrimaryDark overrides
         -->
-
         <item name="viewInflaterClass">androidx.leanback.widget.LeanbackAppCompatViewInflater</item>
         <item name="playbackProgressPrimaryColor">?attr/colorAccent</item>
         <item name="playbackControlsIconHighlightColor">?attr/colorAccent</item>
@@ -19,9 +18,13 @@
         <item name="android:windowOverscan">true</item>
         <item name="guidedStepTheme">@style/Theme.AppCompat.Leanback.GuidedStep</item>
 
-        <item name="android:windowSharedElementEnterTransition">@transition/lb_shared_element_enter_transition</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/lb_shared_element_enter_transition
+        </item>
 
-        <item name="android:windowSharedElementReturnTransition">@transition/lb_shared_element_return_transition</item>
+        <item name="android:windowSharedElementReturnTransition">
+            @transition/lb_shared_element_return_transition
+        </item>
         <item name="android:windowEnterTransition">@transition/lb_enter_transition</item>
         <item name="android:windowReturnTransition">@transition/lb_return_transition</item>
         <item name="android:windowTransitionBackgroundFadeDuration">350</item>

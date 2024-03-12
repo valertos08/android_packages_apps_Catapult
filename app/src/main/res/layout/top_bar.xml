@@ -8,19 +8,19 @@
     android:clipToPadding="false"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingBottom="16dp"
-    android:paddingEnd="48dp"
     android:paddingStart="48dp"
-    android:paddingTop="32dp">
+    android:paddingTop="32dp"
+    android:paddingEnd="48dp"
+    android:paddingBottom="16dp">
 
     <TextView
         android:id="@+id/assistant_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/search"
         android:drawablePadding="12dp"
-        android:textAppearance="?attr/textAppearanceTitleLarge"
         android:focusable="true"
+        android:text="@string/search"
+        android:textAppearance="?attr/textAppearanceTitleLarge"
         app:drawableStartCompat="@drawable/ic_google_assistant" />
 
     <LinearLayout
@@ -54,6 +54,7 @@
             android:src="@drawable/ic_keyboard"
             android:stateListAnimator="@animator/app_card_state_animator"
             app:tint="@color/settings_color" />
+
     </LinearLayout>
 
     <LinearLayout
