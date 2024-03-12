@@ -6,14 +6,18 @@
 
              Changes made:
              - ?android:attr/colorAccent -> ?attr/colorAccent
+             - ?android:attr/colorPrimary -> ?attr/colorPrimary
              - ?android:attr/colorPrimaryDark -> ?attr/colorPrimaryDark
-             - Removed android:colorPrimary and android:colorPrimaryDark overrides
+             - @color/lb_default_brand_color -> ?attr/colorPrimary
+             - @color/lb_default_brand_color_dark -> ?attr/colorPrimaryDark
         -->
         <item name="viewInflaterClass">androidx.leanback.widget.LeanbackAppCompatViewInflater</item>
         <item name="playbackProgressPrimaryColor">?attr/colorAccent</item>
         <item name="playbackControlsIconHighlightColor">?attr/colorAccent</item>
         <item name="defaultBrandColor">?attr/colorPrimary</item>
+        <item name="android:colorPrimary">?attr/colorPrimary</item>
         <item name="defaultBrandColorDark">?attr/colorPrimaryDark</item>
+        <item name="android:colorPrimaryDark">?attr/colorPrimaryDark</item>
 
         <item name="android:windowOverscan">true</item>
         <item name="guidedStepTheme">@style/Theme.AppCompat.Leanback.GuidedStep</item>
