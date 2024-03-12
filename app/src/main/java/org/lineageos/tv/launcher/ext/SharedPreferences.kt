@@ -66,3 +66,14 @@ var SharedPreferences.hiddenChannels: Set<Long>
     set(value) = edit {
         putStringSet(HIDDEN_CHANNELS_KEY, value.map { it.toString() }.toSet())
     }
+
+const val HOME_ROLE_REQUEST_DIALOG_DISMISSED = "home_role_request_dialog_dismissed"
+
+/**
+ * Whether the user asked to never show again the home role request dialog.
+ */
+var SharedPreferences.homeRoleRequestDialogDismissed: Boolean
+    get() = getBoolean(HOME_ROLE_REQUEST_DIALOG_DISMISSED, false)
+    set(value) = edit {
+        putBoolean(HOME_ROLE_REQUEST_DIALOG_DISMISSED, value)
+    }

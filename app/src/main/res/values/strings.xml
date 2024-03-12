@@ -18,4 +18,10 @@
 
     <!-- Toast messages -->
     <string name="app_permissions_toast">Permissions not granted by the user.</string>
+
+    <!-- Home role request dialog -->
+    <string name="home_role_request_dialog_title">Set as launcher</string>
+    <string name="home_role_request_dialog_message">This app can act as the default home application, would you like to open the settings app to change the launcher app?</string>
+    <string name="home_role_request_dialog_neutral">Later</string>
+    <string name="home_role_request_dialog_negative">Don\'t ask again</string>
 </resources>

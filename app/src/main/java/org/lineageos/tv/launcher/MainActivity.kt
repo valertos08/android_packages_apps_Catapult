@@ -5,6 +5,8 @@
 
 package org.lineageos.tv.launcher
 
+import android.app.role.RoleManager
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.transition.Slide
@@ -14,6 +16,7 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isInvisible
@@ -23,6 +26,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.preference.PreferenceManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.lineageos.tv.launcher.adapter.AllAppsAdapter
@@ -31,6 +35,8 @@ import org.lineageos.tv.launcher.adapter.MainVerticalAdapter
 import org.lineageos.tv.launcher.adapter.PreviewProgramsAdapter
 import org.lineageos.tv.launcher.adapter.WatchNextAdapter
 import org.lineageos.tv.launcher.ext.favoriteApps
+import org.lineageos.tv.launcher.ext.homeRoleRequestDialogDismissed
+import org.lineageos.tv.launcher.ext.roleCanBeRequested
 import org.lineageos.tv.launcher.model.AppInfo
 import org.lineageos.tv.launcher.model.InternalChannel
 import org.lineageos.tv.launcher.model.MainRowItem
@@ -50,6 +56,16 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val settingButton by lazy { findViewById<ImageButton>(R.id.settings_button) }
     private val topBarContainer by lazy { findViewById<LinearLayout>(R.id.top_bar) }
     private val voiceAssistantButton by lazy { findViewById<ImageButton>(R.id.voice_assistant) }
+
+    // System services
+    private val roleManager by lazy { getSystemService(RoleManager::class.java) }
+
+    // Activity request launchers
+    private val homeRoleActivityRequestLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        // Do nothing
+    }
 
     // Adapters
     private val allAppsAdapter by lazy { AllAppsAdapter() }
@@ -128,6 +144,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 }
             }
         }
+
+        askForHomeRoleIfNeeded()
     }
 
     @Suppress("RestrictedApi")
@@ -197,5 +215,29 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
         keyboardAssistantButton.onFocusChangeListener = assistantButtonFocusListener
         voiceAssistantButton.onFocusChangeListener = assistantButtonFocusListener
+    }
+
+    private fun askForHomeRoleIfNeeded() {
+        if (roleManager.roleCanBeRequested(RoleManager.ROLE_HOME)
+            && !sharedPreferences.homeRoleRequestDialogDismissed
+        ) {
+            MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.home_role_request_dialog_title)
+                .setMessage(R.string.home_role_request_dialog_message)
+                .setPositiveButton(android.R.string.ok) { _, _ ->
+                    homeRoleActivityRequestLauncher.launch(
+                        roleManager.createRequestRoleIntent(RoleManager.ROLE_HOME)
+                    )
+                }
+                .setNeutralButton(R.string.home_role_request_dialog_neutral) { _, _ ->
+                    // Do nothing
+                }
+                .setNegativeButton(R.string.home_role_request_dialog_negative) { _, _ ->
+                    sharedPreferences.homeRoleRequestDialogDismissed = true
+                }
+                .show().also {
+                    it.getButton(DialogInterface.BUTTON_NEUTRAL).requestFocus()
+                }
+        }
     }
 }
