@@ -18,8 +18,6 @@ class InstalledAppsFlow(private val context: Context) {
         addCategory(Intent.CATEGORY_LAUNCHER)
     }
 
-    private val selfPackageName = context.packageName
-
     fun flow() = IntentFilter().apply {
         actions.forEach {
             addAction(it)
@@ -40,11 +38,7 @@ class InstalledAppsFlow(private val context: Context) {
         }
 
         packageManager.queryIntentActivities(launcherIntent, 0).mapNotNull { resolveInfo ->
-            resolveInfo.takeUnless {
-                it.activityInfo.packageName == selfPackageName
-            }?.let {
-                AppInfo(it, context)
-            }
+            AppInfo(resolveInfo, context)
         }
     }
 
