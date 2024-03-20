@@ -6,10 +6,7 @@
 package org.lineageos.tv.launcher
 
 import android.os.Bundle
-import android.view.Gravity
-import android.view.WindowManager
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.leanback.widget.VerticalGridView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -21,7 +18,7 @@ import org.lineageos.tv.launcher.utils.AppManager
 import org.lineageos.tv.launcher.utils.PermissionsGatedCallback
 import org.lineageos.tv.launcher.viewmodels.AddFavoriteViewModel
 
-class AddFavoriteActivity : AppCompatActivity(R.layout.activity_add_favorite) {
+class AddFavoriteActivity : ModalActivity(R.layout.activity_add_favorite) {
     // View models
     private val model: AddFavoriteViewModel by viewModels()
 
@@ -43,12 +40,6 @@ class AddFavoriteActivity : AppCompatActivity(R.layout.activity_add_favorite) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val layoutParams = window.attributes.apply {
-            gravity = Gravity.END
-            width = WindowManager.LayoutParams.WRAP_CONTENT
-        }
-        window.attributes = layoutParams
 
         allAppsGridView.adapter = allAppsAdapter
 

@@ -8,4 +8,5 @@
     <dimen name="card_width_3_2">126dp</dimen>
     <dimen name="main_row_height">164dp</dimen>
     <dimen name="main_app_row_height">130dp</dimen>
+    <dimen name="modal_margin">8dp</dimen>
 </resources>
