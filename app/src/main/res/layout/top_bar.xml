@@ -70,6 +70,19 @@
             android:textAppearance="?attr/textAppearanceTitleMedium" />
 
         <ImageButton
+            android:id="@+id/system_modal_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:backgroundTint="?attr/colorSecondaryContainer"
+            android:contentDescription="@string/system_modal"
+            android:padding="4dp"
+            android:src="@drawable/ic_bell"
+            android:stateListAnimator="@animator/app_card_state_animator"
+            app:tint="@color/settings_color" />
+
+        <ImageButton
             android:id="@+id/settings_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

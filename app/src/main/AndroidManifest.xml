@@ -9,6 +9,14 @@
         android:required="false" />
 
     <uses-feature
+        android:name="android.hardware.wifi"
+        android:required="false" />
+
+    <uses-feature
+        android:name="android.hardware.bluetooth"
+        android:required="false" />
+
+    <uses-feature
         android:name="android.software.leanback"
         android:required="true" />
 
@@ -16,6 +24,8 @@
     <uses-permission android:name="android.permission.READ_TV_LISTINGS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <queries>
         <intent>
@@ -53,6 +63,9 @@
             android:name=".ModifyChannelsActivity"
             android:theme="@style/Theme.Catapult.SideActivity" />
 
+        <activity
+            android:name=".SystemOptionsActivity"
+            android:theme="@style/Theme.Catapult.SideActivity" />
     </application>
 
 </manifest>

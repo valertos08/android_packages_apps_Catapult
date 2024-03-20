@@ -17,4 +17,19 @@
         <item name="android:layout_marginStart">20dp</item>
         <item name="android:layout_marginEnd">20dp</item>
     </style>
+
+    <style name="SystemOptionsButtonStyle">
+        <item name="iconGravity">textStart</item>
+        <item name="iconTint">@color/system_options_button_content_tint</item>
+        <item name="backgroundTint">@color/system_options_button_background_tint</item>
+        <item name="android:textColor">@color/system_options_button_content_tint</item>
+        <item name="android:stateListAnimator">@animator/system_options_button_state_animator</item>
+        <item name="android:textColorLink">@color/system_options_button_content_secondary_tint</item>
+    </style>
+
+    <style name="TwoLineSystemOptionsButtonStyle" parent="@style/SystemOptionsButtonStyle">
+        <item name="iconGravity">start</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+    </style>
 </resources>
