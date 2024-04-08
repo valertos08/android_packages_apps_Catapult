@@ -21,5 +21,16 @@ android_app {
     privileged: true,
 
     static_libs: [
+        // DO NOT EDIT THIS SECTION MANUALLY
+        "androidx.activity_activity-ktx",
+        "androidx.appcompat_appcompat",
+        "androidx.core_core-ktx",
+        "androidx.leanback_leanback",
+        "androidx.lifecycle_lifecycle-runtime-ktx",
+        "androidx.preference_preference",
+        "androidx.tvprovider_tvprovider",
+        "com.google.android.material_material",
+        "Catapult_io.coil-kt_coil",
+        "kotlin-stdlib-jdk8",
     ],
 }
