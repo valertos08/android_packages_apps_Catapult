@@ -17,5 +17,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "TvTrebuchet"
+rootProject.name = "Catapult"
 include(":app")
