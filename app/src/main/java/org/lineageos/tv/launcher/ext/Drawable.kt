@@ -17,7 +17,7 @@ fun <T : Drawable> T.pixelsEqualTo(t: T?) = toBitmap().pixelsEqualTo(t?.toBitmap
 
 fun <T : Drawable> T.toBitmap(): Bitmap {
     BitmapDrawable::class.safeCast(this)?.let {
-        return it.bitmap.copy(it.bitmap.config, true)
+        return it.bitmap.copy(it.bitmap.config ?: Bitmap.Config.ARGB_8888, true)
     }
 
     val bitmap = Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888)
