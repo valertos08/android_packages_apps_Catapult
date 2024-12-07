@@ -24,7 +24,10 @@ android_app {
         "TvSampleLeanbackLauncher",
     ],
 
-    required: ["privapp_whitelist_org.lineageos.tv.launcher"],
+    required: [
+        "default_permissions_org.lineageos.tv.launcher",
+        "privapp_whitelist_org.lineageos.tv.launcher",
+    ],
 
     static_libs: [
         // DO NOT EDIT THIS SECTION MANUALLY
@@ -49,3 +52,10 @@ prebuilt_etc {
     filename_from_src: true,
 }
 
+prebuilt_etc {
+    name: "default_permissions_org.lineageos.tv.launcher",
+    system_ext_specific: true,
+    sub_dir: "default-permissions",
+    src: "default_permissions_org.lineageos.tv.launcher.xml",
+    filename_from_src: true,
+}
