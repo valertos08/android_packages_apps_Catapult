@@ -32,4 +32,21 @@
         <item name="android:maxLines">2</item>
         <item name="android:ellipsize">end</item>
     </style>
+
+    <style name="NotificationDismissButton" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:text">@string/dismiss</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:visibility">invisible</item>
+        <item name="android:stateListAnimator">@animator/notification_state_animator</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:drawableTop">@drawable/ic_close</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:focusable">false</item>
+    </style>
+
 </resources>

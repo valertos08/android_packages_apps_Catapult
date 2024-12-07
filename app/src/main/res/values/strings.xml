@@ -34,4 +34,7 @@
     <string name="home_role_request_dialog_negative">Don\'t ask again</string>
 
     <string name="unknown">Unknown</string>
+    <string name="no_notification_access">No notification access</string>
+    <string name="allow_notification_access">Allow notification access</string>
+    <string name="dismiss">Dismiss</string>
 </resources>

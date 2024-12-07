@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: 2024 The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/notification_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:duplicateParentState="true">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/dismiss_start"
+        app:iconPadding="0dp"
+        style="@style/NotificationDismissButton" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/dismiss_end"
+        android:layout_gravity="end"
+        app:iconPadding="0dp"
+        style="@style/NotificationDismissButton" />
+
+    <LinearLayout
+        android:id="@+id/notification_content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="14dp"
+        android:background="@drawable/notification_background"
+        android:stateListAnimator="@animator/notification_state_animator"
+        android:duplicateParentState="true"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center_vertical"
+            app:tint="@color/notification_content_color"
+            tools:ignore="ContentDescription"
+            android:duplicateParentState="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp"
+            android:duplicateParentState="true">
+
+            <TextView
+                android:id="@+id/notification_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:textColor="@color/notification_content_color"
+                android:duplicateParentState="true"/>
+
+            <TextView
+                android:id="@+id/notification_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textColor="@color/notification_content_color"
+                android:duplicateParentState="true"/>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

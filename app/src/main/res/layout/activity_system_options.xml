@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorSurfaceContainerLow"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:focusable="false">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -110,19 +111,58 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:layout_marginTop="8dp"
-            android:background="@drawable/notification_container">
+            android:background="@drawable/notification_container"
+            android:clipToOutline="true">
+
+            <LinearLayout
+                android:id="@+id/no_notification_access"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="@string/no_notification_access"
+                    android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/allow_notification_access"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/allow_notification_access" />
+            </LinearLayout>
 
             <TextView
+                android:id="@+id/no_notifications"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/no_notifications"
-                android:layout_gravity="center"
-                android:textAppearance="?attr/textAppearanceBody2" />
-        </LinearLayout>
+                android:textAppearance="?attr/textAppearanceBody2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <androidx.leanback.widget.VerticalGridView
+                android:id="@+id/notification_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="18dp"
+                android:paddingTop="14dp"
+                android:verticalSpacing="10dp"
+                app:focusOutEnd="true"
+                app:focusOutFront="true" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </LinearLayout>
