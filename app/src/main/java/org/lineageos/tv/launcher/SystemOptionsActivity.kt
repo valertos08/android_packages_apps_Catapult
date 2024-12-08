@@ -68,6 +68,20 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Animate
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            overrideActivityTransition(
+                OVERRIDE_TRANSITION_OPEN,
+                R.anim.slide_in_right,
+                R.anim.slide_out_right
+            )
+            overrideActivityTransition(
+                OVERRIDE_TRANSITION_CLOSE,
+                R.anim.slide_in_right,
+                R.anim.slide_out_right
+            )
+        }
+
         // Date
         val currentDate = Calendar.getInstance().time
         dateTextView.text = DateFormat.getPatternInstance(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY)
