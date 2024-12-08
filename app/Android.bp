@@ -18,6 +18,11 @@ android_app {
     product_specific: true,
     privileged: true,
 
+    overrides: [
+        "TvLauncherNoGMS",
+        "TvSampleLeanbackLauncher",
+    ],
+
     static_libs: [
         // DO NOT EDIT THIS SECTION MANUALLY
         "androidx.activity_activity-ktx",
