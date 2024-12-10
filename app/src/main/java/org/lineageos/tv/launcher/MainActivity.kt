@@ -54,17 +54,17 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val notificationViewModel: NotificationViewModel by viewModels()
 
     // Views
-    private val assistantButtonsContainer by lazy { findViewById<LinearLayout>(R.id.assistant_buttons) }
-    private val assistantShowButton by lazy { findViewById<TextView>(R.id.assistant_title) }
-    private val keyboardAssistantButton by lazy { findViewById<ImageButton>(R.id.keyboard_assistant) }
-    private val mainVerticalGridView by lazy { findViewById<VerticalGridView>(R.id.main_vertical_grid) }
-    private val settingButton by lazy { findViewById<ImageButton>(R.id.settingsMaterialButton) }
-    private val systemModalButton by lazy { findViewById<ImageButton>(R.id.system_modal_button) }
-    private val topBarContainer by lazy { findViewById<LinearLayout>(R.id.top_bar) }
-    private val voiceAssistantButton by lazy { findViewById<ImageButton>(R.id.voice_assistant) }
+    private val assistantButtonsContainer by lazy { findViewById<LinearLayout>(R.id.assistant_buttons)!! }
+    private val assistantShowButton by lazy { findViewById<TextView>(R.id.assistant_title)!! }
+    private val keyboardAssistantButton by lazy { findViewById<ImageButton>(R.id.keyboard_assistant)!! }
+    private val mainVerticalGridView by lazy { findViewById<VerticalGridView>(R.id.main_vertical_grid)!! }
+    private val settingButton by lazy { findViewById<ImageButton>(R.id.settingsMaterialButton)!! }
+    private val systemModalButton by lazy { findViewById<ImageButton>(R.id.system_modal_button)!! }
+    private val topBarContainer by lazy { findViewById<LinearLayout>(R.id.top_bar)!! }
+    private val voiceAssistantButton by lazy { findViewById<ImageButton>(R.id.voice_assistant)!! }
 
     // System services
-    private val roleManager by lazy { getSystemService(RoleManager::class.java) }
+    private val roleManager by lazy { getSystemService(RoleManager::class.java)!! }
 
     // Activity request launchers
     private val homeRoleActivityRequestLauncher = registerForActivityResult(

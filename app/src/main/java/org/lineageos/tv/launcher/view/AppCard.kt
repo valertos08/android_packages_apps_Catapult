@@ -17,7 +17,7 @@ class AppCard @JvmOverloads constructor(
     override val menuResId = R.menu.app_long_press
 
     // Views
-    private val nameView by lazy { findViewById<TextView>(R.id.app_name) }
+    private val nameView by lazy { findViewById<TextView>(R.id.app_name)!! }
 
     private var hasFocus: Boolean = false
 

@@ -27,8 +27,8 @@ class ModifyChannelsActivity : ModalActivity(R.layout.activity_modify_channels) 
     private val model: ModifyChannelsViewModel by viewModels()
 
     // Views
-    private val channelsGrid by lazy { findViewById<VerticalGridView>(R.id.modify_channels_grid) }
-    private val progressLoadingChannels by lazy { findViewById<ProgressBar>(R.id.progress_loading_channels) }
+    private val channelsGrid by lazy { findViewById<VerticalGridView>(R.id.modify_channels_grid)!! }
+    private val progressLoadingChannels by lazy { findViewById<ProgressBar>(R.id.progress_loading_channels)!! }
 
     // Adapters
     private val modifyChannelsAdapter by lazy { ModifyChannelsAdapter() }

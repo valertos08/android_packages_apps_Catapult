@@ -38,12 +38,12 @@ class NotificationItemView @JvmOverloads constructor(
     var swipeStatus = SwipeStatus.NONE
 
     // Views
-    private val dismissStartButton: MaterialButton by lazy { findViewById(R.id.dismiss_start) }
-    private val dismissEndButton: MaterialButton by lazy { findViewById(R.id.dismiss_end) }
-    private val contentContainer: LinearLayout by lazy { findViewById(R.id.notification_content_container) }
-    private val icon: ImageView by lazy { findViewById(R.id.icon) }
-    private val title: TextView by lazy { findViewById(R.id.notification_title) }
-    private val details: TextView by lazy { findViewById(R.id.notification_details) }
+    private val dismissStartButton: MaterialButton by lazy { findViewById(R.id.dismiss_start)!! }
+    private val dismissEndButton: MaterialButton by lazy { findViewById(R.id.dismiss_end)!! }
+    private val contentContainer: LinearLayout by lazy { findViewById(R.id.notification_content_container)!! }
+    private val icon: ImageView by lazy { findViewById(R.id.icon)!! }
+    private val title: TextView by lazy { findViewById(R.id.notification_title)!! }
+    private val details: TextView by lazy { findViewById(R.id.notification_details)!! }
 
     init {
         LayoutInflater.from(context).inflate(R.layout.notification_item_view, this)

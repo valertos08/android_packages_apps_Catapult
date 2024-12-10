@@ -18,8 +18,8 @@ class ToggleChannelView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
     // Views
-    private val titleView by lazy { findViewById<TextView>(R.id.title) }
-    private val switch by lazy { findViewById<MaterialSwitch>(R.id.state_switch) }
+    private val titleView by lazy { findViewById<TextView>(R.id.title)!! }
+    private val switch by lazy { findViewById<MaterialSwitch>(R.id.state_switch)!! }
 
     var moving = false
     var channel: Channel? = null

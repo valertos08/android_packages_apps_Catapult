@@ -18,8 +18,8 @@ class MainRowItemView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
     // Views
-    private val horizontalGridView by lazy { findViewById<HorizontalGridView>(R.id.horizontal_grid) }
-    private val titleView by lazy { findViewById<TextView>(R.id.title) }
+    private val horizontalGridView by lazy { findViewById<HorizontalGridView>(R.id.horizontal_grid)!! }
+    private val titleView by lazy { findViewById<TextView>(R.id.title)!! }
 
     fun setData(mainRowItem: MainRowItem) {
         titleView.text = mainRowItem.label

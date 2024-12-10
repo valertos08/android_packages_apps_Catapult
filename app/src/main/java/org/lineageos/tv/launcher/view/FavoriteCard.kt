@@ -18,7 +18,7 @@ class FavoriteCard @JvmOverloads constructor(
     override val menuResId = R.menu.favorite_app_long_press
 
     // Views
-    private val moveOverlayView by lazy { findViewById<ImageView>(R.id.app_move_handle) }
+    private val moveOverlayView by lazy { findViewById<ImageView>(R.id.app_move_handle)!! }
 
     var moving: Boolean = false
 

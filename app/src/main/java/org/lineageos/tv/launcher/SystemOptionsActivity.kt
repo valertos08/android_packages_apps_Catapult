@@ -51,16 +51,16 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
     private val notificationViewModel: NotificationViewModel by viewModels()
 
     // Views
-    private val allowNotificationAccessMaterialButton by lazy { findViewById<MaterialButton>(R.id.allowNotificationAccessMaterialButton) }
-    private val bluetoothMaterialButton by lazy { findViewById<MaterialButton>(R.id.bluetoothMaterialButton) }
-    private val dateTextView by lazy { findViewById<TextView>(R.id.dateTextView) }
-    private val networkMaterialButton by lazy { findViewById<MaterialButton>(R.id.networkMaterialButton) }
-    private val noNotificationAccessLinearLayout by lazy { findViewById<LinearLayout>(R.id.noNotificationAccessLinearLayout) }
-    private val noNotificationsTextView by lazy { findViewById<TextView>(R.id.noNotificationsTextView) }
-    private val notificationsVerticalGridView by lazy { findViewById<VerticalGridView>(R.id.notificationsVerticalGridView) }
-    private val powerMaterialButton by lazy { findViewById<MaterialButton>(R.id.powerMaterialButton) }
-    private val settingsButton by lazy { findViewById<MaterialButton>(R.id.settingsMaterialButton) }
-    private val sleepMaterialButton by lazy { findViewById<MaterialButton>(R.id.sleepMaterialButton) }
+    private val allowNotificationAccessMaterialButton by lazy { findViewById<MaterialButton>(R.id.allowNotificationAccessMaterialButton)!! }
+    private val bluetoothMaterialButton by lazy { findViewById<MaterialButton>(R.id.bluetoothMaterialButton)!! }
+    private val dateTextView by lazy { findViewById<TextView>(R.id.dateTextView)!! }
+    private val networkMaterialButton by lazy { findViewById<MaterialButton>(R.id.networkMaterialButton)!! }
+    private val noNotificationAccessLinearLayout by lazy { findViewById<LinearLayout>(R.id.noNotificationAccessLinearLayout)!! }
+    private val noNotificationsTextView by lazy { findViewById<TextView>(R.id.noNotificationsTextView)!! }
+    private val notificationsVerticalGridView by lazy { findViewById<VerticalGridView>(R.id.notificationsVerticalGridView)!! }
+    private val powerMaterialButton by lazy { findViewById<MaterialButton>(R.id.powerMaterialButton)!! }
+    private val settingsButton by lazy { findViewById<MaterialButton>(R.id.settingsMaterialButton)!! }
+    private val sleepMaterialButton by lazy { findViewById<MaterialButton>(R.id.sleepMaterialButton)!! }
 
     private val colorStateList by lazy {
         ContextCompat.getColorStateList(
@@ -71,7 +71,7 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
 
     private val notificationAdapter: NotificationAdapter by lazy { NotificationAdapter(this, this) }
 
-    private val connectivityManager by lazy { getSystemService(ConnectivityManager::class.java) }
+    private val connectivityManager by lazy { getSystemService(ConnectivityManager::class.java)!! }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -231,7 +231,7 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
                 // WIFI connection
                 networkString = resources.getString(R.string.connected)
                 if (wifiInfo != null) {
-                    val wifiManager = getSystemService(WifiManager::class.java)
+                    val wifiManager = getSystemService(WifiManager::class.java)!!
                     val wifiStrength = (wifiManager.calculateSignalLevel(wifiInfo.rssi)
                         .toFloat() / wifiManager.maxSignalLevel * wifiManager.maxSignalLevel).toInt()
                     networkMaterialButton.icon =
@@ -259,7 +259,7 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
 
     private fun setBluetoothButton() {
         var btString = resources.getString(R.string.disabled)
-        val bluetoothAdapter = getSystemService(BluetoothManager::class.java).adapter
+        val bluetoothAdapter = getSystemService(BluetoothManager::class.java)?.adapter
         if (bluetoothAdapter != null && bluetoothAdapter.isEnabled) {
             btString = resources.getString(R.string.enabled)
         }

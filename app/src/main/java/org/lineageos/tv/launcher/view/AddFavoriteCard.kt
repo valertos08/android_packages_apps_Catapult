@@ -18,9 +18,9 @@ class AddFavoriteCard @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : Card(context, attrs, defStyleAttr) {
     // Views
-    private val actionIconView by lazy { findViewById<ImageView>(R.id.action_image) }
-    private val iconView by lazy { findViewById<ImageView>(R.id.app_icon) }
-    private val nameView by lazy { findViewById<TextView>(R.id.app_name) }
+    private val actionIconView by lazy { findViewById<ImageView>(R.id.action_image)!! }
+    private val iconView by lazy { findViewById<ImageView>(R.id.app_icon)!! }
+    private val nameView by lazy { findViewById<TextView>(R.id.app_name)!! }
 
     init {
         inflate(context, R.layout.favorites_add_app_card, this)

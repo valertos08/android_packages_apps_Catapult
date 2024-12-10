@@ -23,9 +23,9 @@ class WatchNextCard @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : Card(context, attrs, defStyleAttr) {
     // Views
-    private val bannerView: ImageView by lazy { findViewById(R.id.app_banner) }
+    private val bannerView: ImageView by lazy { findViewById(R.id.app_banner)!! }
     private var title: TextView? = null
-    private val progressView by lazy { findViewById<LinearProgressIndicator>(R.id.watch_progress) }
+    private val progressView by lazy { findViewById<LinearProgressIndicator>(R.id.watch_progress)!! }
 
     init {
         inflate(context, R.layout.watch_next_card, this)

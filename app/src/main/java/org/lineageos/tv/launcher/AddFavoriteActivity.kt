@@ -23,7 +23,7 @@ class AddFavoriteActivity : ModalActivity(R.layout.activity_add_favorite) {
     private val model: AddFavoriteViewModel by viewModels()
 
     // Views
-    private val allAppsGridView by lazy { findViewById<VerticalGridView>(R.id.all_apps_add_grid) }
+    private val allAppsGridView by lazy { findViewById<VerticalGridView>(R.id.all_apps_add_grid)!! }
 
     // Adapters
     private val allAppsAdapter by lazy { AllAppsFavoritesAdapter() }
