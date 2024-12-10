@@ -14,7 +14,11 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.icu.text.DateFormat
 import android.net.ConnectivityManager
+import android.net.Network
 import android.net.NetworkCapabilities
+import android.net.NetworkRequest
+import android.net.wifi.WifiInfo
+import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
@@ -65,6 +69,8 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
     private var notificationUpdateListener: TvNotificationListener.NotificationUpdateListener? =
         null
 
+    private val connectivityManager by lazy { getSystemService(ConnectivityManager::class.java) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -100,6 +106,12 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
         }
 
         notificationList.adapter = notificationAdapter
+
+        // WIFI callbacks
+        val request = NetworkRequest.Builder()
+            .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+            .build()
+        connectivityManager.registerNetworkCallback(request, connCallback)
     }
 
     override fun onStart() {
@@ -128,11 +140,11 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
     override fun onDestroy() {
         super.onDestroy()
         notificationListener?.removeNotificationUpdateListener(notificationUpdateListener)
+        connectivityManager.unregisterNetworkCallback(connCallback)
     }
 
-    private fun setNetworkButton() {
+    private fun setNetworkButton(wifiInfo: WifiInfo? = null) {
         var networkString = resources.getString(R.string.unknown)
-        val connectivityManager = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
         val capabilities =
             connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
 
@@ -140,14 +152,28 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
             || !capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
             || !capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
         ) {
+            // No internet connection
+            networkButton.icon =
+                AppCompatResources.getDrawable(this, R.drawable.ic_wifi_not_connected)
             networkString = resources.getString(R.string.not_connected)
         } else {
             if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                // Ethernet connection
                 networkButton.icon = AppCompatResources.getDrawable(this, R.drawable.ic_ethernet)
             }
 
             if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                networkString = resources.getString(R.string.enabled)
+                // WIFI connection
+                networkString = resources.getString(R.string.connected)
+                if (wifiInfo != null) {
+                    val wifiManager = getSystemService(WifiManager::class.java)
+                    val wifiStrength = (wifiManager.calculateSignalLevel(wifiInfo.rssi)
+                        .toFloat() / wifiManager.maxSignalLevel * wifiManager.maxSignalLevel).toInt()
+                    networkButton.icon =
+                        AppCompatResources.getDrawable(this, wifiIcons[wifiStrength])
+                } else {
+                    networkButton.icon = AppCompatResources.getDrawable(this, wifiIcons[3])
+                }
             }
         }
 
@@ -159,9 +185,8 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
             networkButton.text = updateButton(networkSpan, hasFocus)
         }
 
-        networkButton.setOnLongClickListener {
+        networkButton.setOnClickListener {
             startActivity(WIFI_SETTINGS)
-            true
         }
     }
 
@@ -313,10 +338,45 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
         }
     }
 
+    private val connCallback = object : ConnectivityManager.NetworkCallback() {
+        override fun onLost(network: Network) {
+            super.onLost(network)
+            runOnUiThread {
+                setNetworkButton()
+            }
+        }
+
+        override fun onAvailable(network: Network) {
+            super.onAvailable(network)
+            runOnUiThread {
+                setNetworkButton()
+            }
+        }
+
+        override fun onCapabilitiesChanged(
+            network: Network,
+            networkCapabilities: NetworkCapabilities
+        ) {
+            super.onCapabilitiesChanged(network, networkCapabilities)
+            val wifiInfo = networkCapabilities.transportInfo as WifiInfo
+            runOnUiThread {
+                setNetworkButton(wifiInfo)
+            }
+        }
+    }
+
     companion object {
         val SETTINGS: Intent = Intent(Settings.ACTION_SETTINGS)
         val WIFI_SETTINGS: Intent = Intent(Settings.ACTION_WIFI_SETTINGS)
         val BLUETOOTH_SETTINGS: Intent = Intent(Settings.ACTION_BLUETOOTH_SETTINGS)
         val NOTIFICATION_SETTINGS: Intent = Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
+
+        val wifiIcons = intArrayOf(
+            R.drawable.ic_wifi_signal_0,
+            R.drawable.ic_wifi_signal_1,
+            R.drawable.ic_wifi_signal_2,
+            R.drawable.ic_wifi_signal_3,
+            R.drawable.ic_wifi_signal_4
+        )
     }
 }
