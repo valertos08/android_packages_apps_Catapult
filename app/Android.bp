@@ -14,8 +14,9 @@ android_app {
     resource_dirs: ["src/main/res"],
     manifest: "src/main/AndroidManifest.xml",
 
-    sdk_version: "35",
-    product_specific: true,
+    platform_apis: true,
+    system_ext_specific: true,
+    certificate: "platform",
     privileged: true,
 
     overrides: [
