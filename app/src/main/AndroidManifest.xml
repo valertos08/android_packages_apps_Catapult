@@ -31,6 +31,10 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
+    <!-- System permissions -->
+    <uses-permission android:name="android.permission.DEVICE_POWER" />
+    <uses-permission android:name="android.permission.INTERNAL_SYSTEM_WINDOW" />
+
     <queries>
         <intent>
             <action android:name="android.intent.action.MAIN" />

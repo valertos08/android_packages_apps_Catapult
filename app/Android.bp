@@ -24,6 +24,8 @@ android_app {
         "TvSampleLeanbackLauncher",
     ],
 
+    required: ["privapp_whitelist_org.lineageos.tv.launcher"],
+
     static_libs: [
         // DO NOT EDIT THIS SECTION MANUALLY
         "androidx.activity_activity-ktx",
@@ -38,3 +40,12 @@ android_app {
         "kotlin-stdlib-jdk8",
     ],
 }
+
+prebuilt_etc {
+    name: "privapp_whitelist_org.lineageos.tv.launcher",
+    system_ext_specific: true,
+    sub_dir: "permissions",
+    src: "privapp_whitelist_org.lineageos.tv.launcher.xml",
+    filename_from_src: true,
+}
+

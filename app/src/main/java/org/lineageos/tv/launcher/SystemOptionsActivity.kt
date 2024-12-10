@@ -17,6 +17,8 @@ import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
+import android.os.SystemClock
 import android.provider.Settings
 import android.service.notification.StatusBarNotification
 import android.text.Spannable
@@ -25,6 +27,7 @@ import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.view.WindowManagerGlobal
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -108,6 +111,20 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
         }
 
         notificationsVerticalGridView.adapter = notificationAdapter
+
+        sleepMaterialButton.setOnClickListener {
+            val pm: PowerManager = getSystemService(PowerManager::class.java) as PowerManager
+            pm.goToSleep(
+                SystemClock.uptimeMillis(),
+                PowerManager.GO_TO_SLEEP_REASON_POWER_BUTTON,
+                0
+            )
+        }
+
+        powerMaterialButton.setOnClickListener {
+            val wm = WindowManagerGlobal.getWindowManagerService()
+            wm?.showGlobalActions()
+        }
 
         // WIFI callbacks
         val request = NetworkRequest.Builder()
