@@ -118,10 +118,19 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
         lifecycleScope.launch {
             connectivityManager.networkCallbackFlow(request).collect {
                 when (it) {
-                    is NetworkState.Available -> setNetworkButton()
-                    is NetworkState.Lost -> setNetworkButton()
+                    is NetworkState.Available -> setNetworkButton(
+                        capabilities = connectivityManager.getNetworkCapabilities(it.network)
+                    )
+
+                    is NetworkState.Lost -> setNetworkButton(
+                        capabilities = connectivityManager.getNetworkCapabilities(it.network)
+                    )
+
                     is NetworkState.CapabilitiesChanged ->
-                        setNetworkButton(it.networkCapabilities.transportInfo as WifiInfo)
+                        setNetworkButton(
+                            wifiInfo = it.networkCapabilities.transportInfo as WifiInfo,
+                            capabilities = it.networkCapabilities
+                        )
                 }
             }
         }
@@ -155,10 +164,13 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
         notificationListener?.removeNotificationUpdateListener(notificationUpdateListener)
     }
 
-    private fun setNetworkButton(wifiInfo: WifiInfo? = null) {
+    private fun setNetworkButton(
+        wifiInfo: WifiInfo? = null,
+        capabilities: NetworkCapabilities? = connectivityManager.getNetworkCapabilities(
+            connectivityManager.activeNetwork
+        )
+    ) {
         var networkString = resources.getString(R.string.unknown)
-        val capabilities =
-            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
 
         if (capabilities == null
             || !capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
