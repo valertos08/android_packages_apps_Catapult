@@ -14,13 +14,11 @@ import org.lineageos.tv.launcher.ext.queryFlow
 
 @Suppress("RestrictedApi")
 class WatchNextProgramsFlow(private val context: Context) : QueryFlow<WatchNextProgram> {
-    override fun flowCursor() = context.contentResolver.queryFlow(
+    override fun flowData() = context.contentResolver.queryFlow(
         TvContractCompat.WatchNextPrograms.CONTENT_URI,
         WatchNextProgram.PROJECTION,
         bundleOf(),
-    )
-
-    override fun flowData() = flowCursor().mapEachRow { it, _ ->
+    ).mapEachRow { it, _ ->
         WatchNextProgram.fromCursor(it)
     }
 }

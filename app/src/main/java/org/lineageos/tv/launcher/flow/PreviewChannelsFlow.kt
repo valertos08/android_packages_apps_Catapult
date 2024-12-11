@@ -15,13 +15,11 @@ import org.lineageos.tv.launcher.ext.queryFlow
 
 @Suppress("RestrictedApi")
 class PreviewChannelsFlow(private val context: Context) : QueryFlow<PreviewChannel> {
-    override fun flowCursor() = context.contentResolver.queryFlow(
+    override fun flowData() = context.contentResolver.queryFlow(
         TvContractCompat.Channels.CONTENT_URI,
         PreviewChannel.Columns.PROJECTION,
         bundleOf(),
-    )
-
-    override fun flowData() = flowCursor().mapEachRow { it, _ ->
+    ).mapEachRow { it, _ ->
         it.takeUnless {
             // TODO: Google bug, to report to them... https://nekobin.com/rolulodudo
             it.getString(PreviewChannel.Columns.COL_APP_LINK_INTENT_URI).isNullOrEmpty() ||

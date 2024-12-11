@@ -17,13 +17,11 @@ class PreviewProgramsFlow(
     private val channelId: Long,
 ) : QueryFlow<PreviewProgram> {
     @Suppress("RestrictedApi")
-    override fun flowCursor() = context.contentResolver.queryFlow(
+    override fun flowData() = context.contentResolver.queryFlow(
         TvContractCompat.buildPreviewProgramsUriForChannel(channelId),
         PreviewProgram.PROJECTION,
         bundleOf(),
-    )
-
-    override fun flowData() = flowCursor().mapEachRow { it, _ ->
+    ).mapEachRow { it, _ ->
         PreviewProgram.fromCursor(it)
     }
 }

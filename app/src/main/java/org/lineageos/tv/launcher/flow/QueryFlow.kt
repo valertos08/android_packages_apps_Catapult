@@ -13,9 +13,4 @@ interface QueryFlow<T> {
      * A flow of the data specified by the query
      */
     fun flowData(): Flow<List<T>>
-
-    /**
-     * A flow of the cursor specified by the query
-     */
-    fun flowCursor(): Flow<Cursor?>
 }
