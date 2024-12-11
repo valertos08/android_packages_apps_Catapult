@@ -14,7 +14,6 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.icu.text.DateFormat
 import android.net.ConnectivityManager
-import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.net.wifi.WifiInfo
@@ -35,7 +34,11 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.leanback.widget.VerticalGridView
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
+import kotlinx.coroutines.launch
+import org.lineageos.tv.launcher.ext.NetworkState
+import org.lineageos.tv.launcher.ext.networkCallbackFlow
 import org.lineageos.tv.launcher.notification.NotificationAdapter
 import org.lineageos.tv.launcher.notification.NotificationUtils
 import org.lineageos.tv.launcher.notification.TvNotificationListener
@@ -111,7 +114,17 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
         val request = NetworkRequest.Builder()
             .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
             .build()
-        connectivityManager.registerNetworkCallback(request, connCallback)
+
+        lifecycleScope.launch {
+            connectivityManager.networkCallbackFlow(request).collect {
+                when (it) {
+                    is NetworkState.Available -> setNetworkButton()
+                    is NetworkState.Lost -> setNetworkButton()
+                    is NetworkState.CapabilitiesChanged ->
+                        setNetworkButton(it.networkCapabilities.transportInfo as WifiInfo)
+                }
+            }
+        }
     }
 
     override fun onStart() {
@@ -140,7 +153,6 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
     override fun onDestroy() {
         super.onDestroy()
         notificationListener?.removeNotificationUpdateListener(notificationUpdateListener)
-        connectivityManager.unregisterNetworkCallback(connCallback)
     }
 
     private fun setNetworkButton(wifiInfo: WifiInfo? = null) {
@@ -336,33 +348,6 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
     private fun cancelNotification(sbn: StatusBarNotification) {
         if (NotificationUtils.shouldAutoCancel(sbn.notification)) {
             notificationListener?.cancelNotification(sbn.key)
-        }
-    }
-
-    private val connCallback = object : ConnectivityManager.NetworkCallback() {
-        override fun onLost(network: Network) {
-            super.onLost(network)
-            runOnUiThread {
-                setNetworkButton()
-            }
-        }
-
-        override fun onAvailable(network: Network) {
-            super.onAvailable(network)
-            runOnUiThread {
-                setNetworkButton()
-            }
-        }
-
-        override fun onCapabilitiesChanged(
-            network: Network,
-            networkCapabilities: NetworkCapabilities
-        ) {
-            super.onCapabilitiesChanged(network, networkCapabilities)
-            val wifiInfo = networkCapabilities.transportInfo as WifiInfo
-            runOnUiThread {
-                setNetworkButton(wifiInfo)
-            }
         }
     }
 
