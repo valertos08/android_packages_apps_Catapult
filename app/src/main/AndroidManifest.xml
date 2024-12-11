@@ -73,7 +73,14 @@
 
         <activity
             android:name=".SystemOptionsActivity"
-            android:theme="@style/Theme.Catapult.SideActivity" />
+            android:theme="@style/Theme.Catapult.SideActivity"
+            android:exported="true"
+            android:launchMode="singleInstance">
+            <intent-filter>
+                <action android:name="org.lineageos.tv.launcher.SYSTEM_OPTIONS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".notification.TvNotificationListener"
