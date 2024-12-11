@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     SPDX-FileCopyrightText: The LineageOS Project
+     SPDX-FileCopyrightText: 2024 The LineageOS Project
      SPDX-License-Identifier: Apache-2.0
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="350dp"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
@@ -14,8 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorSurfaceContainerLow"
-        android:orientation="vertical"
-        android:focusable="false">
+        android:focusable="false"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,138 +32,147 @@
                 android:padding="16dp">
 
                 <TextView
-                    android:id="@+id/date"
+                    android:id="@+id/dateTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mon, 4 March"
-                    android:textAppearance="?attr/textAppearanceBodySmall" />
+                    android:textAppearance="?attr/textAppearanceBodySmall"
+                    tools:text="Mon, 4 March" />
 
                 <TextClock
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?attr/textAppearanceHeadlineLarge" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:paddingEnd="16dp"
+                android:clipToPadding="false"
                 android:paddingStart="16dp"
-                android:weightSum="4"
-                android:clipToPadding="false">
+                android:paddingEnd="16dp"
+                android:weightSum="4">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/sleep_button"
+                    android:id="@+id/sleepMaterialButton"
+                    style="@style/SystemOptionsButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="6dp"
                     android:layout_weight="2"
                     android:text="@string/sleep"
-                    app:icon="@drawable/ic_moon"
-                    style="@style/SystemOptionsButtonStyle" />
+                    app:icon="@drawable/ic_moon" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/settings_button"
+                    android:id="@+id/settingsMaterialButton"
+                    style="@style/SystemOptionsButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="6dp"
                     android:layout_weight="1"
                     app:icon="@drawable/ic_settings"
-                    app:iconPadding="0dp"
-                    style="@style/SystemOptionsButtonStyle" />
+                    app:iconPadding="0dp" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/power_button"
+                    android:id="@+id/powerMaterialButton"
+                    style="@style/SystemOptionsButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:icon="@drawable/ic_power"
-                    app:iconPadding="0dp"
-                    style="@style/SystemOptionsButtonStyle" />
+                    app:iconPadding="0dp" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
-                android:paddingEnd="16dp"
+                android:clipToPadding="false"
                 android:paddingStart="16dp"
-                android:clipToPadding="false">
+                android:paddingEnd="16dp">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/network_button"
+                    android:id="@+id/networkMaterialButton"
+                    style="@style/TwoLineSystemOptionsButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/network_status"
-                    android:layout_weight="1"
                     android:layout_marginEnd="6dp"
-                    app:icon="@drawable/ic_wifi_signal_3"
-                    style="@style/TwoLineSystemOptionsButtonStyle" />
+                    android:layout_weight="1"
+                    android:text="@string/network_status"
+                    app:icon="@drawable/ic_wifi_signal_3" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/bluetooth_button"
+                    android:id="@+id/bluetoothMaterialButton"
+                    style="@style/TwoLineSystemOptionsButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/bluetooth_status"
                     android:layout_weight="1"
-                    app:icon="@drawable/ic_bluetooth"
-                    style="@style/TwoLineSystemOptionsButtonStyle" />
+                    android:text="@string/bluetooth_status"
+                    app:icon="@drawable/ic_bluetooth" />
+
             </LinearLayout>
+
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:layout_marginTop="8dp"
             android:background="@drawable/notification_container"
-            android:clipToOutline="true">
+            android:clipToOutline="true"
+            android:gravity="center">
 
             <LinearLayout
-                android:id="@+id/no_notification_access"
+                android:id="@+id/noNotificationAccessLinearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintTop_toTopOf="parent">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAlignment="center"
                     android:text="@string/no_notification_access"
+                    android:textAlignment="center"
                     android:textAppearance="?attr/textAppearanceTitleMedium" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/allow_notification_access"
+                    android:id="@+id/allowNotificationAccessMaterialButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/allow_notification_access" />
+
             </LinearLayout>
 
             <TextView
-                android:id="@+id/no_notifications"
+                android:id="@+id/noNotificationsTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/no_notifications"
                 android:textAppearance="?attr/textAppearanceBody2"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.leanback.widget.VerticalGridView
-                android:id="@+id/notification_list"
+                android:id="@+id/notificationsVerticalGridView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingBottom="18dp"
                 android:paddingTop="14dp"
+                android:paddingBottom="18dp"
                 android:verticalSpacing="10dp"
                 app:focusOutEnd="true"
                 app:focusOutFront="true" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </LinearLayout>
+
 </LinearLayout>

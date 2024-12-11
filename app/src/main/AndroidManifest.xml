@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: 2024 The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingLeanbackLauncher"
     package="org.lineageos.tv.launcher">
-
-    <uses-feature
-        android:name="android.hardware.touchscreen"
-        android:required="false" />
-
-    <uses-feature
-        android:name="android.hardware.wifi"
-        android:required="false" />
 
     <uses-feature
         android:name="android.hardware.bluetooth"
@@ -19,6 +15,14 @@
     <uses-feature
         android:name="android.software.leanback"
         android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+
+    <uses-feature
+        android:name="android.hardware.wifi"
+        android:required="false" />
 
     <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
     <uses-permission android:name="android.permission.READ_TV_LISTINGS" />
@@ -75,6 +79,7 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
+
     </application>
 
 </manifest>

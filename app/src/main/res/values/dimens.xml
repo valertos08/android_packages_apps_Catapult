@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: 2024 The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
 <resources>
     <dimen name="app_card_height">71dp</dimen>
     <dimen name="app_card_width">127dp</dimen>

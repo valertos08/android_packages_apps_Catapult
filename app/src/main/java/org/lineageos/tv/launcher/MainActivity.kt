@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val assistantShowButton by lazy { findViewById<TextView>(R.id.assistant_title) }
     private val keyboardAssistantButton by lazy { findViewById<ImageButton>(R.id.keyboard_assistant) }
     private val mainVerticalGridView by lazy { findViewById<VerticalGridView>(R.id.main_vertical_grid) }
-    private val settingButton by lazy { findViewById<ImageButton>(R.id.settings_button) }
+    private val settingButton by lazy { findViewById<ImageButton>(R.id.settingsMaterialButton) }
     private val systemModalButton by lazy { findViewById<ImageButton>(R.id.system_modal_button) }
     private val topBarContainer by lazy { findViewById<LinearLayout>(R.id.top_bar) }
     private val voiceAssistantButton by lazy { findViewById<ImageButton>(R.id.voice_assistant) }

@@ -46,16 +46,16 @@ import java.util.Calendar
 class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
     NotificationAdapter.OnItemActionListener {
     // Views
-    private val dateTextView by lazy { findViewById<TextView>(R.id.date) }
-    private val sleepButton by lazy { findViewById<MaterialButton>(R.id.sleep_button) }
-    private val settingsButton by lazy { findViewById<MaterialButton>(R.id.settings_button) }
-    private val powerButton by lazy { findViewById<MaterialButton>(R.id.power_button) }
-    private val networkButton by lazy { findViewById<MaterialButton>(R.id.network_button) }
-    private val bluetoothButton by lazy { findViewById<MaterialButton>(R.id.bluetooth_button) }
-    private val notificationList by lazy { findViewById<VerticalGridView>(R.id.notification_list) }
-    private val noNotifications by lazy { findViewById<TextView>(R.id.no_notifications) }
-    private val noNotificationAccess by lazy { findViewById<LinearLayout>(R.id.no_notification_access) }
-    private val allowNotificationAccess by lazy { findViewById<MaterialButton>(R.id.allow_notification_access) }
+    private val allowNotificationAccessMaterialButton by lazy { findViewById<MaterialButton>(R.id.allowNotificationAccessMaterialButton) }
+    private val bluetoothMaterialButton by lazy { findViewById<MaterialButton>(R.id.bluetoothMaterialButton) }
+    private val dateTextView by lazy { findViewById<TextView>(R.id.dateTextView) }
+    private val networkMaterialButton by lazy { findViewById<MaterialButton>(R.id.networkMaterialButton) }
+    private val noNotificationAccessLinearLayout by lazy { findViewById<LinearLayout>(R.id.noNotificationAccessLinearLayout) }
+    private val noNotificationsTextView by lazy { findViewById<TextView>(R.id.noNotificationsTextView) }
+    private val notificationsVerticalGridView by lazy { findViewById<VerticalGridView>(R.id.notificationsVerticalGridView) }
+    private val powerMaterialButton by lazy { findViewById<MaterialButton>(R.id.powerMaterialButton) }
+    private val settingsButton by lazy { findViewById<MaterialButton>(R.id.settingsMaterialButton) }
+    private val sleepMaterialButton by lazy { findViewById<MaterialButton>(R.id.sleepMaterialButton) }
 
     private val colorStateList by lazy {
         ContextCompat.getColorStateList(
@@ -101,11 +101,11 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
             startActivity(SETTINGS)
         }
 
-        allowNotificationAccess.setOnClickListener {
+        allowNotificationAccessMaterialButton.setOnClickListener {
             startActivity(NOTIFICATION_SETTINGS)
         }
 
-        notificationList.adapter = notificationAdapter
+        notificationsVerticalGridView.adapter = notificationAdapter
 
         // WIFI callbacks
         val request = NetworkRequest.Builder()
@@ -117,9 +117,9 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
     override fun onStart() {
         super.onStart()
         if (!NotificationUtils.notificationPermissionGranted(this)) {
-            noNotificationAccess.visibility = View.VISIBLE
-            noNotifications.visibility = View.GONE
-            notificationList.visibility = View.GONE
+            noNotificationAccessLinearLayout.visibility = View.VISIBLE
+            noNotificationsTextView.visibility = View.GONE
+            notificationsVerticalGridView.visibility = View.GONE
             return
         }
 
@@ -131,9 +131,9 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
     override fun onResume() {
         super.onResume()
         if (NotificationUtils.notificationPermissionGranted(this)) {
-            noNotificationAccess.visibility = View.GONE
+            noNotificationAccessLinearLayout.visibility = View.GONE
         } else {
-            noNotificationAccess.visibility = View.VISIBLE
+            noNotificationAccessLinearLayout.visibility = View.VISIBLE
         }
     }
 
@@ -153,13 +153,14 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
             || !capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
         ) {
             // No internet connection
-            networkButton.icon =
+            networkMaterialButton.icon =
                 AppCompatResources.getDrawable(this, R.drawable.ic_wifi_not_connected)
             networkString = resources.getString(R.string.not_connected)
         } else {
             if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
                 // Ethernet connection
-                networkButton.icon = AppCompatResources.getDrawable(this, R.drawable.ic_ethernet)
+                networkMaterialButton.icon =
+                    AppCompatResources.getDrawable(this, R.drawable.ic_ethernet)
             }
 
             if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
@@ -169,23 +170,23 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
                     val wifiManager = getSystemService(WifiManager::class.java)
                     val wifiStrength = (wifiManager.calculateSignalLevel(wifiInfo.rssi)
                         .toFloat() / wifiManager.maxSignalLevel * wifiManager.maxSignalLevel).toInt()
-                    networkButton.icon =
+                    networkMaterialButton.icon =
                         AppCompatResources.getDrawable(this, wifiIcons[wifiStrength])
                 } else {
-                    networkButton.icon = AppCompatResources.getDrawable(this, wifiIcons[3])
+                    networkMaterialButton.icon = AppCompatResources.getDrawable(this, wifiIcons[3])
                 }
             }
         }
 
         val networkSpan =
             SpannableString(resources.getString(R.string.network_status, networkString))
-        networkButton.text = updateButton(networkSpan, false)
+        networkMaterialButton.text = updateButton(networkSpan, false)
 
-        networkButton.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            networkButton.text = updateButton(networkSpan, hasFocus)
+        networkMaterialButton.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            networkMaterialButton.text = updateButton(networkSpan, hasFocus)
         }
 
-        networkButton.setOnClickListener {
+        networkMaterialButton.setOnClickListener {
             startActivity(WIFI_SETTINGS)
         }
     }
@@ -198,13 +199,13 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
         }
 
         val btSpan = SpannableString(resources.getString(R.string.bluetooth_status, btString))
-        bluetoothButton.text = updateButton(btSpan, false)
+        bluetoothMaterialButton.text = updateButton(btSpan, false)
 
-        bluetoothButton.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            bluetoothButton.text = updateButton(btSpan, hasFocus)
+        bluetoothMaterialButton.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            bluetoothMaterialButton.text = updateButton(btSpan, hasFocus)
         }
 
-        bluetoothButton.setOnClickListener {
+        bluetoothMaterialButton.setOnClickListener {
             startActivity(BLUETOOTH_SETTINGS)
         }
     }
@@ -237,11 +238,11 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
                 }
             }
             notificationAdapter.submitList(statusBarNotifications)
-            noNotifications.visibility = View.GONE
-            notificationList.visibility = View.VISIBLE
+            noNotificationsTextView.visibility = View.GONE
+            notificationsVerticalGridView.visibility = View.VISIBLE
         } else {
-            noNotifications.visibility = View.VISIBLE
-            notificationList.visibility = View.GONE
+            noNotificationsTextView.visibility = View.VISIBLE
+            notificationsVerticalGridView.visibility = View.GONE
         }
     }
 

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: 2024 The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
 <resources>
-
     <style name="WatchNextCardTitle" parent="TextAppearance.Material3.TitleSmall">
         <item name="android:textAlignment">center</item>
         <item name="android:maxLines">1</item>
@@ -48,5 +51,4 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:focusable">false</item>
     </style>
-
 </resources>

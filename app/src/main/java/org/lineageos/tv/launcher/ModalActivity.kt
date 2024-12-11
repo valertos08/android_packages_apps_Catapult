@@ -16,11 +16,10 @@ abstract class ModalActivity(layout: Int) : AppCompatActivity(layout) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val layoutParams = window.attributes.apply {
+        window.attributes = window.attributes.apply {
             gravity = Gravity.TOP or Gravity.END
             width = WindowManager.LayoutParams.WRAP_CONTENT
             height = WindowManager.LayoutParams.MATCH_PARENT
         }
-        window.attributes = layoutParams
     }
 }
