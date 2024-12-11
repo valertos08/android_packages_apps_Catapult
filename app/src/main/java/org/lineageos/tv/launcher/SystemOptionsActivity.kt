@@ -9,6 +9,7 @@ import android.app.ActivityOptions
 import android.app.PendingIntent
 import android.bluetooth.BluetoothManager
 import android.content.Intent
+import android.content.pm.ApplicationInfo.FLAG_SYSTEM
 import android.icu.text.DateFormat
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -112,18 +113,23 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
 
         notificationsVerticalGridView.adapter = notificationAdapter
 
-        sleepMaterialButton.setOnClickListener {
-            val pm: PowerManager = getSystemService(PowerManager::class.java) as PowerManager
-            pm.goToSleep(
-                SystemClock.uptimeMillis(),
-                PowerManager.GO_TO_SLEEP_REASON_POWER_BUTTON,
-                0
-            )
-        }
+        if (isSystemApp()) {
+            sleepMaterialButton.setOnClickListener {
+                val pm: PowerManager = getSystemService(PowerManager::class.java) as PowerManager
+                pm.goToSleep(
+                    SystemClock.uptimeMillis(),
+                    PowerManager.GO_TO_SLEEP_REASON_POWER_BUTTON,
+                    0
+                )
+            }
 
-        powerMaterialButton.setOnClickListener {
-            val wm = WindowManagerGlobal.getWindowManagerService()
-            wm?.showGlobalActions()
+            powerMaterialButton.setOnClickListener {
+                val wm = WindowManagerGlobal.getWindowManagerService()
+                wm?.showGlobalActions()
+            }
+        } else {
+            sleepMaterialButton.visibility = View.GONE
+            powerMaterialButton.visibility = View.GONE
         }
 
         // WIFI callbacks
@@ -380,6 +386,10 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
         if (NotificationUtils.shouldAutoCancel(sbn.notification)) {
             notificationViewModel.cancelNotification(sbn.key)
         }
+    }
+
+    private fun isSystemApp(): Boolean {
+        return applicationInfo.flags and FLAG_SYSTEM != 0
     }
 
     companion object {
