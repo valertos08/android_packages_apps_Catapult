@@ -6,13 +6,9 @@
 package org.lineageos.tv.launcher
 
 import android.app.role.RoleManager
-import android.content.ComponentName
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.ServiceConnection
 import android.os.Bundle
-import android.os.IBinder
 import android.transition.Slide
 import android.transition.TransitionManager
 import android.view.Gravity
@@ -46,14 +42,16 @@ import org.lineageos.tv.launcher.model.AppInfo
 import org.lineageos.tv.launcher.model.InternalChannel
 import org.lineageos.tv.launcher.model.MainRowItem
 import org.lineageos.tv.launcher.notification.NotificationUtils
-import org.lineageos.tv.launcher.notification.TvNotificationListener
+import org.lineageos.tv.launcher.notification.ServiceConnectionState
 import org.lineageos.tv.launcher.utils.AppManager
 import org.lineageos.tv.launcher.utils.PermissionsGatedCallback
 import org.lineageos.tv.launcher.viewmodels.LauncherViewModel
+import org.lineageos.tv.launcher.viewmodels.NotificationViewModel
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     // View models
     private val model: LauncherViewModel by viewModels()
+    private val notificationViewModel: NotificationViewModel by viewModels()
 
     // Views
     private val assistantButtonsContainer by lazy { findViewById<LinearLayout>(R.id.assistant_buttons) }
@@ -81,10 +79,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val mainVerticalAdapter by lazy { MainVerticalAdapter() }
     private val watchNextAdapter by lazy { WatchNextAdapter() }
     private val previewChannelAdapters = mutableMapOf<Long, PreviewProgramsAdapter>()
-
-    private var notificationListener: TvNotificationListener? = null
-    private var notificationUpdateListener: TvNotificationListener.NotificationUpdateListener? =
-        null
 
     private val sharedPreferences by lazy {
         PreferenceManager.getDefaultSharedPreferences(this)
@@ -189,27 +183,58 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         settingButton.requestFocus()
 
         permissionsGatedCallback.runAfterPermissionsCheck()
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                notificationViewModel.state.collect { state ->
+                    when (state) {
+                        ServiceConnectionState.Connected -> {}
+                        ServiceConnectionState.Disconnected -> {
+                            systemModalButton.setImageDrawable(
+                                AppCompatResources.getDrawable(
+                                    this@MainActivity,
+                                    R.drawable.ic_bell
+                                )
+                            )
+                        }
+                        is ServiceConnectionState.Notifications -> {
+                            if (state.notifications.isNotEmpty()) {
+                                systemModalButton.setImageDrawable(
+                                    AppCompatResources.getDrawable(
+                                        this@MainActivity,
+                                        R.drawable.ic_bell_active
+                                    )
+                                )
+                            } else {
+                                systemModalButton.setImageDrawable(
+                                    AppCompatResources.getDrawable(
+                                        this@MainActivity,
+                                        R.drawable.ic_bell
+                                    )
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     override fun onStart() {
         super.onStart()
         if (NotificationUtils.notificationPermissionGranted(this)) {
-            val intent = Intent(this, TvNotificationListener::class.java)
-            intent.setAction(TvNotificationListener.ACTION_LOCAL_BINDING)
-            bindService(intent, notificationListenerConnectionListener, Context.BIND_AUTO_CREATE)
+            notificationViewModel.bindService(this)
         }
     }
 
     override fun onResume() {
         super.onResume()
-        if (NotificationUtils.notificationPermissionGranted(this)) {
-            setNotificationIcon()
-        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        notificationListener?.removeNotificationUpdateListener(notificationUpdateListener)
+
+        notificationViewModel.unbindService(this)
     }
 
     private fun setupAssistantButtons(assistIntent: Intent) {
@@ -277,35 +302,4 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 }
         }
     }
-
-    private fun setNotificationIcon() {
-        val hasActiveNotifications = notificationListener?.getNotifications()?.isNotEmpty() ?: false
-        if (hasActiveNotifications) {
-            systemModalButton.setImageDrawable(
-                AppCompatResources.getDrawable(this, R.drawable.ic_bell_active)
-            )
-        } else {
-            systemModalButton.setImageDrawable(
-                AppCompatResources.getDrawable(this, R.drawable.ic_bell)
-            )
-        }
-    }
-
-    private val notificationListenerConnectionListener: ServiceConnection =
-        object : ServiceConnection {
-            override fun onServiceConnected(className: ComponentName, binder: IBinder) {
-                notificationListener = (binder as TvNotificationListener.LocalBinder).getService()
-                setNotificationIcon()
-
-                notificationUpdateListener =
-                    object : TvNotificationListener.NotificationUpdateListener {
-                        override fun onNotificationsChanged() {
-                            setNotificationIcon()
-                        }
-                    }
-                notificationListener?.addNotificationUpdateListener(notificationUpdateListener)
-            }
-
-            override fun onServiceDisconnected(name: ComponentName?) {}
-        }
 }

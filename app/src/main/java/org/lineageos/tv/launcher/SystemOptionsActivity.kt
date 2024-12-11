@@ -8,10 +8,7 @@ package org.lineageos.tv.launcher
 import android.app.ActivityOptions
 import android.app.PendingIntent
 import android.bluetooth.BluetoothManager
-import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
-import android.content.ServiceConnection
 import android.icu.text.DateFormat
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -20,7 +17,6 @@ import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Bundle
-import android.os.IBinder
 import android.provider.Settings
 import android.service.notification.StatusBarNotification
 import android.text.Spannable
@@ -31,23 +27,29 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.leanback.widget.VerticalGridView
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.launch
 import org.lineageos.tv.launcher.ext.NetworkState
 import org.lineageos.tv.launcher.ext.networkCallbackFlow
 import org.lineageos.tv.launcher.notification.NotificationAdapter
 import org.lineageos.tv.launcher.notification.NotificationUtils
-import org.lineageos.tv.launcher.notification.TvNotificationListener
+import org.lineageos.tv.launcher.notification.ServiceConnectionState
 import org.lineageos.tv.launcher.view.NotificationItemView
+import org.lineageos.tv.launcher.viewmodels.NotificationViewModel
 import java.util.Calendar
-
 
 class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
     NotificationAdapter.OnItemActionListener {
+    // View model
+    private val notificationViewModel: NotificationViewModel by viewModels()
+
     // Views
     private val allowNotificationAccessMaterialButton by lazy { findViewById<MaterialButton>(R.id.allowNotificationAccessMaterialButton) }
     private val bluetoothMaterialButton by lazy { findViewById<MaterialButton>(R.id.bluetoothMaterialButton) }
@@ -67,10 +69,7 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
         )
     }
 
-    private var notificationListener: TvNotificationListener? = null
     private val notificationAdapter: NotificationAdapter by lazy { NotificationAdapter(this, this) }
-    private var notificationUpdateListener: TvNotificationListener.NotificationUpdateListener? =
-        null
 
     private val connectivityManager by lazy { getSystemService(ConnectivityManager::class.java) }
 
@@ -134,6 +133,49 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
                 }
             }
         }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                notificationViewModel.state.collect { state ->
+                    when (state) {
+                        is ServiceConnectionState.Connected -> {
+                            // Ignore
+                        }
+
+                        is ServiceConnectionState.Disconnected -> {
+                            if (NotificationUtils.notificationPermissionGranted(this@SystemOptionsActivity)) {
+                                notificationAdapter.submitList(emptyList())
+                                noNotificationsTextView.visibility = View.VISIBLE
+                            } else {
+                                noNotificationAccessLinearLayout.visibility = View.VISIBLE
+                                noNotificationsTextView.visibility = View.GONE
+                            }
+                            notificationsVerticalGridView.visibility = View.GONE
+                        }
+
+                        is ServiceConnectionState.Notifications -> {
+                            if (state.notifications.isEmpty() || state.currentRanking == null) {
+                                noNotificationsTextView.visibility = View.VISIBLE
+                                notificationsVerticalGridView.visibility = View.GONE
+                                return@collect
+                            }
+
+                            val statusBarNotifications = ArrayList<StatusBarNotification>()
+                            for (key in state.currentRanking.orderedKeys) {
+                                val sbn: StatusBarNotification? = state.notifications[key]
+                                if (sbn != null) {
+                                    statusBarNotifications.add(sbn)
+                                }
+                            }
+
+                            notificationAdapter.submitList(statusBarNotifications)
+                            noNotificationsTextView.visibility = View.GONE
+                            notificationsVerticalGridView.visibility = View.VISIBLE
+                        }
+                    }
+                }
+            }
+        }
     }
 
     override fun onStart() {
@@ -145,9 +187,7 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
             return
         }
 
-        val intent = Intent(this, TvNotificationListener::class.java)
-        intent.setAction(TvNotificationListener.ACTION_LOCAL_BINDING)
-        bindService(intent, notificationListenerConnectionListener, Context.BIND_AUTO_CREATE)
+        notificationViewModel.bindService(this)
     }
 
     override fun onResume() {
@@ -161,7 +201,7 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
 
     override fun onDestroy() {
         super.onDestroy()
-        notificationListener?.removeNotificationUpdateListener(notificationUpdateListener)
+        notificationViewModel.unbindService(this)
     }
 
     private fun setNetworkButton(
@@ -250,46 +290,6 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
         return content
     }
 
-    private fun loadNotifications() {
-        val notifications = notificationListener?.getNotifications()
-        val ranking = notificationListener?.currentRanking
-        if (!notifications.isNullOrEmpty() && ranking != null) {
-            val statusBarNotifications = ArrayList<StatusBarNotification>()
-            for (key in ranking.orderedKeys) {
-                val sbn: StatusBarNotification? = notifications[key]
-                if (sbn != null) {
-                    statusBarNotifications.add(sbn)
-                }
-            }
-            notificationAdapter.submitList(statusBarNotifications)
-            noNotificationsTextView.visibility = View.GONE
-            notificationsVerticalGridView.visibility = View.VISIBLE
-        } else {
-            noNotificationsTextView.visibility = View.VISIBLE
-            notificationsVerticalGridView.visibility = View.GONE
-        }
-    }
-
-    private val notificationListenerConnectionListener: ServiceConnection =
-        object : ServiceConnection {
-            override fun onServiceConnected(className: ComponentName, binder: IBinder) {
-                notificationListener = (binder as TvNotificationListener.LocalBinder).getService()
-                loadNotifications()
-
-                notificationUpdateListener =
-                    object : TvNotificationListener.NotificationUpdateListener {
-                        override fun onNotificationsChanged() {
-                            loadNotifications()
-                        }
-                    }
-                notificationListener?.addNotificationUpdateListener(notificationUpdateListener)
-            }
-
-            override fun onServiceDisconnected(className: ComponentName) {
-                notificationListener = null
-            }
-        }
-
     override fun onItemClick(view: NotificationItemView) {
         val notification = view.statusBarNotification?.notification ?: return
         try {
@@ -359,7 +359,7 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
 
     private fun cancelNotification(sbn: StatusBarNotification) {
         if (NotificationUtils.shouldAutoCancel(sbn.notification)) {
-            notificationListener?.cancelNotification(sbn.key)
+            notificationViewModel.cancelNotification(sbn.key)
         }
     }
 
