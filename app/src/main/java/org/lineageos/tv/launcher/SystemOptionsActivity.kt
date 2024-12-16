@@ -369,8 +369,9 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
                 if (view.swipeStatus != NotificationItemView.SwipeStatus.NONE) {
                     view.resetState()
                     view.statusBarNotification?.let { cancelNotification(it) }
+                    return true
                 }
-                return true
+                return false
             }
 
             else -> {
