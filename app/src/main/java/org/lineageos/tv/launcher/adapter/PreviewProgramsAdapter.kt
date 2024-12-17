@@ -37,7 +37,6 @@ class PreviewProgramsAdapter :
                 val context = watchNextCard.context
 
                 context.startActivity(watchNextCard.launchIntent)
-                Toast.makeText(context, watchNextCard.label, Toast.LENGTH_SHORT).show()
             }
         }
 

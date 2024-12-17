@@ -46,7 +46,6 @@ abstract class TvAdapter<L : Launchable, C : Card> : ListAdapter<L, TvAdapter<L,
     open fun handleClick(card: C) {
         val context = card.context
         context.startActivity(card.launchIntent)
-        Toast.makeText(context, card.label, Toast.LENGTH_SHORT).show()
     }
 
     open fun handleLongClick(card: C) = false

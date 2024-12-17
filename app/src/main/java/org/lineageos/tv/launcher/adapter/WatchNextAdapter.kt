@@ -34,7 +34,6 @@ class WatchNextAdapter : ListAdapter<WatchNextProgram, WatchNextAdapter.ViewHold
                 val context = card.context
 
                 context.startActivity(card.launchIntent)
-                Toast.makeText(context, card.label, Toast.LENGTH_SHORT).show()
             }
         }
 
