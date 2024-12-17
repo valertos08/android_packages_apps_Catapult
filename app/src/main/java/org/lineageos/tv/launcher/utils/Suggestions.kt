@@ -35,6 +35,11 @@ object Suggestions {
             return previewChannel.displayName.toString()
         }
 
+        // Avoid having "appName: appName" in the list title
+        if (appName == previewChannel.displayName) {
+            return appName
+        }
+
         return context.resources.getString(
             R.string.channel_title, appName, previewChannel.displayName
         )
