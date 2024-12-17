@@ -9,7 +9,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
+import com.google.android.material.materialswitch.MaterialSwitch
 import org.lineageos.tv.launcher.R
 import org.lineageos.tv.launcher.ext.getAttributeResourceId
 import org.lineageos.tv.launcher.model.Launchable
@@ -18,7 +18,7 @@ class AddFavoriteCard @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : Card(context, attrs, defStyleAttr) {
     // Views
-    private val actionIconView by lazy { findViewById<ImageView>(R.id.action_image)!! }
+    private val stateSwitch by lazy { findViewById<MaterialSwitch>(R.id.state_switch)!! }
     private val iconView by lazy { findViewById<ImageView>(R.id.app_icon)!! }
     private val nameView by lazy { findViewById<TextView>(R.id.app_name)!! }
 
@@ -30,15 +30,7 @@ class AddFavoriteCard @JvmOverloads constructor(
     }
 
     fun setActionToggle(favorite: Boolean) {
-        actionIconView.setImageDrawable(
-            AppCompatResources.getDrawable(
-                context,
-                when (favorite) {
-                    true -> R.drawable.ic_remove
-                    false -> R.drawable.ic_add
-                }
-            )
-        )
+        stateSwitch.isChecked = favorite
     }
 
     override fun setCardInfo(appInfo: Launchable) {

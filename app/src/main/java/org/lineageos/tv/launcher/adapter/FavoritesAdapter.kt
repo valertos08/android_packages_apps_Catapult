@@ -136,7 +136,7 @@ class FavoritesAdapter : TvAdapter<Launchable, FavoriteCard>() {
 
         fun createAddFavoriteEntry(context: Context): Launchable {
             return ActivityLauncher(
-                context.getString(R.string.new_favorite),
+                context.getString(R.string.modify_favorites_short),
                 AppCompatResources.getDrawable(context, R.drawable.ic_add)!!,
                 context,
                 Intent(context, AddFavoriteActivity::class.java)

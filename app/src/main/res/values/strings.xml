@@ -10,7 +10,7 @@
     <string name="other_apps">Other Apps</string>
     <string name="uninstall">Uninstall</string>
     <string name="mark_as_favorite">Mark as Favorite</string>
-    <string name="new_favorite">Add new</string>
+    <string name="modify_favorites_short">Modify favorites</string>
     <string name="move">Move</string>
     <string name="remove_favorite">Remove favorite</string>
     <string name="watch_next">Watch next</string>
