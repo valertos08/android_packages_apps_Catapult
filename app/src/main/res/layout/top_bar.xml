@@ -35,29 +35,15 @@
 
         <ImageButton
             android:id="@+id/voice_assistant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:backgroundTint="?attr/colorSecondaryContainer"
             android:contentDescription="@string/settings"
-            android:padding="4dp"
             android:src="@drawable/ic_mic"
-            android:stateListAnimator="@animator/app_card_state_animator"
-            app:tint="@color/settings_color" />
+            style="@style/TopBarImageButton" />
 
         <ImageButton
             android:id="@+id/keyboard_assistant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:backgroundTint="?attr/colorSecondaryContainer"
             android:contentDescription="@string/settings"
-            android:padding="4dp"
             android:src="@drawable/ic_keyboard"
-            android:stateListAnimator="@animator/app_card_state_animator"
-            app:tint="@color/settings_color" />
+            style="@style/TopBarImageButton" />
 
     </LinearLayout>
 
@@ -75,29 +61,15 @@
 
         <ImageButton
             android:id="@+id/system_modal_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:backgroundTint="?attr/colorSecondaryContainer"
             android:contentDescription="@string/system_modal"
-            android:padding="4dp"
             android:src="@drawable/ic_bell"
-            android:stateListAnimator="@animator/app_card_state_animator"
-            app:tint="@color/settings_color" />
+            style="@style/TopBarImageButton" />
 
         <ImageButton
             android:id="@+id/settingsMaterialButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:backgroundTint="?attr/colorSecondaryContainer"
             android:contentDescription="@string/settings"
-            android:padding="4dp"
             android:src="@drawable/ic_settings"
-            android:stateListAnimator="@animator/app_card_state_animator"
-            app:tint="@color/settings_color" />
+            style="@style/TopBarImageButton" />
 
     </LinearLayout>
 
