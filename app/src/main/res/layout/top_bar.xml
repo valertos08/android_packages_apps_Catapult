@@ -24,7 +24,7 @@
         android:drawablePadding="12dp"
         android:focusable="true"
         android:text="@string/search"
-        android:textAppearance="?attr/textAppearanceTitleLarge"
+        android:textAppearance="?attr/textAppearanceTitleMedium"
         app:drawableStartCompat="@drawable/ic_google_assistant" />
 
     <LinearLayout
