@@ -224,7 +224,9 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
 
     override fun onDestroy() {
         super.onDestroy()
-        notificationViewModel.unbindService(this)
+        if (NotificationUtils.notificationPermissionGranted(this)) {
+            notificationViewModel.unbindService(this)
+        }
     }
 
     private fun setNetworkButton(

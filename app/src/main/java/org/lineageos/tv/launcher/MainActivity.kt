@@ -234,7 +234,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onDestroy() {
         super.onDestroy()
 
-        notificationViewModel.unbindService(this)
+        if (NotificationUtils.notificationPermissionGranted(this)) {
+            notificationViewModel.unbindService(this)
+        }
     }
 
     private fun setupAssistantButtons(assistIntent: Intent) {
