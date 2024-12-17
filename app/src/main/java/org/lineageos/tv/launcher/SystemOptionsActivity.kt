@@ -346,6 +346,10 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
             return false
         }
 
+        if (view.statusBarNotification?.isOngoing == true) {
+            return false
+        }
+
         when (keyCode) {
             KeyEvent.KEYCODE_DPAD_LEFT -> {
                 if (view.swipeStatus == NotificationItemView.SwipeStatus.LEFT) {
