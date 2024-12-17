@@ -237,7 +237,9 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
                     networkMaterialButton.icon =
                         AppCompatResources.getDrawable(this, wifiIcons[wifiStrength])
                 } else {
-                    networkMaterialButton.icon = AppCompatResources.getDrawable(this, wifiIcons[3])
+                    networkMaterialButton.icon =
+                        AppCompatResources.getDrawable(this, R.drawable.ic_wifi_not_connected)
+                    networkString = resources.getString(R.string.not_connected)
                 }
             }
         }
