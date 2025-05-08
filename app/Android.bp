@@ -38,8 +38,9 @@ android_app {
         "androidx.lifecycle_lifecycle-runtime-ktx",
         "androidx.preference_preference",
         "androidx.tvprovider_tvprovider",
-        "com.google.android.material_material",
+        "Catapult_com.google.android.material_material",
         "Catapult_io.coil-kt_coil",
+        "Catapult_io.coil-kt_coil-base",
         "kotlin-stdlib",
     ] + ["SettingsLib"],
 }
