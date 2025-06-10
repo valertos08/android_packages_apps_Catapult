@@ -41,6 +41,7 @@ android_app {
         "Catapult_com.google.android.material_material",
         "Catapult_io.coil-kt_coil",
         "Catapult_io.coil-kt_coil-base",
+        "Catapult_com.squareup.okhttp3_okhttp",
         "kotlin-stdlib",
     ] + ["SettingsLib"],
 }
