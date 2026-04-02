@@ -15,50 +15,38 @@
         android:layout_height="wrap_content"
         android:text="@string/appearance" />
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/background_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:paddingTop="24dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="8dp"
-        android:text="@string/background"
-        android:textColor="?attr/colorOnSurface"
-        android:textSize="14sp"
-        android:textStyle="bold" />
-
-    <RadioGroup
-        android:id="@+id/background_type_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="16dp">
-
-        <RadioButton
-            android:id="@+id/background_default"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="@string/background_default"
-            android:textColor="?attr/colorOnSurface" />
-
-        <RadioButton
-            android:id="@+id/background_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="@string/background_image"
-            android:textColor="?attr/colorOnSurface" />
-
-    </RadioGroup>
-
-    <TextView
-        android:id="@+id/select_image_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:padding="16dp"
-        android:text="@string/select_image"
-        android:textColor="?attr/colorPrimary"
         android:background="?attr/selectableItemBackground"
-        android:visibility="gone" />
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_wallpaper"
+            android:tint="?attr/colorOnSurface"
+            android:contentDescription="@string/background" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:text="@string/background"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_arrow_right"
+            android:tint="?attr/colorOnSurface"
+            android:contentDescription="@null" />
+
+    </LinearLayout>
 
 </LinearLayout>
