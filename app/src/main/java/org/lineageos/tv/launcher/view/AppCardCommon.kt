@@ -6,6 +6,9 @@
 package org.lineageos.tv.launcher.view
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
@@ -108,6 +111,14 @@ abstract class AppCardCommon @JvmOverloads constructor(
 
                 R.id.menu_move -> {
                     FavoriteCard::class.safeCast(this)?.setMoving()
+                    true
+                }
+
+                R.id.menu_app_info -> {
+                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                        data = Uri.fromParts("package", packageName, null)
+                    }
+                    context.startActivity(intent)
                     true
                 }
 
