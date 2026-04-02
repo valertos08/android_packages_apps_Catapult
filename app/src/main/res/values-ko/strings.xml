@@ -38,4 +38,12 @@
     <string name="connected">연결됨</string>
     <string name="mic_assistant">마이크를 사용하여 검색</string>
     <string name="keyboard_assistant">키보드를 사용하여 검색</string>
+    <string name="system_settings">시스템 설정</string>
+    <string name="launcher_settings">런처 설정</string>
+    <string name="appearance">외관</string>
+    <string name="background">배경</string>
+    <string name="background_default">기본값</string>
+    <string name="background_image">이미지</string>
+    <string name="select_image">이미지 선택</string>
+    <string name="selected_image">이미지 선택됨</string>
 </resources>

@@ -38,4 +38,12 @@
     <string name="connected">Connectat</string>
     <string name="mic_assistant">Cerca utilitzant el micròfon</string>
     <string name="keyboard_assistant">Cerca utilitzant el teclat</string>
+    <string name="system_settings">Configuració del sistema</string>
+    <string name="launcher_settings">Configuració del launcher</string>
+    <string name="appearance">Aparença</string>
+    <string name="background">Fons</string>
+    <string name="background_default">Predeterminat</string>
+    <string name="background_image">Imatge</string>
+    <string name="select_image">Seleccionar imatge</string>
+    <string name="selected_image">Imatge seleccionat</string>
 </resources>

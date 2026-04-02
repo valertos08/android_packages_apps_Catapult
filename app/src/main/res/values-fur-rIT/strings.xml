@@ -38,4 +38,6 @@
     <string name="connected">Conetût</string>
     <string name="mic_assistant">Cîr doprant il microfon</string>
     <string name="keyboard_assistant">Cîr doprant la tastiere</string>
+    <string name="system_settings">Impostazions dal sisteme</string>
+    <string name="launcher_settings">Impostazions dal launcher</string>
 </resources>

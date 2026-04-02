@@ -37,4 +37,12 @@
     <string name="connected">Verbunden</string>
     <string name="mic_assistant">Suche mittels Mikrofon</string>
     <string name="keyboard_assistant">Suche mittels Tastatur</string>
+    <string name="system_settings">Systemeinstellungen</string>
+    <string name="launcher_settings">Launcher-Einstellungen</string>
+    <string name="appearance">Erscheinungsbild</string>
+    <string name="background">Hintergrund</string>
+    <string name="background_default">Standard</string>
+    <string name="background_image">Bild</string>
+    <string name="select_image">Bild auswählen</string>
+    <string name="selected_image">Bild ausgewählt</string>
 </resources>

@@ -38,4 +38,9 @@
     <string name="connected">已連線</string>
     <string name="mic_assistant">使用麥克風搜尋</string>
     <string name="keyboard_assistant">使用鍵盤搜尋</string>
+    <string name="system_settings">系統設定</string>
+    <string name="launcher_settings">啟動器設定</string>
+    <string name="appearance">外觀</string>
+    <string name="background">背景</string>
+    <string name="background_default">預設</string>
 </resources>

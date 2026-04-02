@@ -7,4 +7,6 @@
     <string name="settings">Configuración</string>
     <string name="all_apps">Toles aplicaciones</string>
     <string name="system_modal">Opciones del sistema</string>
+    <string name="system_settings">Configuración del sistema</string>
+    <string name="launcher_settings">Configuración del launcher</string>
 </resources>

@@ -87,6 +87,14 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".LauncherSettingsActivity"
+            android:theme="@style/Theme.Catapult.SideActivity" />
+
+        <activity
+            android:name=".AppearanceActivity"
+            android:theme="@style/Theme.Catapult.SideActivity" />
+
         <service
             android:name=".notification.TvNotificationListener"
             android:exported="false"

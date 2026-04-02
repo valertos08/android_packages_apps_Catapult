@@ -35,4 +35,12 @@
     <string name="connected">Lidhur</string>
     <string name="mic_assistant">Kërko duke përdorur mikrofonin</string>
     <string name="keyboard_assistant">Kërko duke përdorur tastjerën</string>
+    <string name="system_settings">cilësimet e sistemit</string>
+    <string name="launcher_settings">cilësimet e launcher</string>
+    <string name="appearance">Pamja</string>
+    <string name="background">Sfond</string>
+    <string name="background_default">Parazgjedhur</string>
+    <string name="background_image">Imazh</string>
+    <string name="select_image">Zgjidh imazhin</string>
+    <string name="selected_image">Imazhi u zgjedh</string>
 </resources>

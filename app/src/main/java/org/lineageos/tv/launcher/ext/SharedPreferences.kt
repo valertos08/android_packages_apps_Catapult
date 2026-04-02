@@ -77,3 +77,27 @@ var SharedPreferences.homeRoleRequestDialogDismissed: Boolean
     set(value) = edit {
         putBoolean(HOME_ROLE_REQUEST_DIALOG_DISMISSED, value)
     }
+
+const val BACKGROUND_TYPE_KEY = "background_type"
+
+var SharedPreferences.backgroundType: Int
+    get() = getInt(BACKGROUND_TYPE_KEY, 0)
+    set(value) = edit {
+        putInt(BACKGROUND_TYPE_KEY, value)
+    }
+
+const val BACKGROUND_COLOR_KEY = "background_color"
+
+var SharedPreferences.backgroundColor: Int
+    get() = getInt(BACKGROUND_COLOR_KEY, -1)
+    set(value) = edit {
+        putInt(BACKGROUND_COLOR_KEY, value)
+    }
+
+const val BACKGROUND_IMAGE_URI_KEY = "background_image_uri"
+
+var SharedPreferences.backgroundImageUri: String?
+    get() = getString(BACKGROUND_IMAGE_URI_KEY, null)
+    set(value) = edit {
+        putString(BACKGROUND_IMAGE_URI_KEY, value)
+    }

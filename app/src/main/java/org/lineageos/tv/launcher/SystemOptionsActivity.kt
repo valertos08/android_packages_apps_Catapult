@@ -23,7 +23,7 @@ import android.os.SystemClock
 import android.provider.Settings
 import android.service.notification.StatusBarNotification
 import android.text.SpannableString
-import android.util.Log
+import android.graphics.Rect
 import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManagerGlobal
@@ -32,6 +32,7 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.leanback.widget.VerticalGridView
+import androidx.recyclerview.widget.RecyclerView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -60,10 +61,13 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
     private val networkTwoLineButton by lazy { findViewById<TwoLineButton>(R.id.networkTwoLineButton)!! }
     private val noNotificationAccessLinearLayout by lazy { findViewById<LinearLayout>(R.id.noNotificationAccessLinearLayout)!! }
     private val noNotificationsTextView by lazy { findViewById<TextView>(R.id.noNotificationsTextView)!! }
+    private val notificationsInnerContainer by lazy { findViewById<View>(R.id.notificationsInnerContainer)!! }
     private val notificationsVerticalGridView by lazy { findViewById<VerticalGridView>(R.id.notificationsVerticalGridView)!! }
     private val powerMaterialButton by lazy { findViewById<MaterialButton>(R.id.powerMaterialButton)!! }
+    private val quickSettingsContainer by lazy { findViewById<LinearLayout>(R.id.quickSettingsContainer)!! }
     private val settingsButton by lazy { findViewById<MaterialButton>(R.id.settingsMaterialButton)!! }
     private val sleepMaterialButton by lazy { findViewById<MaterialButton>(R.id.sleepMaterialButton)!! }
+    private val topContainer by lazy { findViewById<LinearLayout>(R.id.topContainer)!! }
 
     private val notificationAdapter: NotificationAdapter by lazy { NotificationAdapter(this, this) }
 
@@ -123,7 +127,14 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
             sleepMaterialButton.visibility = View.GONE
             powerMaterialButton.visibility = View.GONE
         }
-
+        
+        // Also check when focus enters the grid
+        notificationsVerticalGridView.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                checkTopContainerVisibility()
+            }
+        }
+        
         // WIFI callbacks
         val request = NetworkRequest.Builder()
             .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
@@ -197,6 +208,71 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
         }
     }
 
+    private val notificationsContainer by lazy { findViewById<View>(R.id.notificationsContainer)!! }
+
+    private var isTopContainerHidden = false
+    private var originalTopContainerHeight = 0
+
+    private fun hideTopContainer() {
+        if (isTopContainerHidden) return
+        isTopContainerHidden = true
+        
+        val targetHeight = if (topContainer.height > 0) topContainer.height else 300
+        originalTopContainerHeight = targetHeight
+        
+        topContainer.animate()
+            .translationY(-targetHeight.toFloat())
+            .alpha(0f)
+            .setDuration(200)
+            .withEndAction {
+                topContainer.layoutParams.height = 0
+                topContainer.requestLayout()
+            }
+            .start()
+    }
+
+    private fun showTopContainer() {
+        if (!isTopContainerHidden) return
+        isTopContainerHidden = false
+        
+        topContainer.layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
+        topContainer.requestLayout()
+        
+        val restoredHeight = if (topContainer.height > 0) topContainer.height else originalTopContainerHeight
+        if (restoredHeight > 0) {
+            topContainer.translationY = -restoredHeight.toFloat()
+            topContainer.alpha = 0f
+            topContainer.animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setDuration(200)
+                .start()
+        }
+    }
+
+    private fun updateTopContainerVisibility() {
+        val firstChild = notificationsVerticalGridView.getChildAt(0)
+        val position = if (firstChild != null) {
+            notificationsVerticalGridView.getChildAdapterPosition(firstChild)
+        } else {
+            -1
+        }
+        if (position >= 2 || position < 0) {
+            hideTopContainer()
+        } else {
+            showTopContainer()
+        }
+    }
+
+    private fun checkTopContainerVisibility() {
+        val position = notificationsVerticalGridView.selectedPosition
+        if (position >= 2) {
+            hideTopContainer()
+        } else {
+            showTopContainer()
+        }
+    }
+
     override fun onStart() {
         super.onStart()
         if (!NotificationUtils.notificationPermissionGranted(this)) {
@@ -216,6 +292,19 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
         } else {
             noNotificationAccessLinearLayout.visibility = View.VISIBLE
         }
+    }
+
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        if (event.action == KeyEvent.ACTION_DOWN) {
+            when (event.keyCode) {
+                KeyEvent.KEYCODE_DPAD_DOWN, KeyEvent.KEYCODE_DPAD_UP -> {
+                    notificationsVerticalGridView.post {
+                        checkTopContainerVisibility()
+                    }
+                }
+            }
+        }
+        return super.dispatchKeyEvent(event)
     }
 
     override fun onDestroy() {
@@ -304,10 +393,7 @@ class SystemOptionsActivity : ModalActivity(R.layout.activity_system_options),
                 }
             }
         } catch (e: PendingIntent.CanceledException) {
-            Log.d(
-                "SystemOptionsActivity",
-                "Pending intent canceled for : ${notification.contentIntent}"
-            )
+            // Pending intent canceled
         }
     }
 

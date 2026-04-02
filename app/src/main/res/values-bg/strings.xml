@@ -38,4 +38,12 @@
     <string name="connected">Свързано</string>
     <string name="mic_assistant">Търсене с микрофон</string>
     <string name="keyboard_assistant">Търсене с клавиатура</string>
+    <string name="system_settings">Системни настройки</string>
+    <string name="launcher_settings">Настройки на лаунчъра</string>
+    <string name="appearance">Външен вид</string>
+    <string name="background">Фон</string>
+    <string name="background_default">По подразбиране</string>
+    <string name="background_image">Изображение</string>
+    <string name="select_image">Изберете изображение</string>
+    <string name="selected_image">Изображението е избрано</string>
 </resources>

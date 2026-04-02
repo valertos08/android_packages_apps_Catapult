@@ -38,4 +38,12 @@
     <string name="connected">Đã kết nối</string>
     <string name="mic_assistant">Tìm kiếm bằng micrô</string>
     <string name="keyboard_assistant">Tìm kiếm bằng bàn phím</string>
+    <string name="system_settings">Cài đặt hệ thống</string>
+    <string name="launcher_settings">Cài đặt launcher</string>
+    <string name="appearance">Giao diện</string>
+    <string name="background">Nền</string>
+    <string name="background_default">Mặc định</string>
+    <string name="background_image">Hình ảnh</string>
+    <string name="select_image">Chọn hình ảnh</string>
+    <string name="selected_image">Đã chọn hình ảnh</string>
 </resources>

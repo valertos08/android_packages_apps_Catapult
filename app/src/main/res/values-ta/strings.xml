@@ -38,4 +38,12 @@
     <string name="connected">இணைக்கப்பட்டது</string>
     <string name="mic_assistant">ஒலிவாங்கியைப் பயன்படுத்தித் தேடுக</string>
     <string name="keyboard_assistant">விசைப்பலகையைப் பயன்படுத்தித் தேடுக</string>
+    <string name="system_settings">அமைப்புகள்</string>
+    <string name="launcher_settings">இயக்கி அமைப்புகள்</string>
+    <string name="appearance">தோற்றம்</string>
+    <string name="background">பின்னணி</string>
+    <string name="background_default">இயல்புநிலை</string>
+    <string name="background_image">படம்</string>
+    <string name="select_image">படத்தை தேர்வு செய்யவும்</string>
+    <string name="selected_image">படம் தேர்ந்தெடுக்கப்பட்டது</string>
 </resources>

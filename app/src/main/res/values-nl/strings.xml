@@ -35,4 +35,12 @@
     <string name="connected">Verbonden</string>
     <string name="mic_assistant">Zoek met behulp van microfoon</string>
     <string name="keyboard_assistant">Zoeken met behulp van toetsenbord</string>
+    <string name="system_settings">Systeeminstellingen</string>
+    <string name="launcher_settings">Launcher-instellingen</string>
+    <string name="appearance">Uiterlijk</string>
+    <string name="background">Achtergrond</string>
+    <string name="background_default">Standaard</string>
+    <string name="background_image">Afbeelding</string>
+    <string name="select_image">Selecteer afbeelding</string>
+    <string name="selected_image">Afbeelding geselecteerd</string>
 </resources>

@@ -38,4 +38,6 @@
     <string name="connected">Connected</string>
     <string name="mic_assistant">Search using microphone</string>
     <string name="keyboard_assistant">Search using keyboard</string>
+    <string name="system_settings">System settings</string>
+    <string name="launcher_settings">Launcher settings</string>
 </resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: 2024-2025 The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_system_settings"
+        android:title="@string/system_settings" />
+    <item
+        android:id="@+id/menu_launcher_settings"
+        android:title="@string/launcher_settings" />
+</menu>

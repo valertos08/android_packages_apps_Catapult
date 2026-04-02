@@ -38,4 +38,12 @@
     <string name="connected">已连接</string>
     <string name="mic_assistant">使用麦克风搜索</string>
     <string name="keyboard_assistant">使用键盘搜索</string>
+    <string name="system_settings">系统设置</string>
+    <string name="launcher_settings">启动器设置</string>
+    <string name="appearance">外观</string>
+    <string name="background">背景</string>
+    <string name="background_default">默认</string>
+    <string name="background_image">图像</string>
+    <string name="select_image">选择图像</string>
+    <string name="selected_image">图像已选择</string>
 </resources>
