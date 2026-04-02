@@ -56,4 +56,5 @@
     <string name="background_image">Image</string>
     <string name="select_image">Select image</string>
     <string name="selected_image">Image selected</string>
+    <string name="app_info">Информация о приложении</string>
 </resources>

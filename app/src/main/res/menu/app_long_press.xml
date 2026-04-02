@@ -5,6 +5,12 @@
 -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/menu_app_info"
+        android:icon="@drawable/ic_info"
+        android:iconTint="@android:color/white"
+        android:title="@string/app_info" />
+
+    <item
         android:id="@+id/menu_mark_as_favorite"
         android:icon="@drawable/ic_favorite"
         android:iconTint="@android:color/white"
