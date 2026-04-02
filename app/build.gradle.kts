@@ -16,18 +16,18 @@ android {
         applicationId = "org.lineageos.tv.launcher"
         minSdk = 31
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 140001
+        versionName = "14.0.1"
     }
 
-    signingConfigs {
-        create("testKey") {
-            storeFile = file("test-signing.jks")
-            storePassword = "android"
-            keyAlias = "testkey"
-            keyPassword = "android"
-        }
-    }
+     signingConfigs {
+         create("platform") {
+             storeFile = file("platform.jks")
+             storePassword = "android"
+             keyAlias = "platform"
+             keyPassword = "android"
+         }
+     }
 
     buildTypes {
         release {
@@ -37,7 +37,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("testKey")
+            signingConfig = signingConfigs.getByName("platform")
         }
         debug {
             applicationIdSuffix = ".dev"
