@@ -5,9 +5,13 @@
 
 package org.lineageos.tv.launcher
 
+import android.app.Dialog
 import android.app.role.RoleManager
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.transition.Slide
 import android.transition.TransitionManager
@@ -40,6 +44,9 @@ import org.lineageos.tv.launcher.adapter.WatchNextAdapter
 import org.lineageos.tv.launcher.ext.favoriteApps
 import org.lineageos.tv.launcher.ext.homeRoleRequestDialogDismissed
 import org.lineageos.tv.launcher.ext.roleCanBeRequested
+import org.lineageos.tv.launcher.ext.backgroundType
+import org.lineageos.tv.launcher.ext.backgroundColor
+import org.lineageos.tv.launcher.ext.backgroundImageUri
 import org.lineageos.tv.launcher.model.AppInfo
 import org.lineageos.tv.launcher.model.InternalChannel
 import org.lineageos.tv.launcher.model.MainRowItem
@@ -159,8 +166,27 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        applyBackground()
+
         settingButton.setOnClickListener {
-            startActivity(Intent(android.provider.Settings.ACTION_SETTINGS))
+            val dialog = Dialog(this, R.style.Theme_Catapult_SideActivity)
+            dialog.setContentView(R.layout.settings_button_menu)
+            dialog.window?.apply {
+                setGravity(Gravity.END)
+                attributes = attributes.apply {
+                    height = android.view.WindowManager.LayoutParams.MATCH_PARENT
+                    width = (350 * resources.displayMetrics.density).toInt()
+                }
+            }
+            dialog.findViewById<TextView>(R.id.system_settings_item)?.setOnClickListener {
+                startActivity(Intent(android.provider.Settings.ACTION_SETTINGS))
+                dialog.dismiss()
+            }
+            dialog.findViewById<TextView>(R.id.launcher_settings_item)?.setOnClickListener {
+                startActivity(Intent(this@MainActivity, LauncherSettingsActivity::class.java))
+                dialog.dismiss()
+            }
+            dialog.show()
         }
 
         notificationCountTextView.setOnClickListener {
@@ -224,6 +250,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     override fun onResume() {
         super.onResume()
+        applyBackground()
     }
 
     override fun onDestroy() {
@@ -298,5 +325,69 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                     it.getButton(DialogInterface.BUTTON_NEUTRAL).requestFocus()
                 }
         }
+    }
+
+    private fun applyBackground() {
+        val backgroundType = sharedPreferences.backgroundType
+        val decorView = window.decorView
+        
+        when (backgroundType) {
+            0, 1 -> {
+                decorView.setBackgroundColor(getColor(R.color.default_background))
+            }
+            2 -> {
+                val uriString = sharedPreferences.backgroundImageUri
+                if (!uriString.isNullOrEmpty()) {
+                    try {
+                        val file = java.io.File(uriString)
+                        if (file.exists()) {
+                            val options = android.graphics.BitmapFactory.Options().apply {
+                                inJustDecodeBounds = true
+                            }
+                            BitmapFactory.decodeFile(file.absolutePath, options)
+                            
+                            val targetWidth = 1920
+                            val targetHeight = 1080
+                            val sampleSize = calculateInSampleSize(options, targetWidth, targetHeight)
+                            
+                            val decodeOptions = android.graphics.BitmapFactory.Options().apply {
+                                inSampleSize = sampleSize
+                            }
+                            val bitmap = BitmapFactory.decodeFile(file.absolutePath, decodeOptions)
+                            
+                            if (bitmap != null) {
+                                val drawable = BitmapDrawable(resources, bitmap)
+                                drawable.gravity = android.view.Gravity.FILL
+                                decorView.background = drawable
+                            } else {
+                                decorView.setBackgroundColor(getColor(R.color.default_background))
+                            }
+                        } else {
+                            decorView.setBackgroundColor(getColor(R.color.default_background))
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        decorView.setBackgroundColor(getColor(R.color.default_background))
+                    }
+                } else {
+                    decorView.setBackgroundColor(getColor(R.color.default_background))
+                }
+            }
+        }
+    }
+
+    private fun calculateInSampleSize(options: android.graphics.BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
+        val (height: Int, width: Int) = options.outHeight to options.outWidth
+        var inSampleSize = 1
+
+        if (height > reqHeight || width > reqWidth) {
+            val halfHeight: Int = height / 2
+            val halfWidth: Int = width / 2
+
+            while (halfHeight / inSampleSize >= reqHeight && halfWidth / inSampleSize >= reqWidth) {
+                inSampleSize *= 2
+            }
+        }
+        return inSampleSize
     }
 }

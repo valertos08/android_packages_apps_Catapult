@@ -38,4 +38,12 @@
     <string name="connected">Bağlandı</string>
     <string name="mic_assistant">Mikrofon kullanarak ara</string>
     <string name="keyboard_assistant">Klavye kullanarak ayarla</string>
+    <string name="system_settings">Sistem ayarları</string>
+    <string name="launcher_settings">Launcher ayarları</string>
+    <string name="appearance">Görünüm</string>
+    <string name="background">Arka plan</string>
+    <string name="background_default">Varsayılan</string>
+    <string name="background_image">Görüntü</string>
+    <string name="select_image">Görüntü seçin</string>
+    <string name="selected_image">Görüntü seçildi</string>
 </resources>

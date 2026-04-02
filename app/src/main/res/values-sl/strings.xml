@@ -38,4 +38,12 @@
     <string name="connected">Povezano</string>
     <string name="mic_assistant">Išči z uporabo mikrofona</string>
     <string name="keyboard_assistant">Išči z uporabo tipkovnice</string>
+    <string name="system_settings">Nastavitve sistema</string>
+    <string name="launcher_settings">Nastavitve launchera</string>
+    <string name="appearance">Videz</string>
+    <string name="background">Ozadje</string>
+    <string name="background_default">Privzeto</string>
+    <string name="background_image">Slika</string>
+    <string name="select_image">Izberi sliko</string>
+    <string name="selected_image">Slika izbrana</string>
 </resources>

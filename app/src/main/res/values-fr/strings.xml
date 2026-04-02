@@ -38,4 +38,12 @@
     <string name="connected">Connecté</string>
     <string name="mic_assistant">Rechercher à l\'aide du microphone</string>
     <string name="keyboard_assistant">Rechercher à l\'aide du clavier</string>
+    <string name="system_settings">Paramètres système</string>
+    <string name="launcher_settings">Paramètres du launcher</string>
+    <string name="appearance">Apparence</string>
+    <string name="background">Arrière-plan</string>
+    <string name="background_default">Par défaut</string>
+    <string name="background_image">Image</string>
+    <string name="select_image">Sélectionner une image</string>
+    <string name="selected_image">Image sélectionnée</string>
 </resources>

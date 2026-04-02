@@ -38,4 +38,6 @@
     <string name="connected">Ceangailte</string>
     <string name="mic_assistant">Cuardaigh le micreafón</string>
     <string name="keyboard_assistant">Cuardaigh ag baint úsáide as méarchlár</string>
+    <string name="system_settings">Socruithe an chórais</string>
+    <string name="launcher_settings">Socruithe an launchera</string>
 </resources>

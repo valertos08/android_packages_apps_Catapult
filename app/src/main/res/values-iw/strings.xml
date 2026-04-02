@@ -38,4 +38,12 @@
     <string name="connected">מחובר</string>
     <string name="mic_assistant">השתמש במיקרופון לחיפוש</string>
     <string name="keyboard_assistant">השתמש במקלדת לחיפוש</string>
+    <string name="system_settings">הגדרות מערכת</string>
+    <string name="launcher_settings">הגדרות המזנק</string>
+    <string name="appearance">מראה</string>
+    <string name="background">רקע</string>
+    <string name="background_default">ברירת מחדל</string>
+    <string name="background_image">תמונה</string>
+    <string name="select_image">בחר תמונה</string>
+    <string name="selected_image">תמונה נבחרה</string>
 </resources>

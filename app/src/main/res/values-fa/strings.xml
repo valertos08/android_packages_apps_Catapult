@@ -38,4 +38,12 @@
     <string name="connected">متصل</string>
     <string name="mic_assistant">جستجو با میکروفون</string>
     <string name="keyboard_assistant">جستجو با صفحه کلید</string>
+    <string name="system_settings">تنظیمات سیستم</string>
+    <string name="launcher_settings">تنظیمات لانچر</string>
+    <string name="appearance">ظاهر</string>
+    <string name="background">پس‌زمینه</string>
+    <string name="background_default">پیش‌فرض</string>
+    <string name="background_image">تصویر</string>
+    <string name="select_image">تصویر را انتخاب کنید</string>
+    <string name="selected_image">تصویر انتخاب شد</string>
 </resources>

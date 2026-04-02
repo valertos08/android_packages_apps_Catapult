@@ -38,4 +38,12 @@
     <string name="connected">Csatlakozva</string>
     <string name="mic_assistant">Keresés (a mikrofonnal)</string>
     <string name="keyboard_assistant">Keresés (a billentyűzettel)</string>
+    <string name="system_settings">Rendszerbeállítások</string>
+    <string name="launcher_settings">Launcher beállítások</string>
+    <string name="appearance">Megjelenés</string>
+    <string name="background">Háttér</string>
+    <string name="background_default">Alapértelmezett</string>
+    <string name="background_image">Kép</string>
+    <string name="select_image">Kép kiválasztása</string>
+    <string name="selected_image">Kép kiválasztva</string>
 </resources>

@@ -19,6 +19,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/topContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -26,152 +27,179 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="end"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/dateTextView"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?attr/textAppearanceBodySmall"
-                    tools:text="Mon, 4 March" />
+                    android:layout_marginTop="16dp"
+                    android:gravity="end"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                <TextClock
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/dateTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?attr/textAppearanceBodySmall"
+                        tools:text="Mon, 4 March" />
+
+                    <TextClock
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?attr/textAppearanceHeadlineLarge" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/quickSettingsContainer"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?attr/textAppearanceHeadlineLarge" />
+                    android:orientation="vertical">
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:weightSum="4">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:clipToPadding="false"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:weightSum="4">
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/sleepMaterialButton"
+                            style="@style/SystemOptionsButtonStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="6dp"
+                            android:layout_weight="2"
+                            android:text="@string/sleep"
+                            app:icon="@drawable/ic_moon" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/sleepMaterialButton"
-                    style="@style/SystemOptionsButtonStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="6dp"
-                    android:layout_weight="2"
-                    android:text="@string/sleep"
-                    app:icon="@drawable/ic_moon" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/settingsMaterialButton"
+                            style="@style/SystemOptionsButtonStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="6dp"
+                            android:layout_weight="1"
+                            app:icon="@drawable/ic_settings"
+                            app:iconPadding="0dp" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/settingsMaterialButton"
-                    style="@style/SystemOptionsButtonStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="6dp"
-                    android:layout_weight="1"
-                    app:icon="@drawable/ic_settings"
-                    app:iconPadding="0dp" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/powerMaterialButton"
+                            style="@style/SystemOptionsButtonStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:icon="@drawable/ic_power"
+                            app:iconPadding="0dp" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/powerMaterialButton"
-                    style="@style/SystemOptionsButtonStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:icon="@drawable/ic_power"
-                    app:iconPadding="0dp" />
+                    </LinearLayout>
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/networkBluetoothContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:clipToPadding="false"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:clipToPadding="false"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
+                        <org.lineageos.tv.launcher.view.TwoLineButton
+                            android:id="@+id/networkTwoLineButton"
+                            style="@style/TwoLineSystemOptionsButtonStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="6dp"
+                            android:layout_weight="1"
+                            android:text="@string/network_status"
+                            app:icon="@drawable/ic_wifi_signal_3" />
 
-                <org.lineageos.tv.launcher.view.TwoLineButton
-                    android:id="@+id/networkTwoLineButton"
-                    style="@style/TwoLineSystemOptionsButtonStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="6dp"
-                    android:layout_weight="1"
-                    android:text="@string/network_status"
-                    app:icon="@drawable/ic_wifi_signal_3" />
+                        <org.lineageos.tv.launcher.view.TwoLineButton
+                            android:id="@+id/bluetoothTwoLineButton"
+                            style="@style/TwoLineSystemOptionsButtonStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/bluetooth_status"
+                            app:icon="@drawable/ic_bluetooth" />
 
-                <org.lineageos.tv.launcher.view.TwoLineButton
-                    android:id="@+id/bluetoothTwoLineButton"
-                    style="@style/TwoLineSystemOptionsButtonStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/bluetooth_status"
-                    app:icon="@drawable/ic_bluetooth" />
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/notificationsContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_marginTop="8dp"
             android:background="@drawable/notification_container"
-            android:clipToOutline="true"
-            android:gravity="center">
+            android:clipToOutline="true">
 
-            <LinearLayout
-                android:id="@+id/noNotificationAccessLinearLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/notificationsInnerContainer"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/no_notification_access"
-                    android:textAlignment="center"
-                    android:textAppearance="?attr/textAppearanceTitleMedium" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/allowNotificationAccessMaterialButton"
+                <LinearLayout
+                    android:id="@+id/noNotificationAccessLinearLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/allow_notification_access" />
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no_notification_access"
+                        android:textAlignment="center"
+                        android:textAppearance="?attr/textAppearanceTitleMedium" />
 
-            <TextView
-                android:id="@+id/noNotificationsTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/no_notifications"
-                android:textAppearance="?attr/textAppearanceBody2"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/allowNotificationAccessMaterialButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/allow_notification_access" />
 
-            <androidx.leanback.widget.VerticalGridView
-                android:id="@+id/notificationsVerticalGridView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="18dp"
-                android:paddingBottom="18dp"
-                android:verticalSpacing="10dp"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                app:focusOutEnd="true"
-                app:focusOutFront="true" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/noNotificationsTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_notifications"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.leanback.widget.VerticalGridView
+                    android:id="@+id/notificationsVerticalGridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="18dp"
+                    android:paddingBottom="18dp"
+                    android:verticalSpacing="10dp"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    app:focusOutEnd="true"
+                    app:focusOutFront="true" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -38,4 +38,12 @@
     <string name="connected">Conectat</string>
     <string name="mic_assistant">Caută folosind microfonul</string>
     <string name="keyboard_assistant">Caută folosind tastatura</string>
+    <string name="system_settings">Setări sistem</string>
+    <string name="launcher_settings">Setări launcher</string>
+    <string name="appearance">Aspect</string>
+    <string name="background">Fundal</string>
+    <string name="background_default">Implicit</string>
+    <string name="background_image">Imagine</string>
+    <string name="select_image">Selectați imaginea</string>
+    <string name="selected_image">Imagine selectată</string>
 </resources>
