@@ -12,6 +12,7 @@ import android.provider.Settings
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.PopupMenu
@@ -30,10 +31,11 @@ abstract class AppCardCommon @JvmOverloads constructor(
     abstract val menuResId: Int
 
     // Views
-    private val bannerView by lazy { findViewById<ImageView>(R.id.app_banner)!! }
-    private val cardContainer by lazy { findViewById<LinearLayout>(R.id.card_container)!! }
-    private val iconContainer by lazy { findViewById<LinearLayout>(R.id.app_with_icon)!! }
-    private val iconView by lazy { findViewById<ImageView>(R.id.app_icon)!! }
+    protected val bannerView by lazy { findViewById<ImageView>(R.id.app_banner)!! }
+    protected val cardContainer by lazy { findViewById<LinearLayout>(R.id.card_container)!! }
+    protected val cardFrame by lazy { findViewById<FrameLayout>(R.id.card_frame)!! }
+    protected val iconContainer by lazy { findViewById<LinearLayout>(R.id.app_with_icon)!! }
+    protected val iconView by lazy { findViewById<ImageView>(R.id.app_icon)!! }
     protected val nameView by lazy { findViewById<TextView>(R.id.app_name)!! }
 
     private var uninstallable: Boolean = true

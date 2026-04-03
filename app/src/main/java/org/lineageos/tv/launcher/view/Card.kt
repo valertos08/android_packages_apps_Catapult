@@ -14,6 +14,12 @@ import org.lineageos.tv.launcher.model.Launchable
 abstract class Card @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
+    
+    init {
+        clipChildren = false
+        clipToPadding = false
+    }
+    
     var packageName: String = ""
     var label: String = ""
     var launchIntent: Intent? = null

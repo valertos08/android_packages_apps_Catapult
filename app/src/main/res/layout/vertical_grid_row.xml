@@ -6,7 +6,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:clipChildren="false"
+    android:clipToPadding="false">
 
     <TextView
         android:id="@+id/title"
@@ -20,9 +22,12 @@
         android:id="@+id/horizontal_grid"
         android:layout_width="match_parent"
         android:layout_height="@dimen/main_all_apps_row_height"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:padding="8dp" />
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp" />
 
 </LinearLayout>
