@@ -12,11 +12,16 @@ import android.graphics.PorterDuffColorFilter
 import android.graphics.RenderEffect
 import android.graphics.Shader
 import android.util.AttributeSet
+import android.util.TypedValue
+import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.preference.PreferenceManager
 import androidx.tvprovider.media.tv.BasePreviewProgram
 import androidx.tvprovider.media.tv.TvContractCompat
 import coil.load
@@ -25,11 +30,13 @@ import coil.transform.RoundedCornersTransformation
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import org.lineageos.tv.launcher.R
 import org.lineageos.tv.launcher.ext.getAttributeResourceId
+import org.lineageos.tv.launcher.ext.watchNextCardSize
 
 class WatchNextCard @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : Card(context, attrs, defStyleAttr) {
     // Views
+    private val cardFrame: FrameLayout by lazy { findViewById(R.id.card_frame)!! }
     private val bannerBackgroundView: ImageView by lazy { findViewById(R.id.app_banner_background)!! }
     private val bannerView: ImageView by lazy { findViewById(R.id.app_banner)!! }
     private val smallBannerView: ImageView by lazy { findViewById(R.id.app_banner_small)!! }
@@ -42,7 +49,45 @@ class WatchNextCard @JvmOverloads constructor(
         stateListAnimator =
             AnimatorInflater.loadStateListAnimator(context, R.animator.app_card_state_animator)
 
+        applyCardSizeScaling()
         setupNameMarquee()
+    }
+
+    private fun applyCardSizeScaling() {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        val scale = prefs.watchNextCardSize / 100f
+
+        val baseWidth = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, 246f, context.resources.displayMetrics
+        ).toInt()
+        val baseHeight = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, 138f, context.resources.displayMetrics
+        ).toInt()
+
+        val newWidth = (baseWidth * scale).toInt()
+        val newHeight = (baseHeight * scale).toInt()
+
+        layoutParams = layoutParams.apply {
+            width = newWidth
+        }
+
+        cardFrame.layoutParams = cardFrame.layoutParams.apply {
+            height = newHeight
+        }
+
+        title.layoutParams = title.layoutParams.apply {
+            width = newWidth
+        }
+
+        title.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f * scale)
+
+        val progressMargin = (15f * scale).toInt()
+        val progressPaddingBottom = (20f * scale).toInt()
+        progressView.layoutParams = (progressView.layoutParams as ViewGroup.MarginLayoutParams).apply {
+            marginStart = progressMargin
+            marginEnd = progressMargin
+        }
+        progressView.setPadding(0, 0, 0, progressPaddingBottom)
     }
 
     private fun setupNameMarquee() {

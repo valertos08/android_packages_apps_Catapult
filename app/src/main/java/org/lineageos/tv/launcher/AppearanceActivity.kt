@@ -15,5 +15,9 @@ class AppearanceActivity : ModalActivity(R.layout.activity_appearance) {
         findViewById<android.view.View>(R.id.background_item)?.setOnClickListener {
             startActivity(Intent(this, BackgroundActivity::class.java))
         }
+
+        findViewById<android.view.View>(R.id.app_cards_item)?.setOnClickListener {
+            startActivity(Intent(this, CardsSettingsActivity::class.java))
+        }
     }
 }

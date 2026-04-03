@@ -5,34 +5,31 @@
 
 package org.lineageos.tv.launcher.adapter
 
+import android.content.Context
 import android.view.ViewGroup
 import androidx.core.view.updateLayoutParams
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.lineageos.tv.launcher.R
+import org.lineageos.tv.launcher.ext.appCardSize
+import org.lineageos.tv.launcher.ext.favoriteCardSize
+import org.lineageos.tv.launcher.ext.watchNextCardSize
 import org.lineageos.tv.launcher.model.MainRowItem
 import org.lineageos.tv.launcher.view.MainRowItemView
 
-class MainVerticalAdapter :
-    ListAdapter<Pair<Long, MainRowItem>, MainVerticalAdapter.ViewHolder>(diffCallback) {
+class MainVerticalAdapter(
+    private val context: Context
+) : ListAdapter<Pair<Long, MainRowItem>, MainVerticalAdapter.ViewHolder>(diffCallback) {
+    
+    private val prefs by lazy { PreferenceManager.getDefaultSharedPreferences(context) }
+    
     inner class ViewHolder(
         private val mainRowItemView: MainRowItemView,
     ) : RecyclerView.ViewHolder(mainRowItemView) {
         fun bind(item: Pair<Long, MainRowItem>, position: Int) {
             mainRowItemView.setData(item.second)
-            mainRowItemView.updateLayoutParams {
-                width = ViewGroup.LayoutParams.MATCH_PARENT
-                height = mainRowItemView.resources.getDimension(
-                    if (item.second.adapter is AllAppsAdapter) {
-                        R.dimen.main_all_apps_row_height
-                    } else if (item.second.adapter is TvAdapter<*, *>) {
-                        R.dimen.main_app_row_height
-                    } else {
-                        R.dimen.main_row_height
-                    }
-                ).toInt()
-            }
 
             if (position == 0) {
                 mainRowItemView.requestFocus()

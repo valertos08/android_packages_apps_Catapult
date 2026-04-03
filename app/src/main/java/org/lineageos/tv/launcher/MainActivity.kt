@@ -47,6 +47,9 @@ import org.lineageos.tv.launcher.ext.roleCanBeRequested
 import org.lineageos.tv.launcher.ext.backgroundType
 import org.lineageos.tv.launcher.ext.backgroundColor
 import org.lineageos.tv.launcher.ext.backgroundImageUri
+import org.lineageos.tv.launcher.ext.appCardSize
+import org.lineageos.tv.launcher.ext.favoriteCardSize
+import org.lineageos.tv.launcher.ext.watchNextCardSize
 import org.lineageos.tv.launcher.model.AppInfo
 import org.lineageos.tv.launcher.model.InternalChannel
 import org.lineageos.tv.launcher.model.MainRowItem
@@ -59,6 +62,11 @@ import org.lineageos.tv.launcher.viewmodels.NotificationViewModel
 import java.util.Locale
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
+    // Card size tracking
+    private var lastAppCardSize = 100
+    private var lastFavoriteCardSize = 100
+    private var lastWatchNextCardSize = 100
+
     // View models
     private val model: LauncherViewModel by viewModels()
     private val notificationViewModel: NotificationViewModel by viewModels()
@@ -86,7 +94,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     // Adapters
     private val allAppsAdapter by lazy { AllAppsAdapter() }
     private val favoritesAdapter by lazy { FavoritesAdapter() }
-    private val mainVerticalAdapter by lazy { MainVerticalAdapter() }
+    private val mainVerticalAdapter by lazy { MainVerticalAdapter(this) }
     private val watchNextAdapter by lazy { WatchNextAdapter() }
     private val previewChannelAdapters = mutableMapOf<Long, PreviewProgramsAdapter>()
 
@@ -167,6 +175,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
 
         applyBackground()
+
+        lastAppCardSize = sharedPreferences.appCardSize
+        lastFavoriteCardSize = sharedPreferences.favoriteCardSize
+        lastWatchNextCardSize = sharedPreferences.watchNextCardSize
 
         settingButton.setOnClickListener {
             val dialog = Dialog(this, R.style.Theme_Catapult_SideActivity)
@@ -251,6 +263,33 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onResume() {
         super.onResume()
         applyBackground()
+        checkCardSizeChanges()
+    }
+
+    private fun checkCardSizeChanges() {
+        val currentAppSize = sharedPreferences.appCardSize
+        val currentFavoriteSize = sharedPreferences.favoriteCardSize
+        val currentWatchNextSize = sharedPreferences.watchNextCardSize
+
+        if (currentAppSize != lastAppCardSize ||
+            currentFavoriteSize != lastFavoriteCardSize ||
+            currentWatchNextSize != lastWatchNextCardSize) {
+            
+            lastAppCardSize = currentAppSize
+            lastFavoriteCardSize = currentFavoriteSize
+            lastWatchNextCardSize = currentWatchNextSize
+            
+            android.os.Handler(mainLooper).post {
+                refreshAllRows()
+            }
+        }
+    }
+
+    private fun refreshAllRows() {
+        allAppsAdapter.notifyDataSetChanged()
+        favoritesAdapter.notifyDataSetChanged()
+        watchNextAdapter.notifyDataSetChanged()
+        mainVerticalAdapter.notifyDataSetChanged()
     }
 
     override fun onDestroy() {

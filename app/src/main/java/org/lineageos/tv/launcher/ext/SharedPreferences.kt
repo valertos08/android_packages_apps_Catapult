@@ -101,3 +101,27 @@ var SharedPreferences.backgroundImageUri: String?
     set(value) = edit {
         putString(BACKGROUND_IMAGE_URI_KEY, value)
     }
+
+const val APP_CARD_SIZE_KEY = "app_card_size"
+
+var SharedPreferences.appCardSize: Int
+    get() = getInt(APP_CARD_SIZE_KEY, 100)
+    set(value) = edit {
+        putInt(APP_CARD_SIZE_KEY, value)
+    }
+
+const val FAVORITE_CARD_SIZE_KEY = "favorite_card_size"
+
+var SharedPreferences.favoriteCardSize: Int
+    get() = getInt(FAVORITE_CARD_SIZE_KEY, 100)
+    set(value) = edit {
+        putInt(FAVORITE_CARD_SIZE_KEY, value)
+    }
+
+const val WATCH_NEXT_CARD_SIZE_KEY = "watch_next_card_size"
+
+var SharedPreferences.watchNextCardSize: Int
+    get() = getInt(WATCH_NEXT_CARD_SIZE_KEY, 100)
+    set(value) = edit {
+        putInt(WATCH_NEXT_CARD_SIZE_KEY, value)
+    }

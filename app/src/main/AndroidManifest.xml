@@ -99,6 +99,10 @@
             android:name=".BackgroundActivity"
             android:theme="@style/Theme.Catapult.SideActivity" />
 
+        <activity
+            android:name=".CardsSettingsActivity"
+            android:theme="@style/Theme.Catapult.SideActivity" />
+
         <service
             android:name=".notification.TvNotificationListener"
             android:exported="false"

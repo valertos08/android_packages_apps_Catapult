@@ -4,10 +4,9 @@
      SPDX-License-Identifier: Apache-2.0
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/watch_next_card_width"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginEnd="12dp"
     android:clickable="true"
     android:clipChildren="false"
     android:clipToPadding="false"
@@ -15,9 +14,10 @@
     android:orientation="vertical">
 
     <FrameLayout
+        android:id="@+id/card_frame"
         android:layout_width="match_parent"
         android:layout_height="@dimen/watch_next_card_height"
-        android:clipChildren="true"
+        android:clipChildren="false"
         android:clipToOutline="true">
 
 

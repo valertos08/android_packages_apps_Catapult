@@ -14,6 +14,7 @@
     <dimen name="main_row_height">214dp</dimen>
     <dimen name="main_app_row_height">142dp</dimen>
     <dimen name="main_all_apps_row_height">174dp</dimen>
+    <dimen name="card_spacing">6dp</dimen>
     <dimen name="modal_margin">8dp</dimen>
     <dimen name="notification_corner_radius">10dp</dimen>
 </resources>
