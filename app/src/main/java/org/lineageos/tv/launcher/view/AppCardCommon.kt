@@ -25,24 +25,25 @@ import org.lineageos.tv.launcher.model.LeanbackAppInfo
 import org.lineageos.tv.launcher.utils.AppManager
 import kotlin.reflect.safeCast
 
-abstract class AppCardCommon @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : Card(context, attrs, defStyleAttr) {
-    abstract val menuResId: Int
+    abstract class AppCardCommon @JvmOverloads constructor(
+        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    ) : Card(context, attrs, defStyleAttr) {
+        abstract val menuResId: Int
 
-    // Views
-    protected val bannerView by lazy { findViewById<ImageView>(R.id.app_banner)!! }
-    protected val cardContainer by lazy { findViewById<LinearLayout>(R.id.card_container)!! }
-    protected val cardFrame by lazy { findViewById<FrameLayout>(R.id.card_frame)!! }
-    protected val iconContainer by lazy { findViewById<LinearLayout>(R.id.app_with_icon)!! }
-    protected val iconView by lazy { findViewById<ImageView>(R.id.app_icon)!! }
-    protected val nameView by lazy { findViewById<TextView>(R.id.app_name)!! }
+        // Views
+        protected val bannerView by lazy { findViewById<ImageView>(R.id.app_banner)!! }
+        protected val cardContainer by lazy { findViewById<LinearLayout>(R.id.card_container)!! }
+        protected val cardFrame by lazy { findViewById<FrameLayout>(R.id.card_frame)!! }
+        protected val iconContainer by lazy { findViewById<LinearLayout>(R.id.app_with_icon)!! }
+        protected val iconView by lazy { findViewById<ImageView>(R.id.app_icon)!! }
+        protected val nameView by lazy { findViewById<TextView>(R.id.app_name)!! }
 
-    private var uninstallable: Boolean = true
+        private var uninstallable: Boolean = true
+        protected var hasCustomIcon: Boolean = false
 
-    init {
-        setupNameMarquee()
-    }
+        init {
+            setupNameMarquee()
+        }
 
     private fun setupNameMarquee() {
         setOnFocusChangeListener { _, hasFocus ->
@@ -59,6 +60,7 @@ abstract class AppCardCommon @JvmOverloads constructor(
         super.setCardInfo(appInfo)
 
         // Reset
+        hasCustomIcon = false  // Reset custom icon flag for each card
         bannerView.visibility = View.GONE
         iconContainer.visibility = View.VISIBLE
 
@@ -68,11 +70,21 @@ abstract class AppCardCommon @JvmOverloads constructor(
         if (appInfo is LeanbackAppInfo) {
             uninstallable = appInfo.isUninstallable()
 
-            if (appInfo.banner != null) {
-                // App with a banner
+            // If we have a custom icon (hasCustomIcon), show icon and hide banner
+            // Otherwise, show banner if available, or default icon
+            if (hasCustomIcon) {
+                // Custom icon available - show icon, hide banner
+                bannerView.visibility = View.GONE
+                iconContainer.visibility = View.VISIBLE
+            } else if (appInfo.banner != null) {
+                // No custom icon but have banner - show banner
                 bannerView.setImageDrawable(appInfo.banner)
                 bannerView.visibility = View.VISIBLE
                 iconContainer.visibility = View.GONE
+            } else {
+                // Default - show icon
+                bannerView.visibility = View.GONE
+                iconContainer.visibility = View.VISIBLE
             }
         }
     }
