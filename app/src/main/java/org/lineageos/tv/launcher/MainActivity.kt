@@ -9,6 +9,7 @@ import android.app.Dialog
 import android.app.role.RoleManager
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
@@ -52,6 +53,7 @@ import org.lineageos.tv.launcher.ext.allAppsGridColumns
 import org.lineageos.tv.launcher.ext.appCardSize
 import org.lineageos.tv.launcher.ext.favoriteCardSize
 import org.lineageos.tv.launcher.ext.watchNextCardSize
+import org.lineageos.tv.launcher.ext.cardCornerRadius
 import org.lineageos.tv.launcher.model.AppInfo
 import org.lineageos.tv.launcher.model.InternalChannel
 import org.lineageos.tv.launcher.model.MainRowItem
@@ -70,6 +72,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private var lastWatchNextCardSize = 100
     private var lastAllAppsGrid = false
     private var lastAllAppsGridColumns = 4
+    private var lastCardCornerRadius = 8
 
     // View models
     private val model: LauncherViewModel by viewModels()
@@ -185,6 +188,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         lastWatchNextCardSize = sharedPreferences.watchNextCardSize
         lastAllAppsGrid = sharedPreferences.allAppsGrid
         lastAllAppsGridColumns = sharedPreferences.allAppsGridColumns
+        lastCardCornerRadius = sharedPreferences.cardCornerRadius
 
         settingButton.setOnClickListener {
             val dialog = Dialog(this, R.style.Theme_Catapult_SideActivity)
@@ -278,18 +282,21 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val currentWatchNextSize = sharedPreferences.watchNextCardSize
         val currentAllAppsGrid = sharedPreferences.allAppsGrid
         val currentAllAppsGridColumns = sharedPreferences.allAppsGridColumns
+        val currentCardCornerRadius = sharedPreferences.cardCornerRadius
 
         if (currentAppSize != lastAppCardSize ||
             currentFavoriteSize != lastFavoriteCardSize ||
             currentWatchNextSize != lastWatchNextCardSize ||
             currentAllAppsGrid != lastAllAppsGrid ||
-            currentAllAppsGridColumns != lastAllAppsGridColumns) {
+            currentAllAppsGridColumns != lastAllAppsGridColumns ||
+            currentCardCornerRadius != lastCardCornerRadius) {
             
             lastAppCardSize = currentAppSize
             lastFavoriteCardSize = currentFavoriteSize
             lastWatchNextCardSize = currentWatchNextSize
             lastAllAppsGrid = currentAllAppsGrid
             lastAllAppsGridColumns = currentAllAppsGridColumns
+            lastCardCornerRadius = currentCardCornerRadius
             
             android.os.Handler(mainLooper).post {
                 refreshAllRows()

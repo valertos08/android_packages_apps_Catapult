@@ -12,8 +12,7 @@
     android:clipToPadding="false"
     android:clipToOutline="true"
     android:longClickable="true"
-    android:orientation="vertical"
-    android:background="@drawable/favorite_card_border_only">
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/card_frame"
@@ -26,7 +25,6 @@
             android:id="@+id/app_banner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/favorite_card_border_only"
             android:backgroundTint="?attr/colorOnSecondaryContainer"
             android:clipToOutline="true"
             android:scaleType="centerCrop"
@@ -34,7 +32,6 @@
 
         <LinearLayout
             android:id="@+id/app_with_icon"
-            android:background="@drawable/favorites_app_card_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"

@@ -15,6 +15,7 @@ import androidx.core.view.isInvisible
 import androidx.preference.PreferenceManager
 import org.lineageos.tv.launcher.R
 import org.lineageos.tv.launcher.ext.appCardSize
+import org.lineageos.tv.launcher.utils.CardCornerRadiusHelper
 
 class AppCard @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -26,6 +27,7 @@ class AppCard @JvmOverloads constructor(
     fun setGridMode(grid: Boolean) {
         isGridMode = grid
         applyCardSizeScaling()
+        applyCornerRadius()
     }
 
     init {
@@ -35,6 +37,7 @@ class AppCard @JvmOverloads constructor(
             AnimatorInflater.loadStateListAnimator(context, R.animator.app_card_state_animator)
 
         applyCardSizeScaling()
+        applyCornerRadius()
 
         setOnFocusChangeListener { _, hasFocus ->
             nameView.isInvisible = !hasFocus
@@ -46,6 +49,15 @@ class AppCard @JvmOverloads constructor(
                 nameView.isSelected = false
             }
         }
+    }
+    
+    fun applyCornerRadius() {
+        val borderDrawable = CardCornerRadiusHelper.getCardBorderDrawable(context)
+        val backgroundDrawable = CardCornerRadiusHelper.getCardBackgroundDrawable(context)
+        
+        cardContainer.background = borderDrawable
+        bannerView.background = CardCornerRadiusHelper.getBannerBorderDrawable(context)
+        iconContainer.background = backgroundDrawable
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

@@ -141,3 +141,11 @@ var SharedPreferences.allAppsGridColumns: Int
     set(value) = edit {
         putInt(ALL_APPS_GRID_COLUMNS_KEY, value)
     }
+
+const val CARD_CORNER_RADIUS_KEY = "card_corner_radius"
+
+var SharedPreferences.cardCornerRadius: Int
+    get() = getInt(CARD_CORNER_RADIUS_KEY, 8)
+    set(value) = edit {
+        putInt(CARD_CORNER_RADIUS_KEY, value)
+    }

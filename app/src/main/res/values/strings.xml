@@ -64,4 +64,5 @@
     <string name="card_size_percent">%d%%</string>
     <string name="all_apps_grid_view">All apps grid view</string>
     <string name="all_apps_grid_columns">Grid columns</string>
+    <string name="card_corner_radius">Card corner radius</string>
 </resources>

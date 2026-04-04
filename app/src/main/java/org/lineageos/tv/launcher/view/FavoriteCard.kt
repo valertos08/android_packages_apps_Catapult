@@ -14,6 +14,7 @@ import androidx.core.view.isVisible
 import androidx.preference.PreferenceManager
 import org.lineageos.tv.launcher.R
 import org.lineageos.tv.launcher.ext.favoriteCardSize
+import org.lineageos.tv.launcher.utils.CardCornerRadiusHelper
 
 class FavoriteCard @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -32,6 +33,16 @@ class FavoriteCard @JvmOverloads constructor(
             AnimatorInflater.loadStateListAnimator(context, R.animator.app_card_state_animator)
 
         applyCardSizeScaling()
+        applyCornerRadius()
+    }
+    
+    fun applyCornerRadius() {
+        val borderDrawable = CardCornerRadiusHelper.getCardBorderDrawable(context)
+        val backgroundDrawable = CardCornerRadiusHelper.getCardBackgroundDrawable(context)
+        
+        cardContainer.background = borderDrawable
+        bannerView.background = CardCornerRadiusHelper.getBannerBorderDrawable(context)
+        iconContainer.background = backgroundDrawable
     }
 
     private fun applyCardSizeScaling() {
