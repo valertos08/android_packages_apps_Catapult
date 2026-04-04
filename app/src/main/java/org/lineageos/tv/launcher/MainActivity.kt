@@ -56,6 +56,12 @@ import org.lineageos.tv.launcher.ext.appCardSize
 import org.lineageos.tv.launcher.ext.favoriteCardSize
 import org.lineageos.tv.launcher.ext.watchNextCardSize
 import org.lineageos.tv.launcher.ext.cardCornerRadius
+import org.lineageos.tv.launcher.ext.cardBackgroundType
+import org.lineageos.tv.launcher.ext.cardBackgroundColor
+import org.lineageos.tv.launcher.ext.cardBackgroundGradientStart
+import org.lineageos.tv.launcher.ext.cardBackgroundGradientEnd
+import org.lineageos.tv.launcher.ext.cardBackgroundGradientMode
+import org.lineageos.tv.launcher.ext.cardBackgroundIconGradientMode
 import org.lineageos.tv.launcher.model.AppInfo
 import org.lineageos.tv.launcher.model.InternalChannel
 import org.lineageos.tv.launcher.model.MainRowItem
@@ -75,6 +81,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private var lastAllAppsGrid = false
     private var lastAllAppsGridColumns = 4
     private var lastCardCornerRadius = 8
+    private var lastCardBackgroundType = 0
+    private var lastCardBackgroundColor = 0xFF424242.toInt()
+    private var lastCardBackgroundGradientStart = 0xFF1976D2.toInt()
+    private var lastCardBackgroundGradientEnd = 0xFF7B1FA2.toInt()
+    private var lastCardBackgroundGradientMode = 0
+    private var lastCardBackgroundIconGradientMode = 0
 
     // Top bar hide/show
     private var favoritesRowPosition = 0
@@ -198,6 +210,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         lastAllAppsGrid = sharedPreferences.allAppsGrid
         lastAllAppsGridColumns = sharedPreferences.allAppsGridColumns
         lastCardCornerRadius = sharedPreferences.cardCornerRadius
+        lastCardBackgroundType = sharedPreferences.cardBackgroundType
+        lastCardBackgroundColor = sharedPreferences.cardBackgroundColor
+        lastCardBackgroundGradientStart = sharedPreferences.cardBackgroundGradientStart
+        lastCardBackgroundGradientEnd = sharedPreferences.cardBackgroundGradientEnd
+        lastCardBackgroundGradientMode = sharedPreferences.cardBackgroundGradientMode
+        lastCardBackgroundIconGradientMode = sharedPreferences.cardBackgroundIconGradientMode
 
         settingButton.setOnClickListener {
             val dialog = Dialog(this, R.style.Theme_Catapult_SideActivity)
@@ -294,13 +312,25 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val currentAllAppsGrid = sharedPreferences.allAppsGrid
         val currentAllAppsGridColumns = sharedPreferences.allAppsGridColumns
         val currentCardCornerRadius = sharedPreferences.cardCornerRadius
+        val currentCardBackgroundType = sharedPreferences.cardBackgroundType
+        val currentCardBackgroundColor = sharedPreferences.cardBackgroundColor
+        val currentCardBackgroundGradientStart = sharedPreferences.cardBackgroundGradientStart
+        val currentCardBackgroundGradientEnd = sharedPreferences.cardBackgroundGradientEnd
+        val currentCardBackgroundGradientMode = sharedPreferences.cardBackgroundGradientMode
+        val currentCardBackgroundIconGradientMode = sharedPreferences.cardBackgroundIconGradientMode
 
         if (currentAppSize != lastAppCardSize ||
             currentFavoriteSize != lastFavoriteCardSize ||
             currentWatchNextSize != lastWatchNextCardSize ||
             currentAllAppsGrid != lastAllAppsGrid ||
             currentAllAppsGridColumns != lastAllAppsGridColumns ||
-            currentCardCornerRadius != lastCardCornerRadius) {
+            currentCardCornerRadius != lastCardCornerRadius ||
+            currentCardBackgroundType != lastCardBackgroundType ||
+            currentCardBackgroundColor != lastCardBackgroundColor ||
+            currentCardBackgroundGradientStart != lastCardBackgroundGradientStart ||
+            currentCardBackgroundGradientEnd != lastCardBackgroundGradientEnd ||
+            currentCardBackgroundGradientMode != lastCardBackgroundGradientMode ||
+            currentCardBackgroundIconGradientMode != lastCardBackgroundIconGradientMode) {
             
             lastAppCardSize = currentAppSize
             lastFavoriteCardSize = currentFavoriteSize
@@ -308,6 +338,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             lastAllAppsGrid = currentAllAppsGrid
             lastAllAppsGridColumns = currentAllAppsGridColumns
             lastCardCornerRadius = currentCardCornerRadius
+            lastCardBackgroundType = currentCardBackgroundType
+            lastCardBackgroundColor = currentCardBackgroundColor
+            lastCardBackgroundGradientStart = currentCardBackgroundGradientStart
+            lastCardBackgroundGradientEnd = currentCardBackgroundGradientEnd
+            lastCardBackgroundGradientMode = currentCardBackgroundGradientMode
+            lastCardBackgroundIconGradientMode = currentCardBackgroundIconGradientMode
             
             android.os.Handler(mainLooper).post {
                 refreshAllRows()

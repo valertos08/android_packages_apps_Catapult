@@ -8,4 +8,5 @@
     <color name="colorPreviewBackground">#808080</color>
     <color name="default_background">#FF2D2D2D</color>
     <color name="watchNextCardFilter">#80000000</color>
+    <color name="colorPrimary">#FF6200EE</color>
 </resources>

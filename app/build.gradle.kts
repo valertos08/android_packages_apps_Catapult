@@ -66,4 +66,5 @@ dependencies {
     implementation("androidx.tvprovider:tvprovider:1.0.0")
     implementation("com.google.android.material:material:1.9.0")
     implementation("io.coil-kt:coil:2.6.0")
+    implementation("androidx.palette:palette-ktx:1.0.0")
 }
