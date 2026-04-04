@@ -3,202 +3,193 @@
      SPDX-FileCopyrightText: 2024-2025 The LineageOS Project
      SPDX-License-Identifier: Apache-2.0
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="380dp"
+    android:layout_width="350dp"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="24dp"
     android:background="?attr/colorSurface">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/color_preview_card"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:layout_marginBottom="20dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="0dp"
-        app:strokeWidth="1dp"
-        app:strokeColor="?attr/colorOutlineVariant">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/color_preview"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="12dp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:fontFamily="monospace"
+            android:background="@drawable/color_picker_preview_bg"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/color_picker_presets"
+            android:textAppearance="?attr/textAppearanceLabelMedium"
+            android:textColor="?attr/colorOnSurface"
+            android:layout_marginBottom="8dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/presets_grid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:clipToPadding="false"
+            android:focusable="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/color_picker_custom"
+            android:textAppearance="?attr/textAppearanceLabelMedium"
+            android:textColor="?attr/colorOnSurface"
+            android:layout_marginBottom="8dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="@drawable/color_picker_preview_bg">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="2dp">
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/color_channel_red" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slider_red"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="8dp"
+                android:valueFrom="0"
+                android:valueTo="255"
+                android:stepSize="1"
+                android:focusable="true"
+                app:trackColorActive="@color/slider_red"
+                app:trackColorInactive="?attr/colorSurfaceVariant"
+                app:thumbColor="@color/slider_red" />
 
             <TextView
-                android:id="@+id/color_hex_value"
-                android:layout_width="wrap_content"
+                android:id="@+id/value_red"
+                android:layout_width="28dp"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"
+                android:textColor="?attr/colorOnSurface"
                 android:fontFamily="monospace"
-                android:shadowColor="@android:color/black"
-                android:shadowDx="1"
-                android:shadowDy="1"
-                android:shadowRadius="2" />
+                android:gravity="end"
+                android:textAppearance="?attr/textAppearanceBodySmall" />
 
         </LinearLayout>
 
-    </com.google.android.material.card.MaterialCardView>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/color_picker_presets"
-        android:textAppearance="?attr/textAppearanceTitleSmall"
-        android:textColor="?attr/colorOnSurface"
-        android:layout_marginBottom="12dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/presets_grid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:clipToPadding="false"
-        android:focusable="false" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/color_picker_custom"
-        android:textAppearance="?attr/textAppearanceTitleSmall"
-        android:textColor="?attr/colorOnSurface"
-        android:layout_marginBottom="12dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="4dp">
-
-        <View
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@drawable/color_channel_red" />
-
-        <com.google.android.material.slider.Slider
-            android:id="@+id/slider_red"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="12dp"
-            android:max="255"
-            android:stepSize="1"
-            android:focusable="true"
-            app:trackColorActive="@color/slider_red"
-            app:trackColorInactive="?attr/colorSurfaceVariant"
-            app:thumbColor="@color/slider_red" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="2dp">
 
-        <TextView
-            android:id="@+id/value_red"
-            android:layout_width="36dp"
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/color_channel_green" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slider_green"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="8dp"
+                android:valueFrom="0"
+                android:valueTo="255"
+                android:stepSize="1"
+                android:focusable="true"
+                app:trackColorActive="@color/slider_green"
+                app:trackColorInactive="?attr/colorSurfaceVariant"
+                app:thumbColor="@color/slider_green" />
+
+            <TextView
+                android:id="@+id/value_green"
+                android:layout_width="28dp"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurface"
+                android:fontFamily="monospace"
+                android:gravity="end"
+                android:textAppearance="?attr/textAppearanceBodySmall" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="?attr/colorOnSurface"
-            android:fontFamily="monospace"
-            android:gravity="end"
-            android:textAppearance="?attr/textAppearanceBodyMedium" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp">
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/color_channel_blue" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slider_blue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="8dp"
+                android:valueFrom="0"
+                android:valueTo="255"
+                android:stepSize="1"
+                android:focusable="true"
+                app:trackColorActive="@color/slider_blue"
+                app:trackColorInactive="?attr/colorSurfaceVariant"
+                app:thumbColor="@color/slider_blue" />
+
+            <TextView
+                android:id="@+id/value_blue"
+                android:layout_width="28dp"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurface"
+                android:fontFamily="monospace"
+                android:gravity="end"
+                android:textAppearance="?attr/textAppearanceBodySmall" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_cancel"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:focusable="true"
+                android:text="@string/cancel" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_ok"
+                style="@style/Widget.Material3.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:focusable="true"
+                android:text="@string/ok" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="4dp">
-
-        <View
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@drawable/color_channel_green" />
-
-        <com.google.android.material.slider.Slider
-            android:id="@+id/slider_green"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="12dp"
-            android:max="255"
-            android:stepSize="1"
-            android:focusable="true"
-            app:trackColorActive="@color/slider_green"
-            app:trackColorInactive="?attr/colorSurfaceVariant"
-            app:thumbColor="@color/slider_green" />
-
-        <TextView
-            android:id="@+id/value_green"
-            android:layout_width="36dp"
-            android:layout_height="wrap_content"
-            android:textColor="?attr/colorOnSurface"
-            android:fontFamily="monospace"
-            android:gravity="end"
-            android:textAppearance="?attr/textAppearanceBodyMedium" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="24dp">
-
-        <View
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@drawable/color_channel_blue" />
-
-        <com.google.android.material.slider.Slider
-            android:id="@+id/slider_blue"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="12dp"
-            android:max="255"
-            android:stepSize="1"
-            android:focusable="true"
-            app:trackColorActive="@color/slider_blue"
-            app:trackColorInactive="?attr/colorSurfaceVariant"
-            app:thumbColor="@color/slider_blue" />
-
-        <TextView
-            android:id="@+id/value_blue"
-            android:layout_width="36dp"
-            android:layout_height="wrap_content"
-            android:textColor="?attr/colorOnSurface"
-            android:fontFamily="monospace"
-            android:gravity="end"
-            android:textAppearance="?attr/textAppearanceBodyMedium" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="end">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_cancel"
-            style="@style/Widget.Material3.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:focusable="true"
-            android:text="@string/cancel" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_ok"
-            style="@style/Widget.Material3.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_marginStart="8dp"
-            android:focusable="true"
-            android:text="@string/ok" />
-
-    </LinearLayout>
-
-</LinearLayout>
+</ScrollView>
