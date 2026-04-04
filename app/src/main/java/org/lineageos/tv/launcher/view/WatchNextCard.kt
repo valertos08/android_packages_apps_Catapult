@@ -31,6 +31,7 @@ import com.google.android.material.progressindicator.LinearProgressIndicator
 import org.lineageos.tv.launcher.R
 import org.lineageos.tv.launcher.ext.getAttributeResourceId
 import org.lineageos.tv.launcher.ext.watchNextCardSize
+import org.lineageos.tv.launcher.utils.CardCornerRadiusHelper
 
 class WatchNextCard @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -51,6 +52,13 @@ class WatchNextCard @JvmOverloads constructor(
 
         applyCardSizeScaling()
         setupNameMarquee()
+        applyCornerRadius()
+    }
+    
+    fun applyCornerRadius() {
+        bannerBackgroundView.background = CardCornerRadiusHelper.getBannerBorderDrawable(context)
+        bannerView.background = CardCornerRadiusHelper.getBannerBorderDrawable(context)
+        bannerView.background.setTint(android.graphics.Color.BLACK)
     }
 
     private fun applyCardSizeScaling() {

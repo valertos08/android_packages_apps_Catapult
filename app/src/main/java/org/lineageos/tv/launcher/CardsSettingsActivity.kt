@@ -16,6 +16,7 @@ import org.lineageos.tv.launcher.ext.allAppsGrid
 import org.lineageos.tv.launcher.ext.allAppsGridColumns
 import org.lineageos.tv.launcher.ext.appCardSize
 import org.lineageos.tv.launcher.ext.favoriteCardSize
+import org.lineageos.tv.launcher.ext.cardCornerRadius
 import org.lineageos.tv.launcher.ext.watchNextCardSize
 
 class CardsSettingsActivity : ModalActivity(R.layout.activity_cards_settings) {
@@ -109,6 +110,23 @@ class CardsSettingsActivity : ModalActivity(R.layout.activity_cards_settings) {
                 updateCardSizeLabel(watchNextCardValue, value)
                 if (fromUser) {
                     prefs.watchNextCardSize = value
+                }
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+
+        val cornerRadiusSeekBar = findViewById<SeekBar>(R.id.card_corner_radius_seekbar)!!
+        val cornerRadiusValue = findViewById<TextView>(R.id.card_corner_radius_value)!!
+
+        cornerRadiusSeekBar.progress = prefs.cardCornerRadius.coerceIn(0, 20)
+        cornerRadiusValue.text = "${cornerRadiusSeekBar.progress}dp"
+
+        cornerRadiusSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                cornerRadiusValue.text = "${progress}dp"
+                if (fromUser) {
+                    prefs.cardCornerRadius = progress
                 }
             }
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
