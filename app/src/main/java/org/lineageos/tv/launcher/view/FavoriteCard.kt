@@ -7,23 +7,30 @@ package org.lineageos.tv.launcher.view
 
 import android.animation.AnimatorInflater
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.view.View
 import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.preference.PreferenceManager
+import com.google.android.material.R as MaterialR
 import org.lineageos.tv.launcher.R
 import org.lineageos.tv.launcher.ext.favoriteCardSize
-import org.lineageos.tv.launcher.utils.CardCornerRadiusHelper
+import org.lineageos.tv.launcher.ext.getAttributeColor
+import org.lineageos.tv.launcher.model.ActivityLauncher
+import org.lineageos.tv.launcher.model.Launchable
+import org.lineageos.tv.launcher.utils.CardBackgroundHelper
 
 class FavoriteCard @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : AppCardCommon(context, attrs, defStyleAttr) {
     override val menuResId = R.menu.favorite_app_long_press
 
-    // Views
     private val moveOverlayView by lazy { findViewById<ImageView>(R.id.app_move_handle)!! }
 
+    private var currentIcon: Drawable? = null
+    private var useIconGradient: Boolean = false
     var moving: Boolean = false
 
     init {
@@ -35,13 +42,24 @@ class FavoriteCard @JvmOverloads constructor(
         applyCardSizeScaling()
         applyCornerRadius()
     }
+
+    override fun setCardInfo(appInfo: Launchable) {
+        super.setCardInfo(appInfo)
+        currentIcon = appInfo.icon
+        useIconGradient = appInfo !is ActivityLauncher
+        applyCornerRadius()
+    }
     
     fun applyCornerRadius() {
-        val borderDrawable = CardCornerRadiusHelper.getCardBorderDrawable(context)
-        val backgroundDrawable = CardCornerRadiusHelper.getCardBackgroundDrawable(context)
+        val borderDrawable = CardBackgroundHelper.getCardBorderDrawable(context)
+        val backgroundDrawable = if (useIconGradient && currentIcon != null) {
+            CardBackgroundHelper.getCardIconBackgroundDrawable(context, currentIcon)
+        } else {
+            CardBackgroundHelper.createThemeBackgroundDrawable(context)
+        }
         
         cardContainer.background = borderDrawable
-        bannerView.background = CardCornerRadiusHelper.getBannerBorderDrawable(context)
+        bannerView.background = CardBackgroundHelper.getBannerBorderDrawable(context)
         iconContainer.background = backgroundDrawable
     }
 

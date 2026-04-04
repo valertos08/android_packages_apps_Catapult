@@ -7,6 +7,7 @@ package org.lineageos.tv.launcher.view
 
 import android.animation.AnimatorInflater
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
@@ -15,7 +16,8 @@ import androidx.core.view.isInvisible
 import androidx.preference.PreferenceManager
 import org.lineageos.tv.launcher.R
 import org.lineageos.tv.launcher.ext.appCardSize
-import org.lineageos.tv.launcher.utils.CardCornerRadiusHelper
+import org.lineageos.tv.launcher.model.Launchable
+import org.lineageos.tv.launcher.utils.CardBackgroundHelper
 
 class AppCard @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -23,6 +25,7 @@ class AppCard @JvmOverloads constructor(
     override val menuResId = R.menu.app_long_press
 
     private var isGridMode = false
+    private var currentIcon: Drawable? = null
 
     fun setGridMode(grid: Boolean) {
         isGridMode = grid
@@ -50,13 +53,19 @@ class AppCard @JvmOverloads constructor(
             }
         }
     }
+
+    override fun setCardInfo(appInfo: Launchable) {
+        super.setCardInfo(appInfo)
+        currentIcon = appInfo.icon
+        applyCornerRadius()
+    }
     
     fun applyCornerRadius() {
-        val borderDrawable = CardCornerRadiusHelper.getCardBorderDrawable(context)
-        val backgroundDrawable = CardCornerRadiusHelper.getCardBackgroundDrawable(context)
+        val borderDrawable = CardBackgroundHelper.getCardBorderDrawable(context)
+        val backgroundDrawable = CardBackgroundHelper.getCardIconBackgroundDrawable(context, currentIcon)
         
         cardContainer.background = borderDrawable
-        bannerView.background = CardCornerRadiusHelper.getBannerBorderDrawable(context)
+        bannerView.background = CardBackgroundHelper.getBannerBorderDrawable(context)
         iconContainer.background = backgroundDrawable
     }
 
@@ -65,18 +74,13 @@ class AppCard @JvmOverloads constructor(
             val density = context.resources.displayMetrics.density
             val columnWidth = View.MeasureSpec.getSize(widthMeasureSpec)
             
-            // Card fills the column width
             val cardWidthDp = columnWidth / density
-            
-            // Card height maintains 177:100 aspect ratio
             val cardHeightDp = cardWidthDp * 100f / 177f
             val imageHeight = (cardHeightDp * density).toInt()
             
-            // Text size scales proportionally with card width (base: 12sp at 177dp)
             val textScale = cardWidthDp / 177f
             val textSize = 12f * textScale
             
-            // Update dimensions
             cardContainer.layoutParams = cardContainer.layoutParams.apply {
                 this.width = columnWidth
             }
@@ -94,10 +98,7 @@ class AppCard @JvmOverloads constructor(
                 this.height = iconSize
             }
             
-            // Text height = text size + padding
             val textHeight = (textSize * density).toInt() + (8 * density).toInt()
-            
-            // Total height = image + text
             val totalHeight = imageHeight + textHeight
             
             super.onMeasure(
@@ -130,7 +131,6 @@ class AppCard @JvmOverloads constructor(
             width = newWidth
         }
 
-        // Scale only applies in carousel mode (not grid mode)
         if (!isGridMode) {
             cardFrame.layoutParams = cardFrame.layoutParams.apply {
                 height = newHeight

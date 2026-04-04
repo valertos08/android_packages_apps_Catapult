@@ -65,4 +65,26 @@
     <string name="all_apps_grid_view">All apps grid view</string>
     <string name="all_apps_grid_columns">Grid columns</string>
     <string name="card_corner_radius">Card corner radius</string>
+    <string name="card_background">Card background</string>
+    <string name="card_background_theme">Theme color</string>
+    <string name="card_background_custom">Custom color</string>
+    <string name="card_background_gradient">Custom gradient</string>
+    <string name="card_background_icon">Icon colors</string>
+    <string name="color_picker_title">Choose color</string>
+    <string name="color_picker_presets">Presets</string>
+    <string name="color_picker_custom">Custom</string>
+    <string name="select_color">Select color</string>
+    <string name="gradient_start">Start</string>
+    <string name="gradient_end">End</string>
+    <string name="gradient_direction">Direction</string>
+    <string name="gradient_vertical_tb">Vertical (top→bottom)</string>
+    <string name="gradient_vertical_bt">Vertical (bottom→top)</string>
+    <string name="gradient_horizontal_lr">Horizontal (left→right)</string>
+    <string name="gradient_horizontal_rl">Horizontal (right→left)</string>
+    <string name="gradient_diagonal_tlbr">Diagonal (top-left→bottom-right)</string>
+    <string name="gradient_diagonal_trbl">Diagonal (top-right→bottom-left)</string>
+    <string name="gradient_diagonal_bltr">Diagonal (bottom-left→top-right)</string>
+    <string name="gradient_diagonal_brtl">Diagonal (bottom-right→top-left)</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
 </resources>

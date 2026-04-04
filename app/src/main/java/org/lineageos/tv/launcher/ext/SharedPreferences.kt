@@ -149,3 +149,51 @@ var SharedPreferences.cardCornerRadius: Int
     set(value) = edit {
         putInt(CARD_CORNER_RADIUS_KEY, value)
     }
+
+const val CARD_BACKGROUND_TYPE_KEY = "card_background_type"
+
+var SharedPreferences.cardBackgroundType: Int
+    get() = getInt(CARD_BACKGROUND_TYPE_KEY, 0)
+    set(value) = edit {
+        putInt(CARD_BACKGROUND_TYPE_KEY, value)
+    }
+
+const val CARD_BACKGROUND_COLOR_KEY = "card_background_color"
+
+var SharedPreferences.cardBackgroundColor: Int
+    get() = getInt(CARD_BACKGROUND_COLOR_KEY, 0xFF424242.toInt())
+    set(value) = edit {
+        putInt(CARD_BACKGROUND_COLOR_KEY, value)
+    }
+
+const val CARD_BACKGROUND_GRADIENT_START_KEY = "card_background_gradient_start"
+
+var SharedPreferences.cardBackgroundGradientStart: Int
+    get() = getInt(CARD_BACKGROUND_GRADIENT_START_KEY, 0xFF1976D2.toInt())
+    set(value) = edit {
+        putInt(CARD_BACKGROUND_GRADIENT_START_KEY, value)
+    }
+
+const val CARD_BACKGROUND_GRADIENT_END_KEY = "card_background_gradient_end"
+
+var SharedPreferences.cardBackgroundGradientEnd: Int
+    get() = getInt(CARD_BACKGROUND_GRADIENT_END_KEY, 0xFF7B1FA2.toInt())
+    set(value) = edit {
+        putInt(CARD_BACKGROUND_GRADIENT_END_KEY, value)
+    }
+
+const val CARD_BACKGROUND_GRADIENT_MODE_KEY = "card_background_gradient_mode"
+
+var SharedPreferences.cardBackgroundGradientMode: Int
+    get() = getInt(CARD_BACKGROUND_GRADIENT_MODE_KEY, 0)
+    set(value) = edit {
+        putInt(CARD_BACKGROUND_GRADIENT_MODE_KEY, value)
+    }
+
+const val CARD_BACKGROUND_ICON_GRADIENT_MODE_KEY = "card_background_icon_gradient_mode"
+
+var SharedPreferences.cardBackgroundIconGradientMode: Int
+    get() = getInt(CARD_BACKGROUND_ICON_GRADIENT_MODE_KEY, 0)
+    set(value) = edit {
+        putInt(CARD_BACKGROUND_ICON_GRADIENT_MODE_KEY, value)
+    }

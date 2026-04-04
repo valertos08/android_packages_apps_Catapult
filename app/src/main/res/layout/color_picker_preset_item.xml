@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: 2024-2025 The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="4dp"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="?attr/selectableItemBackgroundBorderless">
+
+    <View
+        android:id="@+id/color_item"
+        android:layout_width="48dp"
+        android:layout_height="48dp" />
+
+</FrameLayout>
