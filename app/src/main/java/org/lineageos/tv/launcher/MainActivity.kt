@@ -5,6 +5,7 @@
 
 package org.lineageos.tv.launcher
 
+import android.animation.ObjectAnimator
 import android.app.Dialog
 import android.app.role.RoleManager
 import android.content.DialogInterface
@@ -18,6 +19,7 @@ import android.transition.Slide
 import android.transition.TransitionManager
 import android.view.Gravity
 import android.view.View
+import android.view.animation.DecelerateInterpolator
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -73,6 +75,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private var lastAllAppsGrid = false
     private var lastAllAppsGridColumns = 4
     private var lastCardCornerRadius = 8
+
+    // Top bar hide/show
+    private var favoritesRowPosition = 0
+    private var isTopBarHidden = false
+    private var topBarAnimator: ObjectAnimator? = null
 
     // View models
     private val model: LauncherViewModel by viewModels()
@@ -139,6 +146,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                         }
                     } to watchNextPrograms
                 }.collectLatest { (updatedList, watchNextPrograms) ->
+                    favoritesRowPosition = updatedList.indexOfFirst { it.first == InternalChannel.FAVORITE_APPS.id }
+                        .coerceAtLeast(0)
                     mainVerticalAdapter.submitList(updatedList)
                     watchNextAdapter.submitList(watchNextPrograms)
                 }
@@ -224,6 +233,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
 
         mainVerticalGridView.adapter = mainVerticalAdapter
+        setupFocusTrackingForTopBar()
 
         favoritesAdapter.onFavoritesChangedCallback = {
             sharedPreferences.favoriteApps = it
@@ -274,6 +284,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         super.onResume()
         applyBackground()
         checkCardSizeChanges()
+        showTopBar()
     }
 
     private fun checkCardSizeChanges() {
@@ -309,6 +320,70 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         favoritesAdapter.notifyDataSetChanged()
         watchNextAdapter.notifyDataSetChanged()
         mainVerticalAdapter.notifyDataSetChanged()
+    }
+
+    private fun setupFocusTrackingForTopBar() {
+        mainVerticalGridView.viewTreeObserver.addOnGlobalFocusChangeListener { _, newFocus ->
+            if (newFocus != null) {
+                updateTopBarVisibilityBasedOnFocus(newFocus)
+            }
+        }
+    }
+
+    private fun updateTopBarVisibilityBasedOnFocus(focusedView: View) {
+        val position = findRowPositionForView(focusedView)
+        if (position != -1) {
+            if (position > favoritesRowPosition && !isTopBarHidden) {
+                hideTopBar()
+            } else if (position <= favoritesRowPosition && isTopBarHidden) {
+                showTopBar()
+            }
+        }
+    }
+
+    private fun findRowPositionForView(view: View): Int {
+        for (i in 0 until mainVerticalGridView.childCount) {
+            val rowView = mainVerticalGridView.getChildAt(i)
+            if (isDescendant(rowView, view) || rowView == view) {
+                return mainVerticalGridView.getChildAdapterPosition(rowView)
+            }
+        }
+        return -1
+    }
+
+    private fun isDescendant(parent: View, child: View): Boolean {
+        if (child == parent) return true
+        var parentOfChild = child.parent
+        while (parentOfChild != null) {
+            if (parentOfChild == parent) return true
+            parentOfChild = parentOfChild.parent
+        }
+        return false
+    }
+
+    private fun hideTopBar() {
+        if (topBarAnimator?.isRunning == true) {
+            topBarAnimator?.cancel()
+        }
+        val topBarHeight = topBarContainer.height.toFloat()
+        topBarAnimator = ObjectAnimator.ofFloat(topBarContainer, "translationY", 0f, -topBarHeight).apply {
+            duration = 250
+            interpolator = DecelerateInterpolator()
+            start()
+        }
+        isTopBarHidden = true
+    }
+
+    private fun showTopBar() {
+        if (topBarAnimator?.isRunning == true) {
+            topBarAnimator?.cancel()
+        }
+        topBarAnimator = ObjectAnimator.ofFloat(topBarContainer, "translationY", topBarContainer.translationY, 0f).apply {
+            duration = 250
+            interpolator = DecelerateInterpolator()
+            start()
+        }
+        isTopBarHidden = false
     }
 
     override fun onDestroy() {
