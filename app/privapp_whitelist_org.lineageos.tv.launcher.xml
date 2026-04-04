@@ -8,5 +8,9 @@
         <permission name="android.permission.DEVICE_POWER" />
         <permission name="android.permission.INTERNAL_SYSTEM_WINDOW" />
         <permission name="android.permission.WRITE_SECURE_SETTINGS" />
+        <permission name="android.permission.GET_TASKS" />
+        <permission name="android.permission.REAL_GET_TASKS" />
+        <permission name="android.permission.REMOVE_TASKS" />
+        <permission name="android.permission.REORDER_TASKS" />
     </privapp-permissions>
 </permissions>

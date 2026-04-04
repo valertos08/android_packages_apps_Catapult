@@ -25,7 +25,26 @@ class AppCard @JvmOverloads constructor(
     override val menuResId = R.menu.app_long_press
 
     private var isGridMode = false
-    private var currentIcon: Drawable? = null
+    protected var currentIcon: Drawable? = null
+    private var customTitle: String? = null
+
+    fun setCustomTitle(title: String?) {
+        customTitle = title
+        if (title != null) {
+            nameView.text = title
+        }
+    }
+
+    fun setCustomIcon(icon: Drawable?) {
+        if (icon != null) {
+            currentIcon = icon
+            hasCustomIcon = true
+            iconView.setImageDrawable(icon)
+            bannerView.visibility = View.GONE
+            iconContainer.visibility = View.VISIBLE
+            applyCornerRadius()
+        }
+    }
 
     fun setGridMode(grid: Boolean) {
         isGridMode = grid

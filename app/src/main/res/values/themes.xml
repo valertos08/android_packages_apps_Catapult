@@ -47,4 +47,13 @@
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowBackground">@drawable/rounded_background</item>
     </style>
+
+    <style name="Theme.Catapult.Overlay">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
 </resources>

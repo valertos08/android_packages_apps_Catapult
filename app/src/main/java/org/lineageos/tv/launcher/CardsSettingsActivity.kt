@@ -9,16 +9,16 @@ import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
-import android.widget.SeekBar
-import android.widget.Spinner
 import android.widget.TextView
 import androidx.preference.PreferenceManager
 import com.google.android.material.materialswitch.MaterialSwitch
+import com.google.android.material.slider.Slider
+import com.google.android.material.textfield.TextInputLayout
 import org.lineageos.tv.launcher.ext.allAppsGrid
 import org.lineageos.tv.launcher.ext.allAppsGridColumns
 import org.lineageos.tv.launcher.ext.appCardSize
@@ -38,8 +38,6 @@ class CardsSettingsActivity : ModalActivity(R.layout.activity_cards_settings) {
 
     private val prefs by lazy { PreferenceManager.getDefaultSharedPreferences(this) }
 
-    private val cardSizeValues = listOf(60, 70, 80, 90, 100, 110, 120, 130, 140)
-
     private var currentColorPicker: ColorPickerDialog? = null
 
     private lateinit var cardBackgroundPreview: View
@@ -53,9 +51,11 @@ class CardsSettingsActivity : ModalActivity(R.layout.activity_cards_settings) {
     private lateinit var gradientOptions: LinearLayout
     private lateinit var gradientStartPreview: View
     private lateinit var gradientEndPreview: View
-    private lateinit var gradientDirectionSpinner: Spinner
+    private lateinit var gradientDirectionLayout: TextInputLayout
+    private lateinit var gradientDirectionDropdown: AutoCompleteTextView
     private lateinit var iconOptions: LinearLayout
-    private lateinit var iconGradientDirectionSpinner: Spinner
+    private lateinit var iconGradientDirectionLayout: TextInputLayout
+    private lateinit var iconGradientDirectionDropdown: AutoCompleteTextView
 
     private val gradientDirectionNames = listOf(
         R.string.gradient_vertical_tb,
@@ -76,7 +76,7 @@ class CardsSettingsActivity : ModalActivity(R.layout.activity_cards_settings) {
 
     private fun setupCardSizeSettings() {
         val allAppsGridSwitch = findViewById<MaterialSwitch>(R.id.all_apps_grid_switch)!!
-        val gridColumnsSeekBar = findViewById<SeekBar>(R.id.grid_columns_seekbar)!!
+        val gridColumnsSlider = findViewById<Slider>(R.id.grid_columns_slider)!!
         val gridColumnsValue = findViewById<TextView>(R.id.grid_columns_value)!!
 
         allAppsGridSwitch.isChecked = prefs.allAppsGrid
@@ -88,91 +88,69 @@ class CardsSettingsActivity : ModalActivity(R.layout.activity_cards_settings) {
             updateSettingsVisibility(isChecked)
         }
 
-        gridColumnsSeekBar.progress = prefs.allAppsGridColumns - 4
+        gridColumnsSlider.value = prefs.allAppsGridColumns.toFloat()
         gridColumnsValue.text = prefs.allAppsGridColumns.toString()
 
-        gridColumnsSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val value = progress + 4
-                gridColumnsValue.text = value.toString()
-                if (fromUser) {
-                    prefs.allAppsGridColumns = value
-                }
+        gridColumnsSlider.addOnChangeListener { _, value, fromUser ->
+            val intValue = value.toInt()
+            gridColumnsValue.text = intValue.toString()
+            if (fromUser) {
+                prefs.allAppsGridColumns = intValue
             }
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-        })
+        }
 
-        val appCardSeekBar = findViewById<SeekBar>(R.id.app_card_size_seekbar)!!
+        val appCardSlider = findViewById<Slider>(R.id.app_card_size_slider)!!
         val appCardValue = findViewById<TextView>(R.id.app_card_size_value)!!
 
-        val favoriteCardSeekBar = findViewById<SeekBar>(R.id.favorite_card_size_seekbar)!!
+        val favoriteCardSlider = findViewById<Slider>(R.id.favorite_card_size_slider)!!
         val favoriteCardValue = findViewById<TextView>(R.id.favorite_card_size_value)!!
 
-        val watchNextCardSeekBar = findViewById<SeekBar>(R.id.watch_next_card_size_seekbar)!!
+        val watchNextCardSlider = findViewById<Slider>(R.id.watch_next_card_size_slider)!!
         val watchNextCardValue = findViewById<TextView>(R.id.watch_next_card_size_value)!!
 
-        appCardSeekBar.progress = cardSizeValues.indexOf(prefs.appCardSize.coerceIn(60, 140))
-        favoriteCardSeekBar.progress = cardSizeValues.indexOf(prefs.favoriteCardSize.coerceIn(60, 140))
-        watchNextCardSeekBar.progress = cardSizeValues.indexOf(prefs.watchNextCardSize.coerceIn(60, 140))
+        appCardSlider.value = prefs.appCardSize.coerceIn(60, 140).toFloat()
+        favoriteCardSlider.value = prefs.favoriteCardSize.coerceIn(60, 140).toFloat()
+        watchNextCardSlider.value = prefs.watchNextCardSize.coerceIn(60, 140).toFloat()
 
-        updateCardSizeLabel(appCardValue, cardSizeValues[appCardSeekBar.progress])
-        updateCardSizeLabel(favoriteCardValue, cardSizeValues[favoriteCardSeekBar.progress])
-        updateCardSizeLabel(watchNextCardValue, cardSizeValues[watchNextCardSeekBar.progress])
+        updateCardSizeLabel(appCardValue, appCardSlider.value.toInt())
+        updateCardSizeLabel(favoriteCardValue, favoriteCardSlider.value.toInt())
+        updateCardSizeLabel(watchNextCardValue, watchNextCardSlider.value.toInt())
 
-        appCardSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val value = cardSizeValues[progress]
-                updateCardSizeLabel(appCardValue, value)
-                if (fromUser) {
-                    prefs.appCardSize = value
-                }
+        appCardSlider.addOnChangeListener { _, value, fromUser ->
+            updateCardSizeLabel(appCardValue, value.toInt())
+            if (fromUser) {
+                prefs.appCardSize = value.toInt()
             }
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-        })
+        }
 
-        favoriteCardSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val value = cardSizeValues[progress]
-                updateCardSizeLabel(favoriteCardValue, value)
-                if (fromUser) {
-                    prefs.favoriteCardSize = value
-                }
+        favoriteCardSlider.addOnChangeListener { _, value, fromUser ->
+            updateCardSizeLabel(favoriteCardValue, value.toInt())
+            if (fromUser) {
+                prefs.favoriteCardSize = value.toInt()
             }
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-        })
+        }
 
-        watchNextCardSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val value = cardSizeValues[progress]
-                updateCardSizeLabel(watchNextCardValue, value)
-                if (fromUser) {
-                    prefs.watchNextCardSize = value
-                }
+        watchNextCardSlider.addOnChangeListener { _, value, fromUser ->
+            updateCardSizeLabel(watchNextCardValue, value.toInt())
+            if (fromUser) {
+                prefs.watchNextCardSize = value.toInt()
             }
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-        })
+        }
 
-        val cornerRadiusSeekBar = findViewById<SeekBar>(R.id.card_corner_radius_seekbar)!!
+        val cornerRadiusSlider = findViewById<Slider>(R.id.card_corner_radius_slider)!!
         val cornerRadiusValue = findViewById<TextView>(R.id.card_corner_radius_value)!!
 
-        cornerRadiusSeekBar.progress = prefs.cardCornerRadius.coerceIn(0, 20)
-        cornerRadiusValue.text = "${cornerRadiusSeekBar.progress}dp"
+        cornerRadiusSlider.value = prefs.cardCornerRadius.coerceIn(0, 20).toFloat()
+        cornerRadiusValue.text = "${cornerRadiusSlider.value.toInt()}dp"
 
-        cornerRadiusSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                cornerRadiusValue.text = "${progress}dp"
-                if (fromUser) {
-                    prefs.cardCornerRadius = progress
-                    updateBackgroundPreview()
-                }
+        cornerRadiusSlider.addOnChangeListener { _, value, fromUser ->
+            val intValue = value.toInt()
+            cornerRadiusValue.text = "${intValue}dp"
+            if (fromUser) {
+                prefs.cardCornerRadius = intValue
+                updateBackgroundPreview()
             }
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-        })
+        }
     }
 
     private fun setupCardBackgroundSettings() {
@@ -187,11 +165,13 @@ class CardsSettingsActivity : ModalActivity(R.layout.activity_cards_settings) {
         gradientOptions = findViewById(R.id.card_bg_gradient_options)!!
         gradientStartPreview = findViewById(R.id.gradient_start_preview)!!
         gradientEndPreview = findViewById(R.id.gradient_end_preview)!!
-        gradientDirectionSpinner = findViewById(R.id.gradient_direction_spinner)!!
+        gradientDirectionLayout = findViewById(R.id.gradient_direction_layout)!!
+        gradientDirectionDropdown = findViewById(R.id.gradient_direction_dropdown)!!
         iconOptions = findViewById(R.id.card_bg_icon_options)!!
-        iconGradientDirectionSpinner = findViewById(R.id.icon_gradient_direction_spinner)!!
+        iconGradientDirectionLayout = findViewById(R.id.icon_gradient_direction_layout)!!
+        iconGradientDirectionDropdown = findViewById(R.id.icon_gradient_direction_dropdown)!!
 
-        setupSpinners()
+        setupDropdowns()
 
         val bgType = prefs.cardBackgroundType
         when (bgType) {
@@ -241,31 +221,25 @@ class CardsSettingsActivity : ModalActivity(R.layout.activity_cards_settings) {
             }
         }
 
-        gradientDirectionSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                prefs.cardBackgroundGradientMode = position
-                updateBackgroundPreview()
-            }
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        gradientDirectionDropdown.setOnItemClickListener { _, _, position, _ ->
+            prefs.cardBackgroundGradientMode = position
+            updateBackgroundPreview()
         }
 
-        iconGradientDirectionSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                prefs.cardBackgroundIconGradientMode = position
-                updateBackgroundPreview()
-            }
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        iconGradientDirectionDropdown.setOnItemClickListener { _, _, position, _ ->
+            prefs.cardBackgroundIconGradientMode = position
+            updateBackgroundPreview()
         }
     }
 
-    private fun setupSpinners() {
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,
+    private fun setupDropdowns() {
+        val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line,
             gradientDirectionNames.map { getString(it) })
-        gradientDirectionSpinner.adapter = adapter
-        gradientDirectionSpinner.setSelection(prefs.cardBackgroundGradientMode)
+        gradientDirectionDropdown.setAdapter(adapter)
+        gradientDirectionDropdown.setText(adapter.getItem(prefs.cardBackgroundGradientMode), false)
 
-        iconGradientDirectionSpinner.adapter = adapter
-        iconGradientDirectionSpinner.setSelection(prefs.cardBackgroundIconGradientMode)
+        iconGradientDirectionDropdown.setAdapter(adapter)
+        iconGradientDirectionDropdown.setText(adapter.getItem(prefs.cardBackgroundIconGradientMode), false)
     }
 
     private fun updateBackgroundOptionsVisibility() {
@@ -315,8 +289,8 @@ class CardsSettingsActivity : ModalActivity(R.layout.activity_cards_settings) {
     }
 
     private fun updateSettingsVisibility(isGridMode: Boolean) {
-        val gridColumnsSection = findViewById<LinearLayout>(R.id.grid_columns_section)!!
-        val appCardSizeSection = findViewById<LinearLayout>(R.id.app_card_size_section)!!
+        val gridColumnsSection = findViewById<View>(R.id.grid_columns_section)!!
+        val appCardSizeSection = findViewById<View>(R.id.app_card_size_section)!!
         
         gridColumnsSection.visibility = if (isGridMode) View.VISIBLE else View.GONE
         appCardSizeSection.visibility = if (isGridMode) View.GONE else View.VISIBLE

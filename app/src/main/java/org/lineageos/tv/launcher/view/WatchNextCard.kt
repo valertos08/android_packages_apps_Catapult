@@ -75,25 +75,33 @@ class WatchNextCard @JvmOverloads constructor(
         val newWidth = (baseWidth * scale).toInt()
         val newHeight = (baseHeight * scale).toInt()
 
-        layoutParams = layoutParams.apply {
-            width = newWidth
+        val myLp = layoutParams
+        if (myLp != null) {
+            myLp.width = newWidth
+            layoutParams = myLp
         }
 
-        cardFrame.layoutParams = cardFrame.layoutParams.apply {
-            height = newHeight
+        val frameLp = cardFrame.layoutParams
+        if (frameLp != null) {
+            frameLp.height = newHeight
+            cardFrame.layoutParams = frameLp
         }
 
-        title.layoutParams = title.layoutParams.apply {
-            width = newWidth
+        val titleLp = title.layoutParams
+        if (titleLp != null) {
+            titleLp.width = newWidth
+            title.layoutParams = titleLp
         }
 
         title.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f * scale)
 
         val progressMargin = (15f * scale).toInt()
         val progressPaddingBottom = (20f * scale).toInt()
-        progressView.layoutParams = (progressView.layoutParams as ViewGroup.MarginLayoutParams).apply {
-            marginStart = progressMargin
-            marginEnd = progressMargin
+        val progressLp = progressView.layoutParams
+        if (progressLp is ViewGroup.MarginLayoutParams) {
+            progressLp.marginStart = progressMargin
+            progressLp.marginEnd = progressMargin
+            progressView.layoutParams = progressLp
         }
         progressView.setPadding(0, 0, 0, progressPaddingBottom)
     }

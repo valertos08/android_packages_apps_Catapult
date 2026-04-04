@@ -87,4 +87,6 @@
     <string name="gradient_diagonal_brtl">Diagonal (bottom-right→top-left)</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
+    <string name="overlay_title">Catapult Overlay</string>
+    <string name="overlay_hint">Double HOME, ESC или BACK для закрытия</string>
 </resources>
