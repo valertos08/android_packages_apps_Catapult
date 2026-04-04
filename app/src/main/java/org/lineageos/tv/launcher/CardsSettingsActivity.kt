@@ -6,9 +6,14 @@
 package org.lineageos.tv.launcher
 
 import android.os.Bundle
+import android.view.View
+import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.preference.PreferenceManager
+import com.google.android.material.materialswitch.MaterialSwitch
+import org.lineageos.tv.launcher.ext.allAppsGrid
+import org.lineageos.tv.launcher.ext.allAppsGridColumns
 import org.lineageos.tv.launcher.ext.appCardSize
 import org.lineageos.tv.launcher.ext.favoriteCardSize
 import org.lineageos.tv.launcher.ext.watchNextCardSize
@@ -25,6 +30,38 @@ class CardsSettingsActivity : ModalActivity(R.layout.activity_cards_settings) {
     }
 
     private fun setupCardSizeSettings() {
+        val allAppsGridSwitch = findViewById<MaterialSwitch>(R.id.all_apps_grid_switch)!!
+        val gridColumnsSection = findViewById<LinearLayout>(R.id.grid_columns_section)!!
+        val gridColumnsSeekBar = findViewById<SeekBar>(R.id.grid_columns_seekbar)!!
+        val gridColumnsValue = findViewById<TextView>(R.id.grid_columns_value)!!
+        val appCardSizeSection = findViewById<LinearLayout>(R.id.app_card_size_section)!!
+
+        allAppsGridSwitch.isChecked = prefs.allAppsGrid
+        
+        // Grid mode: show columns, hide card size
+        // Carousel mode: hide columns, show card size
+        updateSettingsVisibility(prefs.allAppsGrid)
+
+        allAppsGridSwitch.setOnCheckedChangeListener { _, isChecked ->
+            prefs.allAppsGrid = isChecked
+            updateSettingsVisibility(isChecked)
+        }
+
+        gridColumnsSeekBar.progress = prefs.allAppsGridColumns - 4
+        gridColumnsValue.text = prefs.allAppsGridColumns.toString()
+
+        gridColumnsSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                val value = progress + 4
+                gridColumnsValue.text = value.toString()
+                if (fromUser) {
+                    prefs.allAppsGridColumns = value
+                }
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+
         val appCardSeekBar = findViewById<SeekBar>(R.id.app_card_size_seekbar)!!
         val appCardValue = findViewById<TextView>(R.id.app_card_size_value)!!
 
@@ -81,5 +118,15 @@ class CardsSettingsActivity : ModalActivity(R.layout.activity_cards_settings) {
 
     private fun updateCardSizeLabel(textView: TextView, value: Int) {
         textView.text = getString(R.string.card_size_percent, value)
+    }
+
+    private fun updateSettingsVisibility(isGridMode: Boolean) {
+        val gridColumnsSection = findViewById<LinearLayout>(R.id.grid_columns_section)!!
+        val appCardSizeSection = findViewById<LinearLayout>(R.id.app_card_size_section)!!
+        
+        // Grid mode: show columns, hide card size
+        // Carousel mode: hide columns, show card size
+        gridColumnsSection.visibility = if (isGridMode) View.VISIBLE else View.GONE
+        appCardSizeSection.visibility = if (isGridMode) View.GONE else View.VISIBLE
     }
 }

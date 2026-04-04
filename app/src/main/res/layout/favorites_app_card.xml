@@ -10,6 +10,7 @@
     android:clickable="true"
     android:clipChildren="false"
     android:clipToPadding="false"
+    android:clipToOutline="true"
     android:longClickable="true"
     android:orientation="vertical"
     android:background="@drawable/favorite_card_border_only">
@@ -28,6 +29,7 @@
             android:background="@drawable/favorite_card_border_only"
             android:backgroundTint="?attr/colorOnSecondaryContainer"
             android:clipToOutline="true"
+            android:scaleType="centerCrop"
             android:visibility="gone" />
 
         <LinearLayout

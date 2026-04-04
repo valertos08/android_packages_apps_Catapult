@@ -6,9 +6,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:clipChildren="false"
-    android:clipToPadding="false">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/title"
@@ -24,10 +22,14 @@
         android:layout_height="@dimen/main_all_apps_row_height"
         android:layout_marginTop="4dp"
         android:clipChildren="false"
-        android:clipToPadding="false"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp" />
+        android:clipToPadding="false" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vertical_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:descendantFocusability="afterDescendants"
+        android:overScrollMode="never" />
 
 </LinearLayout>
