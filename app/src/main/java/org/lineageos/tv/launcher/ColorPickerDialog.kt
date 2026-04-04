@@ -8,9 +8,11 @@ package org.lineageos.tv.launcher
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDialog
 import androidx.recyclerview.widget.GridLayoutManager
@@ -26,8 +28,7 @@ class ColorPickerDialog(
     private val onColorSelected: (Int) -> Unit
 ) : AppCompatDialog(context) {
 
-    private lateinit var colorPreview: View
-    private lateinit var colorHexValue: TextView
+    private lateinit var colorPreview: TextView
     private lateinit var sliderRed: Slider
     private lateinit var sliderGreen: Slider
     private lateinit var sliderBlue: Slider
@@ -53,6 +54,11 @@ class ColorPickerDialog(
         setContentView(R.layout.color_picker_dialog)
 
         window?.setBackgroundDrawableResource(android.R.color.transparent)
+        window?.setGravity(Gravity.TOP or Gravity.END)
+        window?.setLayout(
+            WindowManager.LayoutParams.WRAP_CONTENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
 
         initViews()
         setupSliders()
@@ -64,8 +70,7 @@ class ColorPickerDialog(
     }
 
     private fun initViews() {
-        colorPreview = findViewById(R.id.color_preview_card)!!
-        colorHexValue = findViewById(R.id.color_hex_value)!!
+        colorPreview = findViewById(R.id.color_preview)!!
         sliderRed = findViewById(R.id.slider_red)!!
         sliderGreen = findViewById(R.id.slider_green)!!
         sliderBlue = findViewById(R.id.slider_blue)!!
@@ -123,14 +128,13 @@ class ColorPickerDialog(
         valueBlue.text = String.format(Locale.US, "%3d", Color.blue(currentColor))
 
         val hexColor = String.format(Locale.US, "#%06X", 0xFFFFFF and currentColor)
-        colorHexValue.text = hexColor
-
-        val drawable = colorPreview.background as? GradientDrawable
-            ?: GradientDrawable().apply {
-                shape = GradientDrawable.RECTANGLE
-                cornerRadius = 16f * context.resources.displayMetrics.density
-            }
-        drawable.setColor(currentColor)
+        colorPreview.text = hexColor
+        
+        val drawable = GradientDrawable().apply {
+            shape = GradientDrawable.RECTANGLE
+            cornerRadius = 12f * context.resources.displayMetrics.density
+            setColor(currentColor)
+        }
         colorPreview.background = drawable
 
         presetsGrid.adapter?.notifyDataSetChanged()
