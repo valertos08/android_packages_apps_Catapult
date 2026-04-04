@@ -10,6 +10,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
 class GridSpacingItemDecoration(
+    private val spanCount: Int,
     private val horizontalSpacing: Int,
     private val verticalSpacing: Int = 0
 ) : RecyclerView.ItemDecoration() {
@@ -21,10 +22,10 @@ class GridSpacingItemDecoration(
         state: RecyclerView.State
     ) {
         val position = parent.getChildAdapterPosition(view)
-        val itemCount = state.itemCount
+        val column = position % spanCount
 
-        outRect.left = if (position == 0) 0 else horizontalSpacing
-        outRect.right = if (position == itemCount - 1) 0 else horizontalSpacing
+        outRect.left = horizontalSpacing
+        outRect.right = 0
         outRect.top = verticalSpacing
         outRect.bottom = verticalSpacing
     }

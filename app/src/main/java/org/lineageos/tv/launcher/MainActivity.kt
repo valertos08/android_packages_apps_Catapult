@@ -47,6 +47,8 @@ import org.lineageos.tv.launcher.ext.roleCanBeRequested
 import org.lineageos.tv.launcher.ext.backgroundType
 import org.lineageos.tv.launcher.ext.backgroundColor
 import org.lineageos.tv.launcher.ext.backgroundImageUri
+import org.lineageos.tv.launcher.ext.allAppsGrid
+import org.lineageos.tv.launcher.ext.allAppsGridColumns
 import org.lineageos.tv.launcher.ext.appCardSize
 import org.lineageos.tv.launcher.ext.favoriteCardSize
 import org.lineageos.tv.launcher.ext.watchNextCardSize
@@ -66,6 +68,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private var lastAppCardSize = 100
     private var lastFavoriteCardSize = 100
     private var lastWatchNextCardSize = 100
+    private var lastAllAppsGrid = false
+    private var lastAllAppsGridColumns = 4
 
     // View models
     private val model: LauncherViewModel by viewModels()
@@ -179,6 +183,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         lastAppCardSize = sharedPreferences.appCardSize
         lastFavoriteCardSize = sharedPreferences.favoriteCardSize
         lastWatchNextCardSize = sharedPreferences.watchNextCardSize
+        lastAllAppsGrid = sharedPreferences.allAppsGrid
+        lastAllAppsGridColumns = sharedPreferences.allAppsGridColumns
 
         settingButton.setOnClickListener {
             val dialog = Dialog(this, R.style.Theme_Catapult_SideActivity)
@@ -270,14 +276,20 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val currentAppSize = sharedPreferences.appCardSize
         val currentFavoriteSize = sharedPreferences.favoriteCardSize
         val currentWatchNextSize = sharedPreferences.watchNextCardSize
+        val currentAllAppsGrid = sharedPreferences.allAppsGrid
+        val currentAllAppsGridColumns = sharedPreferences.allAppsGridColumns
 
         if (currentAppSize != lastAppCardSize ||
             currentFavoriteSize != lastFavoriteCardSize ||
-            currentWatchNextSize != lastWatchNextCardSize) {
+            currentWatchNextSize != lastWatchNextCardSize ||
+            currentAllAppsGrid != lastAllAppsGrid ||
+            currentAllAppsGridColumns != lastAllAppsGridColumns) {
             
             lastAppCardSize = currentAppSize
             lastFavoriteCardSize = currentFavoriteSize
             lastWatchNextCardSize = currentWatchNextSize
+            lastAllAppsGrid = currentAllAppsGrid
+            lastAllAppsGridColumns = currentAllAppsGridColumns
             
             android.os.Handler(mainLooper).post {
                 refreshAllRows()

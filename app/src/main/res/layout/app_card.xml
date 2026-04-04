@@ -10,6 +10,7 @@
     android:clickable="true"
     android:clipChildren="false"
     android:clipToPadding="false"
+    android:clipToOutline="true"
     android:longClickable="true"
     android:orientation="vertical"
     android:background="@drawable/card_border_only">
@@ -17,7 +18,7 @@
     <FrameLayout
         android:id="@+id/card_frame"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_card_height"
+        android:layout_height="wrap_content"
         android:clipChildren="false"
         android:clipToOutline="true">
 
@@ -28,6 +29,7 @@
             android:background="@drawable/card_border_only"
             android:backgroundTint="?attr/colorOnSecondaryContainer"
             android:clipToOutline="true"
+            android:scaleType="centerCrop"
             android:visibility="gone" />
 
         <LinearLayout

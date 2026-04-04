@@ -62,4 +62,6 @@
     <string name="favorite_cards_size">Favorite cards size</string>
     <string name="watch_next_cards_size">Watch next cards size</string>
     <string name="card_size_percent">%d%%</string>
+    <string name="all_apps_grid_view">All apps grid view</string>
+    <string name="all_apps_grid_columns">Grid columns</string>
 </resources>
