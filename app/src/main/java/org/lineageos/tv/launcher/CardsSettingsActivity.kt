@@ -7,6 +7,7 @@ package org.lineageos.tv.launcher
 
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -38,6 +39,8 @@ class CardsSettingsActivity : ModalActivity(R.layout.activity_cards_settings) {
     private val prefs by lazy { PreferenceManager.getDefaultSharedPreferences(this) }
 
     private val cardSizeValues = listOf(60, 70, 80, 90, 100, 110, 120, 130, 140)
+
+    private var currentColorPicker: ColorPickerDialog? = null
 
     private lateinit var cardBackgroundPreview: View
     private lateinit var backgroundTypeGroup: RadioGroup
@@ -292,8 +295,19 @@ class CardsSettingsActivity : ModalActivity(R.layout.activity_cards_settings) {
     }
 
     private fun showColorPicker(initialColor: Int, onColorSelected: (Int) -> Unit) {
-        val dialog = ColorPickerDialog(this, initialColor, onColorSelected)
-        dialog.show()
+        currentColorPicker = ColorPickerDialog(this, initialColor, onColorSelected).also {
+            it.show()
+        }
+    }
+
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        val dialog = currentColorPicker
+        if (dialog?.isShowing == true && event.action == KeyEvent.ACTION_DOWN) {
+            if (dialog.handleKeyDown(event.keyCode)) {
+                return true
+            }
+        }
+        return super.dispatchKeyEvent(event)
     }
 
     private fun updateCardSizeLabel(textView: TextView, value: Int) {
