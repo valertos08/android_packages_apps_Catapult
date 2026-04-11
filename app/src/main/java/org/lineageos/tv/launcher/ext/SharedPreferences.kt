@@ -197,3 +197,27 @@ var SharedPreferences.cardBackgroundIconGradientMode: Int
     set(value) = edit {
         putInt(CARD_BACKGROUND_ICON_GRADIENT_MODE_KEY, value)
     }
+
+const val RECENT_APPS_ENABLED_KEY = "recent_apps_enabled"
+
+var SharedPreferences.recentAppsEnabled: Boolean
+    get() = getBoolean(RECENT_APPS_ENABLED_KEY, true)
+    set(value) = edit {
+        putBoolean(RECENT_APPS_ENABLED_KEY, value)
+    }
+
+const val RECENT_APPS_CARD_SIZE_KEY = "recent_apps_card_size"
+
+var SharedPreferences.recentAppsCardSize: Int
+    get() = getInt(RECENT_APPS_CARD_SIZE_KEY, 35)
+    set(value) = edit {
+        putInt(RECENT_APPS_CARD_SIZE_KEY, value)
+    }
+
+const val RECENT_APPS_SHOW_THUMBNAILS_KEY = "recent_apps_show_thumbnails"
+
+var SharedPreferences.recentAppsShowThumbnails: Boolean
+    get() = getBoolean(RECENT_APPS_SHOW_THUMBNAILS_KEY, false)
+    set(value) = edit {
+        putBoolean(RECENT_APPS_SHOW_THUMBNAILS_KEY, value)
+    }

@@ -46,4 +46,10 @@
     <string name="background_image">Изображение</string>
     <string name="select_image">Выбрать изображение</string>
     <string name="selected_image">Изображение выбрано</string>
+    <string name="recent_apps">Недавние приложения</string>
+    <string name="recent_apps_enabled">Показывать оверлей</string>
+    <string name="recent_apps_size">Размер карточек</string>
+    <string name="recent_apps_size_percent">%d%% от высоты экрана</string>
+    <string name="recent_apps_thumbnails">Показывать превью</string>
+    <string name="recent_apps_thumbnails_hint">Скоро</string>
 </resources>

@@ -89,4 +89,10 @@
     <string name="ok">OK</string>
     <string name="overlay_title">Catapult Overlay</string>
     <string name="overlay_hint">Double HOME, ESC или BACK для закрытия</string>
+    <string name="recent_apps">Recent apps</string>
+    <string name="recent_apps_enabled">Show recent apps overlay</string>
+    <string name="recent_apps_size">Card size</string>
+    <string name="recent_apps_size_percent">%d%% of screen height</string>
+    <string name="recent_apps_thumbnails">Show thumbnails</string>
+    <string name="recent_apps_thumbnails_hint">Coming soon</string>
 </resources>
