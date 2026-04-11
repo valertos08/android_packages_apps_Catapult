@@ -27,6 +27,7 @@ class AppCard @JvmOverloads constructor(
     private var isGridMode = false
     protected var currentIcon: Drawable? = null
     private var customTitle: String? = null
+    private var customScale: Float? = null
 
     fun setCustomTitle(title: String?) {
         customTitle = title
@@ -50,6 +51,11 @@ class AppCard @JvmOverloads constructor(
         isGridMode = grid
         applyCardSizeScaling()
         applyCornerRadius()
+    }
+
+    fun setCardScale(scale: Float) {
+        customScale = scale
+        applyCardSizeScaling()
     }
 
     init {
@@ -131,7 +137,7 @@ class AppCard @JvmOverloads constructor(
 
     private fun applyCardSizeScaling() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        val scale = prefs.appCardSize / 100f
+        val scale = customScale ?: (prefs.appCardSize / 100f)
 
         val baseWidth = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP, 177f, context.resources.displayMetrics

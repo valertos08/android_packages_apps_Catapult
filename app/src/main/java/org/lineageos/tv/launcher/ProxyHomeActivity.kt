@@ -32,6 +32,9 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.preference.PreferenceManager
+import org.lineageos.tv.launcher.ext.recentAppsCardSize
+import org.lineageos.tv.launcher.ext.recentAppsEnabled
 import org.lineageos.tv.launcher.model.LeanbackAppInfo
 import org.lineageos.tv.launcher.view.AppCard
 
@@ -46,6 +49,7 @@ class ProxyHomeActivity : Activity() {
     private var cardsContainer: LinearLayout? = null
     private var scrollView: HorizontalScrollView? = null
     private val taskSnapshots = mutableMapOf<Int, Bitmap>()
+    private val prefs by lazy { PreferenceManager.getDefaultSharedPreferences(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +58,11 @@ class ProxyHomeActivity : Activity() {
         
         if (GlobalHotkeyService.isOverlayShown()) {
             GlobalHotkeyService.clearOverlayFlag()
-            showOverlay()
+            if (prefs.recentAppsEnabled) {
+                showOverlay()
+            } else {
+                launchMainActivity()
+            }
         } else {
             launchMainActivity()
         }
@@ -123,15 +131,14 @@ class ProxyHomeActivity : Activity() {
             clipToPadding = false
         }
 
+        val cardSize = prefs.recentAppsCardSize
+        val verticalPadding = ((80.0 * (50 - cardSize) / 30.0) * resources.displayMetrics.density).toInt()
+        val horizontalPadding = (32 * resources.displayMetrics.density).toInt()
+
         cardsContainer = LinearLayout(themedContext).apply {
             orientation = LinearLayout.HORIZONTAL
             gravity = Gravity.CENTER_VERTICAL
-            setPadding(
-                (32 * resources.displayMetrics.density).toInt(),
-                (80 * resources.displayMetrics.density).toInt(),
-                (32 * resources.displayMetrics.density).toInt(),
-                (80 * resources.displayMetrics.density).toInt()
-            )
+            setPadding(horizontalPadding, verticalPadding, horizontalPadding, verticalPadding)
             clipChildren = false
             clipToPadding = false
         }
@@ -189,6 +196,14 @@ class ProxyHomeActivity : Activity() {
                     if (!displayName.isNullOrEmpty()) {
                         setCustomTitle(displayName)
                     }
+                    
+                    // Apply custom scale based on screen height percentage
+                    val screenHeight = resources.displayMetrics.heightPixels
+                    val density = resources.displayMetrics.density
+                    val baseHeightPx = 100 * density
+                    val cardHeightPx = screenHeight * prefs.recentAppsCardSize / 100
+                    val scale = cardHeightPx / baseHeightPx
+                    setCardScale(scale)
                     
                     clipChildren = false
                     clipToPadding = false

@@ -33,6 +33,7 @@ import androidx.core.view.isVisible
 import androidx.preference.PreferenceManager
 import com.android.internal.policy.IShortcutService
 import org.lineageos.tv.launcher.ext.appCardSize
+import org.lineageos.tv.launcher.ext.recentAppsEnabled
 import org.lineageos.tv.launcher.model.Launchable
 import org.lineageos.tv.launcher.model.LeanbackAppInfo
 import org.lineageos.tv.launcher.view.AppCard
@@ -122,6 +123,11 @@ class GlobalHotkeyService : Service() {
                 }
 
                 private fun handleHomeKey() {
+                    val prefs = PreferenceManager.getDefaultSharedPreferences(this@GlobalHotkeyService)
+                    if (!prefs.recentAppsEnabled) {
+                        return
+                    }
+                    
                     val currentTime = System.currentTimeMillis()
                     val timeSinceLastPress = currentTime - lastHomePressTime
                     
