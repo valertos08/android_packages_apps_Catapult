@@ -42,6 +42,7 @@ android_app {
         "Catapult_io.coil-kt_coil",
         "Catapult_io.coil-kt_coil-base",
         "Catapult_com.squareup.okhttp3_okhttp",
+        "androidx.palette_palette",
         "kotlin-stdlib",
     ] + ["SettingsLib"],
 }
