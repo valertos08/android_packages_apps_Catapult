@@ -46,4 +46,16 @@
     <string name="background_image">Imagine</string>
     <string name="select_image">Selectați imaginea</string>
     <string name="selected_image">Imagine selectată</string>
+    <string name="additional">Suplimentar</string>
+    <string name="external_launcher">Launcher extern</string>
+    <string name="external_launcher_hint">Selectați o aplicație ca launcher de pornire. Catapult va gestiona în continuare butonul Home și aplicațiile recente.</string>
+    <string name="external_launcher_none">Nu folosiți un launcher extern</string>
+    <string name="external_launcher_not_found">Nu s-au găsit alte aplicații de launcher de pornire.</string>
+    <string name="external_launcher_picker">Catapult: alegeți launcher</string>
+    <string name="recent_apps">Aplicații recente</string>
+    <string name="recent_apps_enabled">Afișați suprapunerea aplicațiilor recente</string>
+    <string name="recent_apps_size">Dimensiune carduri</string>
+    <string name="recent_apps_size_percent">%d%% din înălțimea ecranului</string>
+    <string name="recent_apps_thumbnails">Afișați miniaturi</string>
+    <string name="recent_apps_thumbnails_hint">În curând</string>
 </resources>

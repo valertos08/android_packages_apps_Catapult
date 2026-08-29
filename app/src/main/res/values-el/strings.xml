@@ -45,4 +45,16 @@
     <string name="background_image">Εικόνα</string>
     <string name="select_image">Επιλέξτε εικόνα</string>
     <string name="selected_image">Εικόνα επιλέχθηκε</string>
+    <string name="additional">Πρόσθετα</string>
+    <string name="external_launcher">Εξωτερικός εκκινητής</string>
+    <string name="external_launcher_hint">Επιλέξτε μια εφαρμογή ως αρχικό εκκινητή. Το Catapult θα συνεχίσει να χειρίζεται το κουμπί Home και τις πρόσφατες εφαρμογές.</string>
+    <string name="external_launcher_none">Μη χρήση εξωτερικού εκκινητή</string>
+    <string name="external_launcher_not_found">Δεν βρέθηκαν άλλες εφαρμογές αρχικού εκκινητή.</string>
+    <string name="external_launcher_picker">Catapult: επιλογή εκκινητή</string>
+    <string name="recent_apps">Πρόσφατες εφαρμογές</string>
+    <string name="recent_apps_enabled">Εμφάνιση επικάλυψης πρόσφατων εφαρμογών</string>
+    <string name="recent_apps_size">Μέγεθος καρτών</string>
+    <string name="recent_apps_size_percent">%d%% του ύψους οθόνης</string>
+    <string name="recent_apps_thumbnails">Εμφάνιση μικρογραφιών</string>
+    <string name="recent_apps_thumbnails_hint">Σύντομα</string>
 </resources>

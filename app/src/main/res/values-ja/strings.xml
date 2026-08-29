@@ -46,4 +46,16 @@
     <string name="background_image">画像</string>
     <string name="select_image">画像を選択</string>
     <string name="selected_image">画像が選択されました</string>
+    <string name="additional">追加</string>
+    <string name="external_launcher">外部ランチャー</string>
+    <string name="external_launcher_hint">ホームランチャーとして使用するアプリを選択します。Catapultは引き続きHomeボタンと最近のアプリを処理します。</string>
+    <string name="external_launcher_none">外部ランチャーを使用しない</string>
+    <string name="external_launcher_not_found">他のホームランチャーアプリが見つかりません。</string>
+    <string name="external_launcher_picker">Catapult: ランチャーを選択</string>
+    <string name="recent_apps">最近のアプリ</string>
+    <string name="recent_apps_enabled">最近のアプリのオーバーレイを表示</string>
+    <string name="recent_apps_size">カードサイズ</string>
+    <string name="recent_apps_size_percent">画面の高さの%d%%</string>
+    <string name="recent_apps_thumbnails">サムネイルを表示</string>
+    <string name="recent_apps_thumbnails_hint">近日公開</string>
 </resources>

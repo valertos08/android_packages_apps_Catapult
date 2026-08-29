@@ -43,4 +43,16 @@
     <string name="background_image">Afbeelding</string>
     <string name="select_image">Selecteer afbeelding</string>
     <string name="selected_image">Afbeelding geselecteerd</string>
+    <string name="additional">Extra</string>
+    <string name="external_launcher">Externe launcher</string>
+    <string name="external_launcher_hint">Selecteer een app om te gebruiken als startlauncher. Catapult blijft de Home-knop en recente apps afhandelen.</string>
+    <string name="external_launcher_none">Geen externe launcher gebruiken</string>
+    <string name="external_launcher_not_found">Geen andere start-launcher-apps gevonden.</string>
+    <string name="external_launcher_picker">Catapult: kies launcher</string>
+    <string name="recent_apps">Recente apps</string>
+    <string name="recent_apps_enabled">Overlay recente apps tonen</string>
+    <string name="recent_apps_size">Kaartgrootte</string>
+    <string name="recent_apps_size_percent">%d%% van de schermhoogte</string>
+    <string name="recent_apps_thumbnails">Miniaturen tonen</string>
+    <string name="recent_apps_thumbnails_hint">Binnenkort</string>
 </resources>

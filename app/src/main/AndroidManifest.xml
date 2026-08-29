@@ -56,6 +56,10 @@
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.HOME" />
+        </intent>
     </queries>
 
     <application
@@ -130,6 +134,21 @@
         <activity
             android:name=".RecentAppsSettingsActivity"
             android:theme="@style/Theme.Catapult.SideActivity" />
+
+        <activity
+            android:name=".AdditionalSettingsActivity"
+            android:theme="@style/Theme.Catapult.SideActivity" />
+
+        <activity
+            android:name=".ExternalLauncherActivity"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/external_launcher_picker"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".notification.TvNotificationListener"

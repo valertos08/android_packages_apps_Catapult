@@ -95,4 +95,11 @@
     <string name="recent_apps_size_percent">%d%% of screen height</string>
     <string name="recent_apps_thumbnails">Show thumbnails</string>
     <string name="recent_apps_thumbnails_hint">Coming soon</string>
+
+    <string name="additional">Additional</string>
+    <string name="external_launcher">External launcher</string>
+    <string name="external_launcher_hint">Select an app to use as the home launcher. Catapult will still handle the Home button and recent apps.</string>
+    <string name="external_launcher_none">Don\'t use external launcher</string>
+    <string name="external_launcher_not_found">No other home launcher apps found.</string>
+    <string name="external_launcher_picker">Catapult: choose launcher</string>
 </resources>

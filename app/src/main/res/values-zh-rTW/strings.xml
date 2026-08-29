@@ -43,4 +43,16 @@
     <string name="appearance">外觀</string>
     <string name="background">背景</string>
     <string name="background_default">預設</string>
+    <string name="additional">更多</string>
+    <string name="external_launcher">外部啟動器</string>
+    <string name="external_launcher_hint">選擇要作為主螢幕啟動器的應用程式。Catapult 仍將處理主螢幕按鈕和最近使用的應用程式。</string>
+    <string name="external_launcher_none">不使用外部啟動器</string>
+    <string name="external_launcher_not_found">找不到其他主螢幕啟動器應用程式。</string>
+    <string name="external_launcher_picker">Catapult：選擇啟動器</string>
+    <string name="recent_apps">最近使用的應用程式</string>
+    <string name="recent_apps_enabled">顯示最近使用的應用程式浮層</string>
+    <string name="recent_apps_size">卡片大小</string>
+    <string name="recent_apps_size_percent">螢幕高度的%d%%</string>
+    <string name="recent_apps_thumbnails">顯示縮圖</string>
+    <string name="recent_apps_thumbnails_hint">即將推出</string>
 </resources>

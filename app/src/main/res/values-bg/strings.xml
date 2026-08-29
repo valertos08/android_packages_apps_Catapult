@@ -46,4 +46,16 @@
     <string name="background_image">Изображение</string>
     <string name="select_image">Изберете изображение</string>
     <string name="selected_image">Изображението е избрано</string>
+    <string name="additional">Допълнително</string>
+    <string name="external_launcher">Външен лаунчър</string>
+    <string name="external_launcher_hint">Изберете приложение за начален лаунчър. Catapult ще продължи да обработва бутона Home и скорошните приложения.</string>
+    <string name="external_launcher_none">Да не се използва външен лаунчър</string>
+    <string name="external_launcher_not_found">Не са намерени други приложения за начален лаунчър.</string>
+    <string name="external_launcher_picker">Catapult: избор на лаунчър</string>
+    <string name="recent_apps">Скорошни приложения</string>
+    <string name="recent_apps_enabled">Показване на наслагване със скорошни приложения</string>
+    <string name="recent_apps_size">Размер на картите</string>
+    <string name="recent_apps_size_percent">%d%% от височината на екрана</string>
+    <string name="recent_apps_thumbnails">Показване на миниатюри</string>
+    <string name="recent_apps_thumbnails_hint">Очаквайте скоро</string>
 </resources>

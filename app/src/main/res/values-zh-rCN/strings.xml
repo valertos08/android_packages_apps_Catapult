@@ -46,4 +46,16 @@
     <string name="background_image">图像</string>
     <string name="select_image">选择图像</string>
     <string name="selected_image">图像已选择</string>
+    <string name="additional">更多</string>
+    <string name="external_launcher">外部启动器</string>
+    <string name="external_launcher_hint">选择要作为主屏幕启动器的应用。Catapult 仍将处理主屏幕按钮和最近应用。</string>
+    <string name="external_launcher_none">不使用外部启动器</string>
+    <string name="external_launcher_not_found">未找到其他主屏幕启动器应用。</string>
+    <string name="external_launcher_picker">Catapult：选择启动器</string>
+    <string name="recent_apps">最近应用</string>
+    <string name="recent_apps_enabled">显示最近应用浮层</string>
+    <string name="recent_apps_size">卡片大小</string>
+    <string name="recent_apps_size_percent">屏幕高度的%d%%</string>
+    <string name="recent_apps_thumbnails">显示缩略图</string>
+    <string name="recent_apps_thumbnails_hint">即将推出</string>
 </resources>

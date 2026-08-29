@@ -40,4 +40,16 @@
     <string name="keyboard_assistant">Search using keyboard</string>
     <string name="system_settings">System settings</string>
     <string name="launcher_settings">Launcher settings</string>
+    <string name="additional">Additional</string>
+    <string name="external_launcher">External launcher</string>
+    <string name="external_launcher_hint">Select an app to use as the home launcher. Catapult will still handle the Home button and recent apps.</string>
+    <string name="external_launcher_none">Don\'t use external launcher</string>
+    <string name="external_launcher_not_found">No other home launcher apps found.</string>
+    <string name="external_launcher_picker">Catapult: choose launcher</string>
+    <string name="recent_apps">Recent apps</string>
+    <string name="recent_apps_enabled">Show recent apps overlay</string>
+    <string name="recent_apps_size">Card size</string>
+    <string name="recent_apps_size_percent">%d%% of screen height</string>
+    <string name="recent_apps_thumbnails">Show thumbnails</string>
+    <string name="recent_apps_thumbnails_hint">Coming soon</string>
 </resources>

@@ -13,9 +13,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.graphics.PixelFormat
-import android.os.Handler
 import android.os.IBinder
-import android.os.Looper
 import android.os.ServiceManager
 import android.util.Log
 import android.util.TypedValue
@@ -49,6 +47,7 @@ class GlobalHotkeyService : Service() {
         private const val HOTKEY_META_ALT = 2
         
         private const val DOUBLE_HOME_TIMEOUT = 500L
+
         private var instance: GlobalHotkeyService? = null
 
         @Volatile
@@ -75,7 +74,6 @@ class GlobalHotkeyService : Service() {
     private var shortcutCallback: IShortcutService? = null
     private var lastHomePressTime = 0L
     private var alreadyStartedActivity = false
-    private val handler = Handler(Looper.getMainLooper())
 
     override fun onCreate() {
         super.onCreate()
@@ -141,7 +139,7 @@ class GlobalHotkeyService : Service() {
                 
                 private fun handleAltTabKey() {
                     Log.d(TAG, "Alt+Tab pressed!")
-                    
+
                     if (overlayShown) {
                         overlayShown = false
                     } else {

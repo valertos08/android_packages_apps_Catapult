@@ -46,4 +46,16 @@
     <string name="background_image">Imagen</string>
     <string name="select_image">Seleccionar imagen</string>
     <string name="selected_image">Imagen seleccionada</string>
+    <string name="additional">Adicional</string>
+    <string name="external_launcher">Iniciador externo</string>
+    <string name="external_launcher_hint">Selecciona una aplicación como iniciador de inicio. Catapult seguirá gestionando el botón Inicio y las aplicaciones recientes.</string>
+    <string name="external_launcher_none">No usar iniciador externo</string>
+    <string name="external_launcher_not_found">No se encontraron otras aplicaciones de inicio.</string>
+    <string name="external_launcher_picker">Catapult: elegir iniciador</string>
+    <string name="recent_apps">Aplicaciones recientes</string>
+    <string name="recent_apps_enabled">Mostrar superposición de aplicaciones recientes</string>
+    <string name="recent_apps_size">Tamaño de tarjetas</string>
+    <string name="recent_apps_size_percent">%d%% de la altura de la pantalla</string>
+    <string name="recent_apps_thumbnails">Mostrar miniaturas</string>
+    <string name="recent_apps_thumbnails_hint">Próximamente</string>
 </resources>

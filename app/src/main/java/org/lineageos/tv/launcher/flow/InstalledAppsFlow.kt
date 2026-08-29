@@ -43,13 +43,16 @@ class InstalledAppsFlow(private val context: Context) {
 
         val leanbackLauncherActivities =
             packageManager.queryIntentActivities(leanbackLauncherIntent, 0)
+                .filterNot { it.activityInfo?.name == EXTERNAL_LAUNCHER_ACTIVITY }
                 .mapNotNull { resolveInfo ->
                     LeanbackAppInfo(resolveInfo, context)
                 }
         val launcherActivities =
-            packageManager.queryIntentActivities(launcherIntent, 0).mapNotNull { resolveInfo ->
-                AppInfo(resolveInfo, context)
-            }
+            packageManager.queryIntentActivities(launcherIntent, 0)
+                .filterNot { it.activityInfo?.name == EXTERNAL_LAUNCHER_ACTIVITY }
+                .mapNotNull { resolveInfo ->
+                    AppInfo(resolveInfo, context)
+                }
 
         (leanbackLauncherActivities + launcherActivities).distinctBy {
             it.launchIntent?.resolveActivityInfo(
@@ -61,6 +64,9 @@ class InstalledAppsFlow(private val context: Context) {
 
     companion object {
         private const val PACKAGE_SCHEME = "package"
+
+        private const val EXTERNAL_LAUNCHER_ACTIVITY =
+            "org.lineageos.tv.launcher.ExternalLauncherActivity"
 
         private val actions = listOf(
             Intent.ACTION_PACKAGE_ADDED,

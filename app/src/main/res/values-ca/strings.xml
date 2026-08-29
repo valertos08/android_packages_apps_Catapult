@@ -46,4 +46,16 @@
     <string name="background_image">Imatge</string>
     <string name="select_image">Seleccionar imatge</string>
     <string name="selected_image">Imatge seleccionat</string>
+    <string name="additional">Addicional</string>
+    <string name="external_launcher">Llançador extern</string>
+    <string name="external_launcher_hint">Seleccioneu una aplicació com a llançador d\'inici. Catapult continuarà gestionant el botó d\'inici i les aplicacions recents.</string>
+    <string name="external_launcher_none">No utilitzar cap llançador extern</string>
+    <string name="external_launcher_not_found">No s\'han trobat altres aplicacions de llançador d\'inici.</string>
+    <string name="external_launcher_picker">Catapult: tria el llançador</string>
+    <string name="recent_apps">Aplicacions recents</string>
+    <string name="recent_apps_enabled">Mostra la superposició d\'aplicacions recents</string>
+    <string name="recent_apps_size">Mida de les targetes</string>
+    <string name="recent_apps_size_percent">%d%% de l\'alçada de la pantalla</string>
+    <string name="recent_apps_thumbnails">Mostra miniatures</string>
+    <string name="recent_apps_thumbnails_hint">Properament</string>
 </resources>

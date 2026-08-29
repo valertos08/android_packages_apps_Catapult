@@ -12,5 +12,6 @@
         <permission name="android.permission.REAL_GET_TASKS" />
         <permission name="android.permission.REMOVE_TASKS" />
         <permission name="android.permission.REORDER_TASKS" />
+        <permission name="android.permission.PACKAGE_USAGE_STATS" />
     </privapp-permissions>
 </permissions>

@@ -46,4 +46,16 @@
     <string name="background_image">Imagem</string>
     <string name="select_image">Selecionar imagem</string>
     <string name="selected_image">Imagem selecionada</string>
+    <string name="additional">Adicional</string>
+    <string name="external_launcher">Launcher externo</string>
+    <string name="external_launcher_hint">Selecione um app para usar como launcher inicial. O Catapult continuará gerenciando o botão Home e os aplicativos recentes.</string>
+    <string name="external_launcher_none">Não usar launcher externo</string>
+    <string name="external_launcher_not_found">Nenhum outro app de launcher inicial encontrado.</string>
+    <string name="external_launcher_picker">Catapult: escolher launcher</string>
+    <string name="recent_apps">Aplicativos recentes</string>
+    <string name="recent_apps_enabled">Mostrar sobreposição de aplicativos recentes</string>
+    <string name="recent_apps_size">Tamanho dos cartões</string>
+    <string name="recent_apps_size_percent">%d%% da altura da tela</string>
+    <string name="recent_apps_thumbnails">Mostrar miniaturas</string>
+    <string name="recent_apps_thumbnails_hint">Em breve</string>
 </resources>
