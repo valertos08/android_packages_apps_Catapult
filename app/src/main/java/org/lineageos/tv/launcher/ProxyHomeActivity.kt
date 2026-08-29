@@ -576,8 +576,23 @@ class ProxyHomeActivity : Activity() {
         
         // Close overlay after animation completes
         android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
-            hideOverlayAndFinish()
+            openHomeLauncher()
         }, 700)
+    }
+
+    private fun openHomeLauncher() {
+        overlayView?.let {
+            try {
+                windowManager?.removeViewImmediate(it)
+            } catch (e: Exception) {
+                // ignore
+            }
+            overlayView = null
+        }
+        GlobalHotkeyService.clearOverlayFlag()
+        if (!launchExternalLauncherIfSet()) {
+            launchMainActivity()
+        }
     }
 
     private data class RecentTask(
@@ -672,7 +687,7 @@ class ProxyHomeActivity : Activity() {
                 for (taskInfo in runningTasks) {
                     try {
                         val pkgName = taskInfo.baseActivity?.packageName ?: continue
-                        if (pkgName == myPackage) continue
+                        if (pkgName == myPackage || pkgName == prefs.externalLauncherPkg) continue
                         
                         val taskId = taskInfo.id
                         if (taskId <= 0) continue
@@ -832,7 +847,7 @@ class ProxyHomeActivity : Activity() {
                 
                 android.util.Log.d(TAG, "Resolved: pkgName=$pkgName, taskId=$taskId, baseIntent=$baseIntent, baseActivity=$baseActivity, topActivity=$topActivity")
                 
-                if (pkgName == null || pkgName == myPackage) continue
+                if (pkgName == null || pkgName == myPackage || pkgName == prefs.externalLauncherPkg) continue
                 if (taskId <= 0) continue
                 
                 // Use three-layer fallback to resolve task title
