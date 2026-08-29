@@ -46,4 +46,16 @@
     <string name="background_image">이미지</string>
     <string name="select_image">이미지 선택</string>
     <string name="selected_image">이미지 선택됨</string>
+    <string name="additional">추가</string>
+    <string name="external_launcher">외부 런처</string>
+    <string name="external_launcher_hint">홈 런처로 사용할 앱을 선택하세요. Catapult는 계속해서 홈 버튼과 최근 앱을 처리합니다.</string>
+    <string name="external_launcher_none">외부 런처 사용 안 함</string>
+    <string name="external_launcher_not_found">다른 홈 런처 앱을 찾을 수 없습니다.</string>
+    <string name="external_launcher_picker">Catapult: 런처 선택</string>
+    <string name="recent_apps">최근 앱</string>
+    <string name="recent_apps_enabled">최근 앱 오버레이 표시</string>
+    <string name="recent_apps_size">카드 크기</string>
+    <string name="recent_apps_size_percent">화면 높이의 %d%%</string>
+    <string name="recent_apps_thumbnails">썸네일 표시</string>
+    <string name="recent_apps_thumbnails_hint">곧 제공</string>
 </resources>

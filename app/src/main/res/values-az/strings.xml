@@ -46,4 +46,16 @@
     <string name="background_image">Şəkil</string>
     <string name="select_image">Şəkil seçin</string>
     <string name="selected_image">Şəkil seçildi</string>
+    <string name="additional">Əlavə</string>
+    <string name="external_launcher">Xarici başladıcı</string>
+    <string name="external_launcher_hint">Ana başladıcı kimi istifadə olunacaq tətbiq seçin. Catapult Home düyməsini və son tətbiqləri idarə etməyə davam edəcək.</string>
+    <string name="external_launcher_none">Xarici başladıcı istifadə etmə</string>
+    <string name="external_launcher_not_found">Başqa ana başladıcı tətbiqi tapılmadı.</string>
+    <string name="external_launcher_picker">Catapult: başladıcı seç</string>
+    <string name="recent_apps">Son tətbiqlər</string>
+    <string name="recent_apps_enabled">Son tətbiqlər qatını göstər</string>
+    <string name="recent_apps_size">Kart ölçüsü</string>
+    <string name="recent_apps_size_percent">Ekran hündürlüyünün %d%%</string>
+    <string name="recent_apps_thumbnails">Kiçik şəkilləri göstər</string>
+    <string name="recent_apps_thumbnails_hint">Tezliklə</string>
 </resources>

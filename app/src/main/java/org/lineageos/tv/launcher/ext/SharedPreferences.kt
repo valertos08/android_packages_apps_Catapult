@@ -221,3 +221,11 @@ var SharedPreferences.recentAppsShowThumbnails: Boolean
     set(value) = edit {
         putBoolean(RECENT_APPS_SHOW_THUMBNAILS_KEY, value)
     }
+
+const val EXTERNAL_LAUNCHER_PKG_KEY = "external_launcher_pkg"
+
+var SharedPreferences.externalLauncherPkg: String?
+    get() = getString(EXTERNAL_LAUNCHER_PKG_KEY, null)
+    set(value) = edit {
+        putString(EXTERNAL_LAUNCHER_PKG_KEY, value)
+    }

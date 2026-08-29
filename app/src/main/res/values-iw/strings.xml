@@ -46,4 +46,16 @@
     <string name="background_image">תמונה</string>
     <string name="select_image">בחר תמונה</string>
     <string name="selected_image">תמונה נבחרה</string>
+    <string name="additional">נוסף</string>
+    <string name="external_launcher">משגר חיצוני</string>
+    <string name="external_launcher_hint">בחר אפליקציה לשמש כמשגר הבית. Catapult ימשיך לטפל בלחצן Home ובאפליקציות האחרונות.</string>
+    <string name="external_launcher_none">אל תשתמש במשגר חיצוני</string>
+    <string name="external_launcher_not_found">לא נמצאו אפליקציות משגר בית אחרות.</string>
+    <string name="external_launcher_picker">Catapult: בחירת משגר</string>
+    <string name="recent_apps">אפליקציות אחרונות</string>
+    <string name="recent_apps_enabled">הצג שכבת-על של אפליקציות אחרונות</string>
+    <string name="recent_apps_size">גודל כרטיסים</string>
+    <string name="recent_apps_size_percent">%d%% מגובה המסך</string>
+    <string name="recent_apps_thumbnails">הצג תמונות ממוזערות</string>
+    <string name="recent_apps_thumbnails_hint">בקרוב</string>
 </resources>

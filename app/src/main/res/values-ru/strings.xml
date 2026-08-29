@@ -52,4 +52,11 @@
     <string name="recent_apps_size_percent">%d%% от высоты экрана</string>
     <string name="recent_apps_thumbnails">Показывать превью</string>
     <string name="recent_apps_thumbnails_hint">Скоро</string>
+
+    <string name="additional">Дополнительно</string>
+    <string name="external_launcher">Сторонний лаунчер</string>
+    <string name="external_launcher_hint">Выберите приложение для использования в качестве домашнего лаунчера. Катапульт по-прежнему будет обрабатывать кнопку «Домой» и недавние приложения.</string>
+    <string name="external_launcher_none">Не использовать сторонний лаунчер</string>
+    <string name="external_launcher_not_found">Других домашних лаунчеров не найдено.</string>
+    <string name="external_launcher_picker">Catapult: выбор лаунчера</string>
 </resources>

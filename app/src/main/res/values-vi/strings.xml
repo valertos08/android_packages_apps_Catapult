@@ -46,4 +46,16 @@
     <string name="background_image">Hình ảnh</string>
     <string name="select_image">Chọn hình ảnh</string>
     <string name="selected_image">Đã chọn hình ảnh</string>
+    <string name="additional">Thêm</string>
+    <string name="external_launcher">Trình khởi chạy bên ngoài</string>
+    <string name="external_launcher_hint">Chọn một ứng dụng làm trình khởi chạy chính. Catapult vẫn sẽ xử lý nút Home và ứng dụng gần đây.</string>
+    <string name="external_launcher_none">Không dùng trình khởi chạy bên ngoài</string>
+    <string name="external_launcher_not_found">Không tìm thấy ứng dụng trình khởi chạy chính nào khác.</string>
+    <string name="external_launcher_picker">Catapult: chọn trình khởi chạy</string>
+    <string name="recent_apps">Ứng dụng gần đây</string>
+    <string name="recent_apps_enabled">Hiển thị lớp phủ ứng dụng gần đây</string>
+    <string name="recent_apps_size">Kích thước thẻ</string>
+    <string name="recent_apps_size_percent">%d%% chiều cao màn hình</string>
+    <string name="recent_apps_thumbnails">Hiển thị hình thu nhỏ</string>
+    <string name="recent_apps_thumbnails_hint">Sắp ra mắt</string>
 </resources>

@@ -38,4 +38,16 @@
     <string name="connected">Připojeno</string>
     <string name="mic_assistant">Hledat pomocí mikrofonu</string>
     <string name="keyboard_assistant">Hledat pomocí klávesnice</string>
+    <string name="additional">Doplňkové</string>
+    <string name="external_launcher">Externí launcher</string>
+    <string name="external_launcher_hint">Vyberte aplikaci jako domovský launcher. Catapult bude i nadále zpracovávat tlačítko Domů a nedávné aplikace.</string>
+    <string name="external_launcher_none">Nepoužívat externí launcher</string>
+    <string name="external_launcher_not_found">Nebyly nalezeny žádné další aplikace domovského launchera.</string>
+    <string name="external_launcher_picker">Catapult: vybrat launcher</string>
+    <string name="recent_apps">Nedávné aplikace</string>
+    <string name="recent_apps_enabled">Zobrazit překryv nedávných aplikací</string>
+    <string name="recent_apps_size">Velikost karet</string>
+    <string name="recent_apps_size_percent">%d%% výšky obrazovky</string>
+    <string name="recent_apps_thumbnails">Zobrazit náhledy</string>
+    <string name="recent_apps_thumbnails_hint">Již brzy</string>
 </resources>

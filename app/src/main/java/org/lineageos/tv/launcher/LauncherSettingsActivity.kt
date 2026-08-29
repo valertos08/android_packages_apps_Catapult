@@ -19,5 +19,9 @@ class LauncherSettingsActivity : ModalActivity(R.layout.activity_launcher_settin
         findViewById<android.view.View>(R.id.recent_apps_item)?.setOnClickListener {
             startActivity(Intent(this, RecentAppsSettingsActivity::class.java))
         }
+
+        findViewById<android.view.View>(R.id.additional_item)?.setOnClickListener {
+            startActivity(Intent(this, AdditionalSettingsActivity::class.java))
+        }
     }
 }

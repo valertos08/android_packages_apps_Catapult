@@ -46,4 +46,16 @@
     <string name="background_image">تصویر</string>
     <string name="select_image">تصویر را انتخاب کنید</string>
     <string name="selected_image">تصویر انتخاب شد</string>
+    <string name="additional">بیشتر</string>
+    <string name="external_launcher">لانچر خارجی</string>
+    <string name="external_launcher_hint">برنامه‌ای را به عنوان لانچر اصلی انتخاب کنید. Catapult همچنان دکمه Home و برنامه‌های اخیر را مدیریت خواهد کرد.</string>
+    <string name="external_launcher_none">استفاده نکردن از لانچر خارجی</string>
+    <string name="external_launcher_not_found">برنامه لانچر اصلی دیگری یافت نشد.</string>
+    <string name="external_launcher_picker">Catapult: انتخاب لانچر</string>
+    <string name="recent_apps">برنامه‌های اخیر</string>
+    <string name="recent_apps_enabled">نمایش پوشش برنامه‌های اخیر</string>
+    <string name="recent_apps_size">اندازه کارت‌ها</string>
+    <string name="recent_apps_size_percent">%d%% ارتفاع صفحه</string>
+    <string name="recent_apps_thumbnails">نمایش تصاویر کوچک</string>
+    <string name="recent_apps_thumbnails_hint">به‌زودی</string>
 </resources>

@@ -46,4 +46,16 @@
     <string name="background_image">Slika</string>
     <string name="select_image">Izberi sliko</string>
     <string name="selected_image">Slika izbrana</string>
+    <string name="additional">Dodatno</string>
+    <string name="external_launcher">Zunanji zaganjalnik</string>
+    <string name="external_launcher_hint">Izberite aplikacijo kot začetni zaganjalnik. Catapult bo še naprej obravnaval gumb Domov in nedavne aplikacije.</string>
+    <string name="external_launcher_none">Ne uporabljaj zunanjega zaganjalnika</string>
+    <string name="external_launcher_not_found">Ni najdenih drugih aplikacij za začetni zaganjalnik.</string>
+    <string name="external_launcher_picker">Catapult: izberi zaganjalnik</string>
+    <string name="recent_apps">Nedavne aplikacije</string>
+    <string name="recent_apps_enabled">Prikaži prekrivanje nedavnih aplikacij</string>
+    <string name="recent_apps_size">Velikost kartic</string>
+    <string name="recent_apps_size_percent">%d%% višine zaslona</string>
+    <string name="recent_apps_thumbnails">Prikaži sličice</string>
+    <string name="recent_apps_thumbnails_hint">Kmalu</string>
 </resources>

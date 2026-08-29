@@ -46,4 +46,16 @@
     <string name="background_image">Kép</string>
     <string name="select_image">Kép kiválasztása</string>
     <string name="selected_image">Kép kiválasztva</string>
+    <string name="additional">További</string>
+    <string name="external_launcher">Külső launcher</string>
+    <string name="external_launcher_hint">Válasszon egy alkalmazást kezdőoldali launcherként. A Catapult továbbra is kezeli a Home gombot és a legutóbbi alkalmazásokat.</string>
+    <string name="external_launcher_none">Ne használjon külső launcheret</string>
+    <string name="external_launcher_not_found">Nem található más kezdőoldali launcher alkalmazás.</string>
+    <string name="external_launcher_picker">Catapult: launcher kiválasztása</string>
+    <string name="recent_apps">Legutóbbi alkalmazások</string>
+    <string name="recent_apps_enabled">Legutóbbi alkalmazások fedvényének megjelenítése</string>
+    <string name="recent_apps_size">Kártya mérete</string>
+    <string name="recent_apps_size_percent">%d%% a képernyő magasságának</string>
+    <string name="recent_apps_thumbnails">Miniatűrök megjelenítése</string>
+    <string name="recent_apps_thumbnails_hint">Hamarosan</string>
 </resources>

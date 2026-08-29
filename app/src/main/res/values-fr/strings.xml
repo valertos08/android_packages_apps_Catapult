@@ -46,4 +46,16 @@
     <string name="background_image">Image</string>
     <string name="select_image">Sélectionner une image</string>
     <string name="selected_image">Image sélectionnée</string>
+    <string name="additional">Supplémentaire</string>
+    <string name="external_launcher">Launcher externe</string>
+    <string name="external_launcher_hint">Sélectionnez une application comme launcher d\'accueil. Catapult continuera de gérer le bouton Accueil et les applications récentes.</string>
+    <string name="external_launcher_none">Ne pas utiliser de launcher externe</string>
+    <string name="external_launcher_not_found">Aucune autre application de launcher d\'accueil trouvée.</string>
+    <string name="external_launcher_picker">Catapult : choisir le launcher</string>
+    <string name="recent_apps">Applications récentes</string>
+    <string name="recent_apps_enabled">Afficher l\'overlay des applications récentes</string>
+    <string name="recent_apps_size">Taille des cartes</string>
+    <string name="recent_apps_size_percent">%d%% de la hauteur de l\'écran</string>
+    <string name="recent_apps_thumbnails">Afficher les vignettes</string>
+    <string name="recent_apps_thumbnails_hint">Bientôt disponible</string>
 </resources>

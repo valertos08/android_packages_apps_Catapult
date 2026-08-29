@@ -46,4 +46,16 @@
     <string name="background_image">Görüntü</string>
     <string name="select_image">Görüntü seçin</string>
     <string name="selected_image">Görüntü seçildi</string>
+    <string name="additional">Ek</string>
+    <string name="external_launcher">Harici başlatıcı</string>
+    <string name="external_launcher_hint">Ana başlatıcı olarak kullanılacak bir uygulama seçin. Catapult, Home düğmesini ve son uygulamaları işlemeye devam edecektir.</string>
+    <string name="external_launcher_none">Harici başlatıcı kullanma</string>
+    <string name="external_launcher_not_found">Başka ana başlatıcı uygulaması bulunamadı.</string>
+    <string name="external_launcher_picker">Catapult: başlatıcı seç</string>
+    <string name="recent_apps">Son uygulamalar</string>
+    <string name="recent_apps_enabled">Son uygulamalar katmanını göster</string>
+    <string name="recent_apps_size">Kart boyutu</string>
+    <string name="recent_apps_size_percent">%d%% ekran yüksekliği</string>
+    <string name="recent_apps_thumbnails">Küçük resimleri göster</string>
+    <string name="recent_apps_thumbnails_hint">Yakında</string>
 </resources>

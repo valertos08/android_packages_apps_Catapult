@@ -33,6 +33,7 @@ import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.preference.PreferenceManager
+import org.lineageos.tv.launcher.ext.externalLauncherPkg
 import org.lineageos.tv.launcher.ext.recentAppsCardSize
 import org.lineageos.tv.launcher.ext.recentAppsEnabled
 import org.lineageos.tv.launcher.model.LeanbackAppInfo
@@ -64,7 +65,23 @@ class ProxyHomeActivity : Activity() {
                 launchMainActivity()
             }
         } else {
-            launchMainActivity()
+            if (!launchExternalLauncherIfSet()) {
+                launchMainActivity()
+            }
+        }
+    }
+
+    private fun launchExternalLauncherIfSet(): Boolean {
+        val pkg = prefs.externalLauncherPkg ?: return false
+        val intent = packageManager.getLaunchIntentForPackage(pkg) ?: return false
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        return try {
+            startActivity(intent)
+            finish()
+            overridePendingTransition(0, 0)
+            true
+        } catch (e: Exception) {
+            false
         }
     }
 
