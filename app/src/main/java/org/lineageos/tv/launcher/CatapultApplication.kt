@@ -22,9 +22,16 @@ class CatapultApplication : Application() {
         // Observe dynamic colors changes
         DynamicColors.applyToActivitiesIfAvailable(this)
         
-        // Start GlobalHotkeyService when application starts
+        // Start GlobalHotkeyService when application starts. Application.onCreate
+        // also runs for background triggers (broadcasts/providers) where a plain
+        // startService throws BackgroundServiceStartNotAllowedException and would
+        // kill the whole app process, so never let it crash here. The foreground
+        // path (MainActivity.onCreate) starts the service anyway.
         Log.d(TAG, "Application created, starting GlobalHotkeyService")
-        val serviceIntent = Intent(this, GlobalHotkeyService::class.java)
-        startService(serviceIntent)
+        try {
+            startService(Intent(this, GlobalHotkeyService::class.java))
+        } catch (e: Exception) {
+            Log.w(TAG, "Could not start GlobalHotkeyService from background", e)
+        }
     }
 }
