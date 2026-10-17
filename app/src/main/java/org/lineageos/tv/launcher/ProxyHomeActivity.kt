@@ -8,6 +8,7 @@ package org.lineageos.tv.launcher
 import android.app.Activity
 import android.app.ActivityManager
 import android.app.ActivityOptions
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -15,6 +16,7 @@ import android.graphics.Bitmap
 import android.graphics.PixelFormat
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.ContextThemeWrapper
 import android.view.Gravity
@@ -43,6 +45,20 @@ class ProxyHomeActivity : Activity() {
 
     companion object {
         private const val TAG = "ProxyHomeActivity"
+
+        // Set by SystemUI's CentralSurfacesCommandQueueCallbacks.toggleRecentApps(),
+        // which PhoneWindowManager reaches for Action.APP_SWITCH - the action that
+        // config_doubleTapOnHomeBehavior selects for a double tap on HOME. The
+        // platform detects the double tap in the input stream, where it can see both
+        // presses; the launcher is only the place that draws the result. Keep in
+        // sync with that file.
+        const val EXTRA_SHOW_RECENTS = "org.lineageos.tv.launcher.SHOW_RECENTS"
+
+        // The overlay is opened by whichever instance last started, and HOME can land
+        // on a different instance, so the reference is static. Both instances share
+        // this class.
+        @Volatile
+        private var currentOverlay: View? = null
     }
 
     private var windowManager: WindowManager? = null
@@ -54,27 +70,131 @@ class ProxyHomeActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
+
         windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        
-        if (GlobalHotkeyService.isOverlayShown()) {
+
+        handleHomePress()
+    }
+
+    /**
+     * A HOME press arriving through either entry point. Which one fires depends on
+     * whether the previous instance survived: the manifest combines
+     * launchMode="singleInstance" with noHistory="true", so the system sometimes
+     * tears the instance down between presses and calls onCreate() again, and
+     * sometimes keeps it and delivers onNewIntent(). Both funnel here so the
+     * behaviour does not depend on that.
+     *
+     * There is no double tap detection here on purpose. The platform detects it in
+     * PhoneWindowManager, which sees both presses in the input stream; by the time a
+     * press reaches this activity the second one of a fast pair is already gone
+     * (measured: two presses back to back delivered nothing at all, while the same
+     * two presses a second apart both arrived). Requesting recents from here instead
+     * means the launcher is only asked to draw, never to decide.
+     */
+    private fun handleHomePress() {
+        if (intent?.getBooleanExtra(EXTRA_SHOW_RECENTS, false) == true) {
+            // Double tap on HOME, as decided by PhoneWindowManager.
+            Log.d(TAG, "Double HOME: open recents")
+            intent.removeExtra(EXTRA_SHOW_RECENTS)
             GlobalHotkeyService.clearOverlayFlag()
-            if (prefs.recentAppsEnabled) {
-                showOverlay()
-            } else {
-                launchMainActivity()
+            // The overlay is a full screen window, so a second one on top of it
+            // leaves recents impossible to leave: the newest overlay takes the
+            // key events and BACK only reaches the topmost. Take the previous one
+            // down first. This is a toggle - that is what PhoneWindowManager asks
+            // for with Action.APP_SWITCH.
+            if (currentOverlay != null) {
+                dismissOverlay()
             }
+            openRecentsOrHome()
+            return
+        }
+
+        when {
+            currentOverlay != null -> {
+                // Recents is up and HOME was pressed. Without this the overlay
+                // would stay put with no way out through HOME.
+                Log.d(TAG, "HOME with recents open: dismiss and go home")
+                dismissOverlay()
+                launchHomeTarget()
+            }
+            GlobalHotkeyService.isOverlayShown() -> {
+                // Alt+Tab: the hotkey service already decided that recents should
+                // come up.
+                Log.d(TAG, "HOME from Alt+Tab flag: open recents")
+                GlobalHotkeyService.clearOverlayFlag()
+                openRecentsOrHome()
+            }
+            else -> {
+                Log.d(TAG, "Single HOME: go home")
+                launchHomeTarget()
+            }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+
+        handleHomePress()
+    }
+
+    /**
+     * BACK/ESC that bypasses the overlay window (focus never entered it, or
+     * already left) must still only close the overlay — never fall through
+     * to the activity default or the launcher underneath (both would act on
+     * the same press: launcher jumps to the previous app). No overlay open
+     * means normal behavior.
+     */
+    override fun onBackPressed() {
+        if (overlayView != null || currentOverlay != null) {
+            hideOverlayAndFinish()
         } else {
-            if (!launchExternalLauncherIfSet()) {
-                launchMainActivity()
+            super.onBackPressed()
+        }
+    }
+
+    private fun openRecentsOrHome() {
+        if (prefs.recentAppsEnabled) {
+            showOverlay()
+        } else {
+            launchHomeTarget()
+        }
+    }
+
+    private fun dismissOverlay() {
+        try {
+            overlayView?.let {
+                windowManager?.removeViewImmediate(it)
             }
+        } catch (e: Exception) {
+            android.util.Log.e(TAG, "Failed to dismiss overlay", e)
+        }
+        setOverlayView(null)
+        GlobalHotkeyService.clearOverlayFlag()
+    }
+
+    /**
+     * Keeps the instance field and the static one in sync, so a HOME press that
+     * lands on a fresh instance can still find an overlay opened by the
+     * previous one.
+     */
+    private fun setOverlayView(view: View?) {
+        overlayView = view
+        currentOverlay = view
+    }
+
+    private fun launchHomeTarget() {
+        if (!launchExternalLauncherIfSet()) {
+            launchMainActivity()
         }
     }
 
     private fun launchExternalLauncherIfSet(): Boolean {
         val pkg = prefs.externalLauncherPkg ?: return false
-        val intent = packageManager.getLaunchIntentForPackage(pkg) ?: return false
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        val intent = getHomeIntentForPackage(pkg) ?: return false
+        // Reorder, don't recreate: a fresh instance always opens the default
+        // tab, while the live one keeps where the user was.
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
         return try {
             startActivity(intent)
             finish()
@@ -83,6 +203,22 @@ class ProxyHomeActivity : Activity() {
         } catch (e: Exception) {
             false
         }
+    }
+
+    /**
+     * TV home replacements (e.g. Google TV Launcher) expose MAIN+HOME, not
+     * LAUNCHER, so getLaunchIntentForPackage() misses them. Resolve HOME
+     * first, fall back to the regular launcher lookup.
+     */
+    private fun getHomeIntentForPackage(pkg: String): Intent? {
+        val homeQuery = Intent(Intent.ACTION_MAIN).apply {
+            addCategory(Intent.CATEGORY_HOME)
+            setPackage(pkg)
+        }
+        packageManager.resolveActivity(homeQuery, PackageManager.MATCH_DEFAULT_ONLY)?.let { ri ->
+            return Intent().setComponent(ComponentName(pkg, ri.activityInfo.name))
+        }
+        return packageManager.getLaunchIntentForPackage(pkg)
     }
 
     private fun launchMainActivity() {
@@ -99,7 +235,18 @@ class ProxyHomeActivity : Activity() {
 
         val root = object : LinearLayout(this) {
             override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+                // Close on RELEASE, not on press: closing on DOWN hands focus
+                // to the layer below while the UP of the same press is still
+                // in flight, and it triggers there (launcher jumps). Swallow
+                // the press, act on the release, swallow that too.
                 if (event.action == KeyEvent.ACTION_DOWN) {
+                    when (event.keyCode) {
+                        KeyEvent.KEYCODE_BACK, KeyEvent.KEYCODE_ESCAPE -> {
+                            return true
+                        }
+                    }
+                }
+                if (event.action == KeyEvent.ACTION_UP) {
                     when (event.keyCode) {
                         KeyEvent.KEYCODE_BACK, KeyEvent.KEYCODE_ESCAPE -> {
                             hideOverlayAndFinish()
@@ -347,7 +494,8 @@ class ProxyHomeActivity : Activity() {
         }
 
         windowManager?.addView(root, windowParams)
-        overlayView = root
+        setOverlayView(root)
+        android.util.Log.d(TAG, "Recents overlay shown with ${recentTasks.size} tasks")
 
         root.viewTreeObserver.addOnWindowAttachListener(object : ViewTreeObserver.OnWindowAttachListener {
             override fun onWindowAttached() {
@@ -363,7 +511,7 @@ class ProxyHomeActivity : Activity() {
 
             override fun onWindowDetached() {
                 root.viewTreeObserver.removeOnWindowAttachListener(this)
-                overlayView = null
+                setOverlayView(null)
             }
         })
     }
@@ -441,18 +589,25 @@ class ProxyHomeActivity : Activity() {
     }
 
     private fun hideOverlayAndFinish() {
+        // Idempotent: a second BACK with no overlay must not touch tasks.
+        if (overlayView == null && currentOverlay == null) {
+            return
+        }
         try {
             overlayView?.let {
                 windowManager?.removeViewImmediate(it)
-                overlayView = null
             }
         } catch (e: Exception) {
             android.util.Log.e(TAG, "Failed to hide overlay", e)
-            overlayView = null
         }
-        
+        setOverlayView(null)
+
         GlobalHotkeyService.clearOverlayFlag()
-        moveTaskToBack(true)
+        // Finish instead of moveTaskToBack: this task is empty and
+        // translucent, moving it back lets the system fall through to the
+        // Main task (Catapult pops up). Finishing drops the empty task and
+        // reveals whoever was fronted above, Main stays buried.
+        finish()
     }
 
     private fun closeAllTasksWithAnimation() {
@@ -587,8 +742,8 @@ class ProxyHomeActivity : Activity() {
             } catch (e: Exception) {
                 // ignore
             }
-            overlayView = null
         }
+        setOverlayView(null)
         GlobalHotkeyService.clearOverlayFlag()
         if (!launchExternalLauncherIfSet()) {
             launchMainActivity()
@@ -605,7 +760,8 @@ class ProxyHomeActivity : Activity() {
         val baseIntent: Intent? = null
     )
 
-    private fun getRecentTasks(): List<RecentTask> {
+    private fun getRecentTasks(excludeExternal: Boolean = true,
+                               excludeSelf: Boolean = true): List<RecentTask> {
         val tasks = LinkedHashMap<Int, RecentTask>()
         val myPackage = packageName
         taskSnapshots.clear()
@@ -641,7 +797,8 @@ class ProxyHomeActivity : Activity() {
                 
                 if (result != null && result.isNotEmpty()) {
                     android.util.Log.d(TAG, "Reflection getTasks returned ${result.size} tasks")
-                    processTaskListReflection(tasks, result, myPackage)
+                            processTaskListReflection(tasks, result, myPackage, excludeExternal,
+                                excludeSelf)
                 }
             } catch (e: Exception) {
                 android.util.Log.d(TAG, "API 34 getTasks signature failed: ${e.message}")
@@ -663,7 +820,8 @@ class ProxyHomeActivity : Activity() {
                         
                         if (result != null && result.isNotEmpty()) {
                             android.util.Log.d(TAG, "Fallback getTasks returned ${result.size} tasks")
-                            processTaskListReflection(tasks, result, myPackage)
+                    processTaskListReflection(tasks, result, myPackage, excludeExternal,
+                        excludeSelf)
                             break
                         }
                     } catch (e2: Exception) {
@@ -687,7 +845,8 @@ class ProxyHomeActivity : Activity() {
                 for (taskInfo in runningTasks) {
                     try {
                         val pkgName = taskInfo.baseActivity?.packageName ?: continue
-                        if (pkgName == myPackage || pkgName == prefs.externalLauncherPkg) continue
+                        if (excludeSelf && pkgName == myPackage) continue
+                        if (excludeExternal && pkgName == prefs.externalLauncherPkg) continue
                         
                         val taskId = taskInfo.id
                         if (taskId <= 0) continue
@@ -721,7 +880,7 @@ class ProxyHomeActivity : Activity() {
         return tasks.values.toList()
     }
     
-    private fun processTaskListReflection(tasks: LinkedHashMap<Int, RecentTask>, taskList: List<*>, myPackage: String) {
+    private fun processTaskListReflection(tasks: LinkedHashMap<Int, RecentTask>, taskList: List<*>, myPackage: String, excludeExternal: Boolean = true, excludeSelf: Boolean = true) {
         for (taskInfo in taskList) {
             try {
                 if (taskInfo == null) continue
@@ -847,7 +1006,9 @@ class ProxyHomeActivity : Activity() {
                 
                 android.util.Log.d(TAG, "Resolved: pkgName=$pkgName, taskId=$taskId, baseIntent=$baseIntent, baseActivity=$baseActivity, topActivity=$topActivity")
                 
-                if (pkgName == null || pkgName == myPackage || pkgName == prefs.externalLauncherPkg) continue
+                if (pkgName == null) continue
+                if (excludeSelf && pkgName == myPackage) continue
+                if (excludeExternal && pkgName == prefs.externalLauncherPkg) continue
                 if (taskId <= 0) continue
                 
                 // Use three-layer fallback to resolve task title

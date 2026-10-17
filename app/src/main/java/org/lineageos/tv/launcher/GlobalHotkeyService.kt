@@ -28,7 +28,6 @@ import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.isVisible
-import androidx.preference.PreferenceManager
 import com.android.internal.policy.IShortcutService
 import org.lineageos.tv.launcher.ext.appCardSize
 import org.lineageos.tv.launcher.ext.recentAppsEnabled
@@ -40,13 +39,18 @@ class GlobalHotkeyService : Service() {
 
     companion object {
         private const val TAG = "GlobalHotkeyService"
-        
-        private const val HOTKEY_KEYCODE_HOME = 3
-        private const val HOTKEY_META_HOME = 0
+
+        // HOME is deliberately NOT registered here. The platform only dispatches
+        // shortcut services for key combos that carry a modifier: in
+        // AppLaunchShortcutManager.handleShortcutService() the lookup is skipped
+        // when (metaState & META_CTRL_ON|META_ALT_ON|META_SHIFT_ON|META_META_ON)
+        // is zero, so a bare HOME press can never reach a subscriber. On top of
+        // that PhoneWindowManager consumes HOME in
+        // DisplayHomeButtonHandler.handleHomeButton() before the shortcut service
+        // stage is reached. Double-tap HOME is detected in ProxyHomeActivity
+        // instead, which is the registered HOME activity.
         private const val HOTKEY_KEYCODE_TAB = 61
         private const val HOTKEY_META_ALT = 2
-        
-        private const val DOUBLE_HOME_TIMEOUT = 500L
 
         private var instance: GlobalHotkeyService? = null
 
@@ -54,25 +58,18 @@ class GlobalHotkeyService : Service() {
         var overlayShown = false
             private set
 
-        @Volatile
-        var isDoubleTapPending = false
-            private set
-
         fun isOverlayShown() = overlayShown
-        
+
         fun setOverlayShown(value: Boolean) {
             overlayShown = value
-            isDoubleTapPending = false
         }
-        
+
         fun clearOverlayFlag() {
             overlayShown = false
-            isDoubleTapPending = false
         }
     }
 
     private var shortcutCallback: IShortcutService? = null
-    private var lastHomePressTime = 0L
     private var alreadyStartedActivity = false
 
     override fun onCreate() {
@@ -110,33 +107,14 @@ class GlobalHotkeyService : Service() {
                 override fun notifyShortcutKeyPressed(shortcutCode: Long) {
                     Log.d(TAG, "Shortcut pressed: code=$shortcutCode")
 
-                    val expectedHome = HOTKEY_KEYCODE_HOME.toLong() or (HOTKEY_META_HOME.toLong() shl 32)
                     val expectedAltTab = HOTKEY_KEYCODE_TAB.toLong() or (HOTKEY_META_ALT.toLong() shl 32)
 
                     when (shortcutCode) {
-                        expectedHome -> handleHomeKey()
                         expectedAltTab -> handleAltTabKey()
                         else -> Log.w(TAG, "Unknown shortcut code: $shortcutCode")
                     }
                 }
 
-                private fun handleHomeKey() {
-                    val prefs = PreferenceManager.getDefaultSharedPreferences(this@GlobalHotkeyService)
-                    if (!prefs.recentAppsEnabled) {
-                        return
-                    }
-                    
-                    val currentTime = System.currentTimeMillis()
-                    val timeSinceLastPress = currentTime - lastHomePressTime
-                    
-                    if (timeSinceLastPress in 1..DOUBLE_HOME_TIMEOUT) {
-                        Log.d(TAG, "Double HOME detected!")
-                        overlayShown = true
-                    }
-                    
-                    lastHomePressTime = currentTime
-                }
-                
                 private fun handleAltTabKey() {
                     Log.d(TAG, "Alt+Tab pressed!")
 
@@ -152,12 +130,10 @@ class GlobalHotkeyService : Service() {
                 }
             }
 
-            val shortcutCodeHome = HOTKEY_KEYCODE_HOME.toLong() or (HOTKEY_META_HOME.toLong() shl 32)
             val shortcutCodeAltTab = HOTKEY_KEYCODE_TAB.toLong() or (HOTKEY_META_ALT.toLong() shl 32)
             
-            registerMethod.invoke(wm, shortcutCodeHome, shortcutCallback)
             registerMethod.invoke(wm, shortcutCodeAltTab, shortcutCallback)
-            Log.d(TAG, "Hotkeys registered: HOME, Alt+Tab")
+            Log.d(TAG, "Hotkeys registered: Alt+Tab")
 
         } catch (e: Exception) {
             Log.e(TAG, "Failed to register hotkey", e)
@@ -171,15 +147,16 @@ class GlobalHotkeyService : Service() {
             val asInterfaceMethod = iWindowManagerStub.getMethod("asInterface", android.os.IBinder::class.java)
             val wm = asInterfaceMethod.invoke(null, wmBinder) ?: return
 
+            // unregisterShortcutKey is no longer part of IWindowManager.aidl, so
+            // this lookup normally returns null and the registration goes away
+            // with the process. Nothing else to do.
             val unregisterMethod = wm.javaClass.methods.find {
                 it.name == "unregisterShortcutKey" && it.parameterTypes.size == 2
             }
 
             if (unregisterMethod != null && shortcutCallback != null) {
-                val shortcutCodeHome = HOTKEY_KEYCODE_HOME.toLong() or (HOTKEY_META_HOME.toLong() shl 32)
                 val shortcutCodeAltTab = HOTKEY_KEYCODE_TAB.toLong() or (HOTKEY_META_ALT.toLong() shl 32)
                 
-                unregisterMethod.invoke(wm, shortcutCodeHome, shortcutCallback)
                 unregisterMethod.invoke(wm, shortcutCodeAltTab, shortcutCallback)
             }
         } catch (e: Exception) {

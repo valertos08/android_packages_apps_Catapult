@@ -138,13 +138,25 @@ class AdditionalSettingsActivity : ModalActivity(R.layout.activity_additional_se
     }
 
     private fun launchExternalLauncher(pkg: String) {
-        val intent = packageManager.getLaunchIntentForPackage(pkg) ?: return
+        val intent = getHomeIntentForPackage(pkg) ?: return
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         try {
             startActivity(intent)
         } catch (e: Exception) {
             // ignore
         }
+    }
+
+    private fun getHomeIntentForPackage(pkg: String): Intent? {
+        val homeQuery = Intent(Intent.ACTION_MAIN).apply {
+            addCategory(Intent.CATEGORY_HOME)
+            setPackage(pkg)
+        }
+        packageManager.resolveActivity(homeQuery, PackageManager.MATCH_DEFAULT_ONLY)?.let { ri ->
+            return Intent().setComponent(
+                android.content.ComponentName(pkg, ri.activityInfo.name))
+        }
+        return packageManager.getLaunchIntentForPackage(pkg)
     }
 
     private fun queryHomeLaunchers(): List<android.content.pm.ResolveInfo> {
