@@ -57,5 +57,36 @@
     <string name="recent_apps_size">Kártya mérete</string>
     <string name="recent_apps_size_percent">%d%% a képernyő magasságának</string>
     <string name="recent_apps_thumbnails">Miniatűrök megjelenítése</string>
-    <string name="recent_apps_thumbnails_hint">Hamarosan</string>
+    <string name="recent_apps_thumbnails_hint">Az alkalmazás utolsó képernyőjének előnézete a kártyákon</string>
+    <string name="app_info">Alkalmazásinfó</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">Alkalmazáskártyák</string>
+    <string name="app_cards_size">Alkalmazáskártyák mérete</string>
+    <string name="favorite_cards_size">Kedvencek kártyáinak mérete</string>
+    <string name="watch_next_cards_size">„A következő megtekintése” kártyáinak mérete</string>
+    <string name="card_corner_radius">Kártyák sarokkerekítése</string>
+    <string name="card_background">Kártya háttere</string>
+    <string name="card_background_theme">Témaszín</string>
+    <string name="card_background_custom">Egyéni szín</string>
+    <string name="card_background_gradient">Egyéni átmenet (gradiens)</string>
+    <string name="card_background_icon">Ikonok színei</string>
+    <string name="color_picker_title">Színválasztás</string>
+    <string name="color_picker_presets">Előbeállítások</string>
+    <string name="color_picker_custom">Egyéni</string>
+    <string name="select_color">Válasszon színt</string>
+    <string name="gradient_start">Kezdés</string>
+    <string name="gradient_end">Vége</string>
+    <string name="gradient_direction">Irány</string>
+    <string name="gradient_vertical_tb">Függőleges (fent→lent)</string>
+    <string name="gradient_vertical_bt">Függőleges (lent→fent)</string>
+    <string name="gradient_horizontal_lr">Víszintes (bal→jobb)</string>
+    <string name="gradient_horizontal_rl">Víszintes (jobb→bal)</string>
+    <string name="gradient_diagonal_tlbr">Átlós (bal fent→jobb lent)</string>
+    <string name="gradient_diagonal_trbl">Átlós (jobb fent→bal lent)</string>
+    <string name="gradient_diagonal_bltr">Átlós (bal lent→jobb fent)</string>
+    <string name="gradient_diagonal_brtl">Átlós (jobb lent→bal fent)</string>
+    <string name="cancel">Mégse</string>
+    <string name="all_apps_grid_view">Rács a teljes alkalmazáslistához</string>
+    <string name="all_apps_grid_columns">Rácsoszlopok</string>
 </resources>

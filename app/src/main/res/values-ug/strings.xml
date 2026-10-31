@@ -38,4 +38,38 @@
     <string name="connected">باغلاندى</string>
     <string name="mic_assistant">مىكروفون ئىشلىتىپ ئىزدە</string>
     <string name="keyboard_assistant">ھەرپتاختا ئىشلىتىپ ئىزدە</string>
+    <string name="app_info">ئەپ سانلىق مەلۇمات</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">ئەپ كارتىلىرى</string>
+    <string name="app_cards_size">ئەپ كارتىلىرىنىڭ چوڭلۇقى</string>
+    <string name="favorite_cards_size">سۆيىدىغان كارتىلارنىڭ چوڭلۇقى</string>
+    <string name="watch_next_cards_size">"كېيىنكى مەزمۇن" كارتىلىرىنىڭ چوڭلۇقى</string>
+    <string name="card_corner_radius">كارتا بۇلۇڭلىرىنىڭ چەمبىرىكى</string>
+    <string name="card_background">كارتا تەگلىكى</string>
+    <string name="card_background_theme">ئۇسلۇب رەڭگى</string>
+    <string name="card_background_custom">خاس رەڭ</string>
+    <string name="card_background_gradient">خاس گىرادىئېنت</string>
+    <string name="card_background_icon">سىنبەلگە رەڭلىرى</string>
+    <string name="color_picker_title">رەڭ تاللاڭ</string>
+    <string name="color_picker_presets">تەييار ئۆلچەملەر</string>
+    <string name="color_picker_custom">خاس</string>
+    <string name="select_color">رەڭ تاللاڭ</string>
+    <string name="gradient_start">باشلىنىشى</string>
+    <string name="gradient_end">ئاخىرلىشىشى</string>
+    <string name="gradient_direction">يۆلىنىش</string>
+    <string name="gradient_vertical_tb">تىك (يۇقىرى→تۆۋەن)</string>
+    <string name="gradient_vertical_bt">تىك (تۆۋەن→يۇقىرى)</string>
+    <string name="gradient_horizontal_lr">توغرا (سولدىن→ئوڭغا)</string>
+    <string name="gradient_horizontal_rl">توغرا ( ئوڭدىن→سولغا)</string>
+    <string name="gradient_diagonal_tlbr">ئىلما (تۆۋەن سول→يۇقىرى ئوڭ)</string>
+    <string name="gradient_diagonal_trbl">ئىلما (يۇقىرى ئوڭ→تۆۋەن سول)</string>
+    <string name="gradient_diagonal_bltr">ئىلما (تۆۋەن سول→يۇقىرى ئوڭ)</string>
+    <string name="gradient_diagonal_brtl">ئىلما (تۆۋەن ئوڭ→يۇقىرى سول)</string>
+    <string name="cancel">بىكار قىلىش</string>
+    <string name="all_apps_grid_view">ئەپلەرنىڭ ھەممىسىنى كۆرسەتكۈسى</string>
+    <string name="all_apps_grid_columns">كۆرسەتكۈنىڭ ئىستونلىرى</string>
+
+    <string name="recent_apps_thumbnails">كىچىك رەسىملەرنى كۆرسەت</string>
+    <string name="recent_apps_thumbnails_hint">ئەپنىڭ ئاخىرقى ئېكرانىنى كارتا ئۆچرەتلىرىدە كۆرسىتىدۇ</string>
 </resources>

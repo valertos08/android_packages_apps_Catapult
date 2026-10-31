@@ -57,5 +57,36 @@
     <string name="recent_apps_size">Dimensione schede</string>
     <string name="recent_apps_size_percent">%d%% dell\'altezza dello schermo</string>
     <string name="recent_apps_thumbnails">Mostra miniature</string>
-    <string name="recent_apps_thumbnails_hint">In arrivo</string>
+    <string name="recent_apps_thumbnails_hint">Anteprima dell\'ultima schermata dell\'app sulle schede</string>
+    <string name="app_info">Informazioni app</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">Schede delle app</string>
+    <string name="app_cards_size">Dimensione delle schede delle app</string>
+    <string name="favorite_cards_size">Dimensione delle schede dei preferiti</string>
+    <string name="watch_next_cards_size">Dimensione delle schede "Guarda il prossimo"</string>
+    <string name="card_corner_radius">Raggio degli angoli delle schede</string>
+    <string name="card_background">Sfondo delle schede</string>
+    <string name="card_background_theme">Colore del tema</string>
+    <string name="card_background_custom">Colore personalizzato</string>
+    <string name="card_background_gradient">Gradiente personalizzato</string>
+    <string name="card_background_icon">Colori delle icone</string>
+    <string name="color_picker_title">Scegli un colore</string>
+    <string name="color_picker_presets">Predefiniti</string>
+    <string name="color_picker_custom">Personalizzato</string>
+    <string name="select_color">Seleziona colore</string>
+    <string name="gradient_start">Inizio</string>
+    <string name="gradient_end">Fine</string>
+    <string name="gradient_direction">Direzione</string>
+    <string name="gradient_vertical_tb">Verticale (alto→basso)</string>
+    <string name="gradient_vertical_bt">Verticale (basso→alto)</string>
+    <string name="gradient_horizontal_lr">Orizzontale (sinistra→destra)</string>
+    <string name="gradient_horizontal_rl">Orizzontale (destra→sinistra)</string>
+    <string name="gradient_diagonal_tlbr">Diagonale (in alto a sinistra→in basso a destra)</string>
+    <string name="gradient_diagonal_trbl">Diagonale (in alto a destra→in basso a sinistra)</string>
+    <string name="gradient_diagonal_bltr">Diagonale (in basso a sinistra→in alto a destra)</string>
+    <string name="gradient_diagonal_brtl">Diagonale (in basso a destra→in alto a sinistra)</string>
+    <string name="cancel">Annulla</string>
+    <string name="all_apps_grid_view">Griglia di tutte le app</string>
+    <string name="all_apps_grid_columns">Colonne della griglia</string>
 </resources>

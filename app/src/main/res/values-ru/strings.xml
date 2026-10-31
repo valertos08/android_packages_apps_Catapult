@@ -51,7 +51,7 @@
     <string name="recent_apps_size">Размер карточек</string>
     <string name="recent_apps_size_percent">%d%% от высоты экрана</string>
     <string name="recent_apps_thumbnails">Показывать превью</string>
-    <string name="recent_apps_thumbnails_hint">Скоро</string>
+    <string name="recent_apps_thumbnails_hint">Превью последнего экрана приложения в карточках</string>
 
     <string name="additional">Дополнительно</string>
     <string name="external_launcher">Сторонний лаунчер</string>
@@ -59,4 +59,36 @@
     <string name="external_launcher_none">Не использовать сторонний лаунчер</string>
     <string name="external_launcher_not_found">Других домашних лаунчеров не найдено.</string>
     <string name="external_launcher_picker">Catapult: выбор лаунчера</string>
+
+    <string name="app_info">Информация о приложении</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">Карточки приложений</string>
+    <string name="app_cards_size">Размер карточек приложений</string>
+    <string name="favorite_cards_size">Размер карточек избранного</string>
+    <string name="watch_next_cards_size">Размер карточек «Смотреть далее»</string>
+    <string name="card_corner_radius">Радиус скругления карточек</string>
+    <string name="card_background">Фон карточек</string>
+    <string name="card_background_theme">Цвет темы</string>
+    <string name="card_background_custom">Свой цвет</string>
+    <string name="card_background_gradient">Свой градиент</string>
+    <string name="card_background_icon">Цвета значков</string>
+    <string name="color_picker_title">Выбор цвета</string>
+    <string name="color_picker_presets">Готовые</string>
+    <string name="color_picker_custom">Свой</string>
+    <string name="select_color">Выберите цвет</string>
+    <string name="gradient_start">Начало</string>
+    <string name="gradient_end">Конец</string>
+    <string name="gradient_direction">Направление</string>
+    <string name="gradient_vertical_tb">По вертикали (сверху→вниз)</string>
+    <string name="gradient_vertical_bt">По вертикали (снизу→вверх)</string>
+    <string name="gradient_horizontal_lr">По горизонтали (слева→направо)</string>
+    <string name="gradient_horizontal_rl">По горизонтали (справа→налево)</string>
+    <string name="gradient_diagonal_tlbr">По диагонали (сверху слева→вниз вправо)</string>
+    <string name="gradient_diagonal_trbl">По диагонали (сверху справа→вниз влево)</string>
+    <string name="gradient_diagonal_bltr">По диагонали (снизу слева→вверх вправо)</string>
+    <string name="gradient_diagonal_brtl">По диагонали (снизу справа→вверх влево)</string>
+    <string name="cancel">Отмена</string>
+    <string name="all_apps_grid_view">Сетка всех приложений</string>
+    <string name="all_apps_grid_columns">Столбцов в сетке</string>
 </resources>

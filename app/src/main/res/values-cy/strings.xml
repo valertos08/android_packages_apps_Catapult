@@ -5,4 +5,34 @@
 -->
 <resources>
     <string name="no_notifications">Dim hysbysiadau</string>
+    <string name="app_info">Gwybodaeth yr ap</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">Cerdiau apiau</string>
+    <string name="app_cards_size">Maint y cerdiau apiau</string>
+    <string name="favorite_cards_size">Maint y cerdiau ffefrynnau</string>
+    <string name="watch_next_cards_size">Maint y cerdiau „Gwylio nesaf“</string>
+    <string name="card_corner_radius">Radiws corneli\'r cerdiau</string>
+    <string name="card_background">Cefndir y cerdiau</string>
+    <string name="card_background_theme">Lliw\'r thema</string>
+    <string name="card_background_custom">Lliw cyfaddas</string>
+    <string name="card_background_gradient">Graddiant cyfaddas</string>
+    <string name="card_background_icon">Lliwiau\'r eiconau</string>
+    <string name="color_picker_title">Dewiswch liw</string>
+    <string name="color_picker_presets">Rhagosodion</string>
+    <string name="color_picker_custom">Cyfaddas</string>
+    <string name="select_color">Dewiswch liw</string>
+    <string name="gradient_start">Dechrau</string>
+    <string name="gradient_end">Diwedd</string>
+    <string name="gradient_direction">Cyfeiriad</string>
+    <string name="gradient_vertical_tb">Fertigol (topp→gwaelod)</string>
+    <string name="gradient_vertical_bt">Fertigol (gwaelod→topp)</string>
+    <string name="gradient_horizontal_lr">Llorweddol (topp→gwaelod)</string>
+    <string name="gradient_horizontal_rl">Llorweddol (gwaelod→topp)</string>
+    <string name="cancel">Diddymu</string>
+    <string name="all_apps_grid_view">Grid pob ap</string>
+    <string name="all_apps_grid_columns">Colofnau\'r grid</string>
+
+    <string name="recent_apps_thumbnails">Dangos mân-luniau</string>
+    <string name="recent_apps_thumbnails_hint">Rhagolwg o sgrin olaf yr ap ar y cerdiau</string>
 </resources>

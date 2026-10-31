@@ -40,4 +40,38 @@
     <string name="keyboard_assistant">Cuardaigh ag baint úsáide as méarchlár</string>
     <string name="system_settings">Socruithe an chórais</string>
     <string name="launcher_settings">Socruithe an launchera</string>
+    <string name="app_info">Eolas ar an aip</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">Cártaí aipeanna</string>
+    <string name="app_cards_size">Méid na gcártaí aipeanna</string>
+    <string name="favorite_cards_size">Méid na gcártaí Ceanán</string>
+    <string name="watch_next_cards_size">Méid na gcártaí "Féach ar seo chugainn"</string>
+    <string name="card_corner_radius">Ga na gcúinní den chárta</string>
+    <string name="card_background">Cúlra na gcártaí</string>
+    <string name="card_background_theme">Dath an téama</string>
+    <string name="card_background_custom">Dath saincheaptha</string>
+    <string name="card_background_gradient">Grádán saincheaptha</string>
+    <string name="card_background_icon">Dathanna na dealbhchomharthaí</string>
+    <string name="color_picker_title">Roghnaigh dath</string>
+    <string name="color_picker_presets">Réamhshocruithe</string>
+    <string name="color_picker_custom">Saincheaptha</string>
+    <string name="select_color">Roghnaigh dath</string>
+    <string name="gradient_start">Tús</string>
+    <string name="gradient_end">Deireadh</string>
+    <string name="gradient_direction">Treo</string>
+    <string name="gradient_vertical_tb">Ingearach (barr→bun)</string>
+    <string name="gradient_vertical_bt">Ingearach (bun→barr)</string>
+    <string name="gradient_horizontal_lr">Cothrománach (deas→chlé)</string>
+    <string name="gradient_horizontal_rl">Cothrománach (chlé→deis)</string>
+    <string name="gradient_diagonal_tlbr">Trasna (barr deis→bun chlé)</string>
+    <string name="gradient_diagonal_trbl">Trasna (barr chlé→bun deis)</string>
+    <string name="gradient_diagonal_bltr">Trasna (bun chlé→barr deis)</string>
+    <string name="gradient_diagonal_brtl">Trasna (bun deis→barr chlé)</string>
+    <string name="cancel">Cealaigh</string>
+    <string name="all_apps_grid_view">Greilleán na n-aipeanna uile</string>
+    <string name="all_apps_grid_columns">Gcolúin an ghreilléin</string>
+
+    <string name="recent_apps_thumbnails">Taispeáin mionsamhlacha</string>
+    <string name="recent_apps_thumbnails_hint">Réamhamharc ar dheireadh-scráidein an aip sna cártaí</string>
 </resources>

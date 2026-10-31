@@ -57,5 +57,36 @@
     <string name="recent_apps_size">Mida de les targetes</string>
     <string name="recent_apps_size_percent">%d%% de l\'alçada de la pantalla</string>
     <string name="recent_apps_thumbnails">Mostra miniatures</string>
-    <string name="recent_apps_thumbnails_hint">Properament</string>
+    <string name="recent_apps_thumbnails_hint">Vista prèvia de l\'última pantalla de l\'aplicació a les targetes</string>
+    <string name="app_info">Informació de l\'aplicació</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">Targetes d\'aplicacions</string>
+    <string name="app_cards_size">Mida de les targetes d\'aplicacions</string>
+    <string name="favorite_cards_size">Mida de les targetes de preferits</string>
+    <string name="watch_next_cards_size">Mida de les targetes «Veure el següent»</string>
+    <string name="card_corner_radius">Radi de les cantonades de les targetes</string>
+    <string name="card_background">Fons de les targetes</string>
+    <string name="card_background_theme">Color del tema</string>
+    <string name="card_background_custom">Color personalitzat</string>
+    <string name="card_background_gradient">Degradat personalitzat</string>
+    <string name="card_background_icon">Colors de les icones</string>
+    <string name="color_picker_title">Tria un color</string>
+    <string name="color_picker_presets">Valors predefinits</string>
+    <string name="color_picker_custom">Personalitzat</string>
+    <string name="select_color">Selecciona un color</string>
+    <string name="gradient_start">Inici</string>
+    <string name="gradient_end">Fi</string>
+    <string name="gradient_direction">Direcció</string>
+    <string name="gradient_vertical_tb">Vertical (de dalt a baix)</string>
+    <string name="gradient_vertical_bt">Vertical (de baix a dalt)</string>
+    <string name="gradient_horizontal_lr">Horitzontal (d\'esquerra a dreta)</string>
+    <string name="gradient_horizontal_rl">Horitzontal (de dreta a esquerra)</string>
+    <string name="gradient_diagonal_tlbr">Diagonal (de dalt esquerra a baix dreta)</string>
+    <string name="gradient_diagonal_trbl">Diagonal (de dalt dreta a baix esquerra)</string>
+    <string name="gradient_diagonal_bltr">Diagonal (de baix esquerra a dalt dreta)</string>
+    <string name="gradient_diagonal_brtl">Diagonal (de baix dreta a dalt esquerra)</string>
+    <string name="cancel">Cancel·la</string>
+    <string name="all_apps_grid_view">Quadrícula de totes les aplicacions</string>
+    <string name="all_apps_grid_columns">Columnes de la quadrícula</string>
 </resources>

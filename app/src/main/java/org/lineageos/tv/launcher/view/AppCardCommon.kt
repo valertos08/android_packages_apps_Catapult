@@ -34,6 +34,8 @@ import kotlin.reflect.safeCast
         protected val bannerView by lazy { findViewById<ImageView>(R.id.app_banner)!! }
         protected val cardContainer by lazy { findViewById<LinearLayout>(R.id.card_container)!! }
         protected val cardFrame by lazy { findViewById<FrameLayout>(R.id.card_frame)!! }
+        // Nullable: only cards based on app_card.xml have the preview layer
+        protected val previewView by lazy { findViewById<ImageView>(R.id.app_preview) }
         protected val iconContainer by lazy { findViewById<LinearLayout>(R.id.app_with_icon)!! }
         protected val iconView by lazy { findViewById<ImageView>(R.id.app_icon)!! }
         protected val nameView by lazy { findViewById<TextView>(R.id.app_name)!! }
@@ -61,6 +63,8 @@ import kotlin.reflect.safeCast
 
         // Reset
         hasCustomIcon = false  // Reset custom icon flag for each card
+        previewView?.setImageBitmap(null)
+        previewView?.visibility = View.GONE
         bannerView.visibility = View.GONE
         iconContainer.visibility = View.VISIBLE
 

@@ -46,4 +46,38 @@
     <string name="background_image">படம்</string>
     <string name="select_image">படத்தை தேர்வு செய்யவும்</string>
     <string name="selected_image">படம் தேர்ந்தெடுக்கப்பட்டது</string>
+    <string name="app_info">ஆப்ஸ் தகவல்</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">செயலின் கார்டுகள்</string>
+    <string name="app_cards_size">செயலின் கார்டுகளின் அளவு</string>
+    <string name="favorite_cards_size">பிடித்த கார்டுகளின் அளவு</string>
+    <string name="watch_next_cards_size">"அடுத்துப் பார்க்க" கார்டுகளின் அளவு</string>
+    <string name="card_corner_radius">கார்டின் மூலை வளைவளவு</string>
+    <string name="card_background">கார்டின் பின்னணி</string>
+    <string name="card_background_theme">தீம் நிறம்</string>
+    <string name="card_background_custom">தனிப்பயன் நிறம்</string>
+    <string name="card_background_gradient">தனிப்பயன் படிநிறம்</string>
+    <string name="card_background_icon">குறியீட்டு நிறங்கள்</string>
+    <string name="color_picker_title">நிறத்தைத் தேர்வுசெய்</string>
+    <string name="color_picker_presets">முன்னிருப்புகள்</string>
+    <string name="color_picker_custom">தனிப்பயன்</string>
+    <string name="select_color">நிறத்தைத் தேர்வுசெய்க</string>
+    <string name="gradient_start">தொடக்கம்</string>
+    <string name="gradient_end">முடிவு</string>
+    <string name="gradient_direction">திசை</string>
+    <string name="gradient_vertical_tb">நெடுக்கு (மேலே→கீழே)</string>
+    <string name="gradient_vertical_bt">நெடுக்கு (கீழே→மேலே)</string>
+    <string name="gradient_horizontal_lr">குறுக்கு (இடது→வலது)</string>
+    <string name="gradient_horizontal_rl">குறுக்கு (வலது→இடது)</string>
+    <string name="gradient_diagonal_tlbr">மூலைவிட்டம் (இடமேல்→வலக்கீழ்)</string>
+    <string name="gradient_diagonal_trbl">மூலைவிட்டம் (வலமேமூலைவிட்டம் (வலமேலே→மேலே வலமருகு)</string>
+    <string name="gradient_diagonal_bltr">மூலைவிட்டம் (மேலே வலமருகு→கீழே வலமருகு)</string>
+    <string name="gradient_diagonal_brtl">மூலைவிட்டம் (மேலே வலமருகு→கீழே வலமருகு)</string>
+    <string name="cancel">ரத்து</string>
+    <string name="all_apps_grid_view">அனைத்து செயலிகளின் கட்டகம்</string>
+    <string name="all_apps_grid_columns">கட்டக நிரல்கள்</string>
+
+    <string name="recent_apps_thumbnails">சிறுபடங்களைக் காட்டு</string>
+    <string name="recent_apps_thumbnails_hint">அட்டைகளில் செயலியின் கடைசி திரையின் முன்தோற்றம்</string>
 </resources>

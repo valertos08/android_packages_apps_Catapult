@@ -57,5 +57,36 @@
     <string name="recent_apps_size">卡片大小</string>
     <string name="recent_apps_size_percent">屏幕高度的%d%%</string>
     <string name="recent_apps_thumbnails">显示缩略图</string>
-    <string name="recent_apps_thumbnails_hint">即将推出</string>
+    <string name="recent_apps_thumbnails_hint">在卡片中显示应用的最后画面</string>
+    <string name="app_info">应用信息</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">应用卡片</string>
+    <string name="app_cards_size">应用卡片大小</string>
+    <string name="favorite_cards_size">收藏卡片大小</string>
+    <string name="watch_next_cards_size">"接下来观看"卡片大小</string>
+    <string name="card_corner_radius">卡片圆角半径</string>
+    <string name="card_background">卡片背景</string>
+    <string name="card_background_theme">主题颜色</string>
+    <string name="card_background_custom">自定义颜色</string>
+    <string name="card_background_gradient">自定义渐变</string>
+    <string name="card_background_icon">图标颜色</string>
+    <string name="color_picker_title">选择颜色</string>
+    <string name="color_picker_presets">预设</string>
+    <string name="color_picker_custom">自定义</string>
+    <string name="select_color">选择颜色</string>
+    <string name="gradient_start">起点</string>
+    <string name="gradient_end">终点</string>
+    <string name="gradient_direction">方向</string>
+    <string name="gradient_vertical_tb">纵向（上→下）</string>
+    <string name="gradient_vertical_bt">纵向（下→上）</string>
+    <string name="gradient_horizontal_lr">横向（左→右）</string>
+    <string name="gradient_horizontal_rl">横向（右→左）</string>
+    <string name="gradient_diagonal_tlbr">对角（左上→右下）</string>
+    <string name="gradient_diagonal_trbl">对角（右上→左下）</string>
+    <string name="gradient_diagonal_bltr">对角（左下→右上）</string>
+    <string name="gradient_diagonal_brtl">对角（右下→左上）</string>
+    <string name="cancel">取消</string>
+    <string name="all_apps_grid_view">所有应用网格</string>
+    <string name="all_apps_grid_columns">网格列数</string>
 </resources>

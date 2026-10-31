@@ -28,9 +28,14 @@ object CardBackgroundHelper {
     const val BACKGROUND_TYPE_GRADIENT = 2
     const val BACKGROUND_TYPE_ICON = 3
     
+    fun cardCornerRadiusPx(context: Context): Float =
+        prefs(context).cardCornerRadius * context.resources.displayMetrics.density
+
+    private fun prefs(context: Context) =
+        PreferenceManager.getDefaultSharedPreferences(context)
+
     fun getCardBorderDrawable(context: Context): GradientDrawable {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        val radius = prefs.cardCornerRadius.toFloat()
+        val radius = cardCornerRadiusPx(context)
         return GradientDrawable().apply {
             shape = GradientDrawable.RECTANGLE
             cornerRadius = radius
@@ -39,8 +44,8 @@ object CardBackgroundHelper {
     }
     
     fun getCardBackgroundDrawable(context: Context): Drawable {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        val radius = prefs.cardCornerRadius.toFloat()
+        val prefs = prefs(context)
+        val radius = cardCornerRadiusPx(context)
         val bgType = prefs.cardBackgroundType
         
         return when (bgType) {
@@ -61,15 +66,14 @@ object CardBackgroundHelper {
     }
     
     fun createThemeBackgroundDrawable(context: Context): GradientDrawable {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        val radius = prefs.cardCornerRadius.toFloat()
+        val radius = cardCornerRadiusPx(context)
         val bgColor = context.getAttributeColor(MaterialR.attr.colorSecondaryContainer)
         return createSolidDrawable(context, radius, bgColor)
     }
     
     fun getCardIconBackgroundDrawable(context: Context, iconDrawable: Drawable?): Drawable {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        val radius = prefs.cardCornerRadius.toFloat()
+        val prefs = prefs(context)
+        val radius = cardCornerRadiusPx(context)
         val bgType = prefs.cardBackgroundType
         
         return when (bgType) {
@@ -95,8 +99,8 @@ object CardBackgroundHelper {
     }
     
     fun getBannerBorderDrawable(context: Context): GradientDrawable {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        val radius = prefs.cardCornerRadius.toFloat()
+        val prefs = prefs(context)
+        val radius = cardCornerRadiusPx(context)
         return GradientDrawable().apply {
             shape = GradientDrawable.RECTANGLE
             cornerRadius = radius

@@ -7,11 +7,14 @@ package org.lineageos.tv.launcher.view
 
 import android.animation.AnimatorInflater
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.core.view.isInvisible
 import androidx.preference.PreferenceManager
 import org.lineageos.tv.launcher.R
@@ -28,6 +31,7 @@ class AppCard @JvmOverloads constructor(
     protected var currentIcon: Drawable? = null
     private var customTitle: String? = null
     private var customScale: Float? = null
+    private var hasPreview = false
 
     fun setCustomTitle(title: String?) {
         customTitle = title
@@ -56,6 +60,42 @@ class AppCard @JvmOverloads constructor(
     fun setCardScale(scale: Float) {
         customScale = scale
         applyCardSizeScaling()
+    }
+
+    /**
+     * Shows a task preview screenshot filling the card frame,
+     * with the app icon reduced to a small badge in the bottom-start corner.
+     * Pass null to fall back to the normal icon/banner card.
+     */
+    fun setPreview(bitmap: Bitmap?) {
+        if (bitmap == null) {
+            hasPreview = false
+            previewView?.setImageBitmap(null)
+            previewView?.visibility = View.GONE
+            applyCardSizeScaling()
+            return
+        }
+
+        hasPreview = true
+        previewView?.setImageBitmap(bitmap)
+        previewView?.visibility = View.VISIBLE
+        bannerView.visibility = View.GONE
+
+        // Icon becomes a small badge over the screenshot
+        val badgeSize = (40 * resources.displayMetrics.density).toInt()
+        val margin = (8 * resources.displayMetrics.density).toInt()
+        iconContainer.visibility = View.VISIBLE
+        iconContainer.layoutParams = FrameLayout.LayoutParams(badgeSize, badgeSize).apply {
+            gravity = Gravity.BOTTOM or Gravity.START
+            marginStart = margin
+            bottomMargin = margin
+        }
+        val iconSize = (24 * resources.displayMetrics.density).toInt()
+        iconView.layoutParams = iconView.layoutParams.apply {
+            width = iconSize
+            height = iconSize
+        }
+        iconContainer.elevation = 4f
     }
 
     init {
@@ -90,6 +130,7 @@ class AppCard @JvmOverloads constructor(
         val backgroundDrawable = CardBackgroundHelper.getCardIconBackgroundDrawable(context, currentIcon)
         
         cardContainer.background = borderDrawable
+        applyCardShadow(cardFrame)
         bannerView.background = CardBackgroundHelper.getBannerBorderDrawable(context)
         iconContainer.background = backgroundDrawable
     }
@@ -110,7 +151,7 @@ class AppCard @JvmOverloads constructor(
                 this.width = columnWidth
             }
             cardFrame.layoutParams = cardFrame.layoutParams.apply {
-                height = imageHeight
+                height = imageHeight + 2 * shadowPadding()
             }
             nameView.layoutParams = nameView.layoutParams.apply {
                 this.width = columnWidth
@@ -158,12 +199,32 @@ class AppCard @JvmOverloads constructor(
 
         if (!isGridMode) {
             cardFrame.layoutParams = cardFrame.layoutParams.apply {
-                height = newHeight
+                height = newHeight + 2 * shadowPadding()
             }
-            val iconSize = (newHeight * 0.66f).toInt()
-            iconView.layoutParams = iconView.layoutParams.apply {
-                width = iconSize
-                height = iconSize
+            if (hasPreview) {
+                // Preview mode: icon stays as a small corner badge
+                val badgeSize = (40 * resources.displayMetrics.density).toInt()
+                val margin = (8 * resources.displayMetrics.density).toInt()
+                iconContainer.layoutParams = FrameLayout.LayoutParams(badgeSize, badgeSize).apply {
+                    gravity = Gravity.BOTTOM or Gravity.START
+                    marginStart = margin
+                    bottomMargin = margin
+                }
+                val iconSize = (24 * resources.displayMetrics.density).toInt()
+                iconView.layoutParams = iconView.layoutParams.apply {
+                    width = iconSize
+                    height = iconSize
+                }
+            } else {
+                iconContainer.layoutParams = FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
+                val iconSize = (newHeight * 0.66f).toInt()
+                iconView.layoutParams = iconView.layoutParams.apply {
+                    width = iconSize
+                    height = iconSize
+                }
             }
             nameView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12f * scale)
         }

@@ -38,4 +38,38 @@
     <string name="connected">Connètidu</string>
     <string name="mic_assistant">Chirca impreende su micròfonu</string>
     <string name="keyboard_assistant">Chirca impreende su tecladu</string>
+    <string name="app_info">Informatziones de s\'aplicatzione</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">Cartas de is aplicatziones</string>
+    <string name="app_cards_size">Mannària de is cartas de is aplicatziones</string>
+    <string name="favorite_cards_size">Mannària de is cartas preferidas</string>
+    <string name="watch_next_cards_size">Mannària de is cartas "Càstia cussu imbeniente"</string>
+    <string name="card_corner_radius">Ràdiu de is cantones de is cartas</string>
+    <string name="card_background">Fondo de is cartas</string>
+    <string name="card_background_theme">Colore de su tema</string>
+    <string name="card_background_custom">Colore personalizadu</string>
+    <string name="card_background_gradient">Gradiente personalizadu</string>
+    <string name="card_background_icon">Colores de is iconas</string>
+    <string name="color_picker_title">Sbera unu colore</string>
+    <string name="color_picker_presets">Predefinidos</string>
+    <string name="color_picker_custom">Personalizadu</string>
+    <string name="select_color">Seletziona su colore</string>
+    <string name="gradient_start">Cumintzu</string>
+    <string name="gradient_end">Acabbu</string>
+    <string name="gradient_direction">Indiritzu</string>
+    <string name="gradient_vertical_tb">Verticale (de sus→pro bàsciu)</string>
+    <string name="gradient_vertical_bt">Verticale (de bàsciu→pro sus)</string>
+    <string name="gradient_horizontal_lr">Orizontale (de mancu→pro dretu)</string>
+    <string name="gradient_horizontal_rl">Orizontale (de dretu→pro mancu)</string>
+    <string name="gradient_diagonal_tlbr">Diagonale (mancu de sus→dretu pro bàsciu)</string>
+    <string name="gradient_diagonal_trbl">Diagonale (dretu de sus→mancu pro bàsciu)</string>
+    <string name="gradient_diagonal_bltr">Diagonale (mancu de bàsciu→dretu pro sus)</string>
+    <string name="gradient_diagonal_brtl">Diagonale (dretu de bàsciu→mancu pro sus)</string>
+    <string name="cancel">Cantzella</string>
+    <string name="all_apps_grid_view">Grilia de totu is aplicatziones</string>
+    <string name="all_apps_grid_columns">Colunnas de sa grilia</string>
+
+    <string name="recent_apps_thumbnails">Amustra miniaturas</string>
+    <string name="recent_apps_thumbnails_hint">Antiprima de s\'ùrtima scrinada de s\'aplicatzione in is cartas</string>
 </resources>

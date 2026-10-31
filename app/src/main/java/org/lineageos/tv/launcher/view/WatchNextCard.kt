@@ -16,7 +16,6 @@ import android.util.TypedValue
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
@@ -56,6 +55,7 @@ class WatchNextCard @JvmOverloads constructor(
     }
     
     fun applyCornerRadius() {
+        applyCardShadow(cardFrame)
         bannerBackgroundView.background = CardBackgroundHelper.getBannerBorderDrawable(context)
         bannerView.background = CardBackgroundHelper.getBannerBorderDrawable(context)
         bannerView.background.setTint(android.graphics.Color.BLACK)
@@ -83,7 +83,7 @@ class WatchNextCard @JvmOverloads constructor(
 
         val frameLp = cardFrame.layoutParams
         if (frameLp != null) {
-            frameLp.height = newHeight
+            frameLp.height = newHeight + 2 * shadowPadding()
             cardFrame.layoutParams = frameLp
         }
 

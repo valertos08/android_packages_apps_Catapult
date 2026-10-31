@@ -57,5 +57,36 @@
     <string name="recent_apps_size">Kart ölçüsü</string>
     <string name="recent_apps_size_percent">Ekran hündürlüyünün %d%%</string>
     <string name="recent_apps_thumbnails">Kiçik şəkilləri göstər</string>
-    <string name="recent_apps_thumbnails_hint">Tezliklə</string>
+    <string name="recent_apps_thumbnails_hint">"İndi" kartlarda tətbiqin son ekranının ön görünüşü</string>
+    <string name="app_info">Tətbiq haqqında</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">Tətbiq kartları</string>
+    <string name="app_cards_size">Tətbiq kartlarının ölçüsü</string>
+    <string name="favorite_cards_size">Sevimli kartların ölçüsü</string>
+    <string name="watch_next_cards_size">«Növbətiyə bax» kartlarının ölçüsü</string>
+    <string name="card_corner_radius">Kart künclərinin radiusu</string>
+    <string name="card_background">Kart fonu</string>
+    <string name="card_background_theme">Mövzu rəngi</string>
+    <string name="card_background_custom">Xüsusi rəng</string>
+    <string name="card_background_gradient">Xüsusi qradient</string>
+    <string name="card_background_icon">İkonların rəngləri</string>
+    <string name="color_picker_title">Rəng seç</string>
+    <string name="color_picker_presets">Hazır variantlar</string>
+    <string name="color_picker_custom">Xüsusi</string>
+    <string name="select_color">Rəng seçin</string>
+    <string name="gradient_start">Başlanğıc</string>
+    <string name="gradient_end">Son</string>
+    <string name="gradient_direction">İstiqamət</string>
+    <string name="gradient_vertical_tb">Şaquli (yuxarıdan aşağı)</string>
+    <string name="gradient_vertical_bt">Şaquli (aşağıdan yuxarı)</string>
+    <string name="gradient_horizontal_lr">Üfüqi (soldan sağa)</string>
+    <string name="gradient_horizontal_rl">Üfüqi (sağdan sola)</string>
+    <string name="gradient_diagonal_tlbr">Diaqonal (sol yuxarıdan sağ aşağıya)</string>
+    <string name="gradient_diagonal_trbl">Diaqonal (sağ yuxarıdan sol aşağıya)</string>
+    <string name="gradient_diagonal_bltr">Diaqonal (sol aşağıdan sağ yuxarıya)</string>
+    <string name="gradient_diagonal_brtl">Diaqonal (sağ aşağıdan sol yuxarıya)</string>
+    <string name="cancel">Ləğv et</string>
+    <string name="all_apps_grid_view">Bütün tətbiqlərin toru</string>
+    <string name="all_apps_grid_columns">Tor sütunları</string>
 </resources>

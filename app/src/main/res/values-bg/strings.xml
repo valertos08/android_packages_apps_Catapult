@@ -57,5 +57,36 @@
     <string name="recent_apps_size">Размер на картите</string>
     <string name="recent_apps_size_percent">%d%% от височината на екрана</string>
     <string name="recent_apps_thumbnails">Показване на миниатюри</string>
-    <string name="recent_apps_thumbnails_hint">Очаквайте скоро</string>
+    <string name="recent_apps_thumbnails_hint">Преглед на последния екран на приложението в картите</string>
+    <string name="app_info">Информация за приложението</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">Карти на приложенията</string>
+    <string name="app_cards_size">Размер на картите на приложенията</string>
+    <string name="favorite_cards_size">Размер на картите на любими</string>
+    <string name="watch_next_cards_size">Размер на картите „Пусни следващ“</string>
+    <string name="card_corner_radius">Радиус на ъглите на картите</string>
+    <string name="card_background">Фон на картите</string>
+    <string name="card_background_theme">Цвят на темата</string>
+    <string name="card_background_custom">Персонализиран цвят</string>
+    <string name="card_background_gradient">Персонализиран градиент</string>
+    <string name="card_background_icon">Цветове на иконите</string>
+    <string name="color_picker_title">Избор на цвят</string>
+    <string name="color_picker_presets">Предварителни настройки</string>
+    <string name="color_picker_custom">Персонализиран</string>
+    <string name="select_color">Изберете цвят</string>
+    <string name="gradient_start">Начало</string>
+    <string name="gradient_end">Край</string>
+    <string name="gradient_direction">Посока</string>
+    <string name="gradient_vertical_tb">Вертикално (отгоре→надолу)</string>
+    <string name="gradient_vertical_bt">Вертикално (отдолу→нагоре)</string>
+    <string name="gradient_horizontal_lr">Хоризонтално (ляво→дясно)</string>
+    <string name="gradient_horizontal_rl">Хоризонтално (дясно→ляво)</string>
+    <string name="gradient_diagonal_tlbr">Диагонално (горе-ляво→долу-дясно)</string>
+    <string name="gradient_diagonal_trbl">Диагонално (горе-дясно→долу-ляво)</string>
+    <string name="gradient_diagonal_bltr">Диагонално (долу-ляво→горе-дясно)</string>
+    <string name="gradient_diagonal_brtl">Диагонално (долу-дясно→горе-ляво)</string>
+    <string name="cancel">Отказ</string>
+    <string name="all_apps_grid_view">Мрежа с всички приложения</string>
+    <string name="all_apps_grid_columns">Колони на мрежата</string>
 </resources>

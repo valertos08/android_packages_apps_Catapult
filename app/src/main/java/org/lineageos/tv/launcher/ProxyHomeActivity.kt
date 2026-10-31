@@ -14,7 +14,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.PixelFormat
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -38,6 +37,7 @@ import androidx.preference.PreferenceManager
 import org.lineageos.tv.launcher.ext.externalLauncherPkg
 import org.lineageos.tv.launcher.ext.recentAppsCardSize
 import org.lineageos.tv.launcher.ext.recentAppsEnabled
+import org.lineageos.tv.launcher.ext.recentAppsShowThumbnails
 import org.lineageos.tv.launcher.model.LeanbackAppInfo
 import org.lineageos.tv.launcher.view.AppCard
 
@@ -314,7 +314,6 @@ class ProxyHomeActivity : Activity() {
                 val displayName = task.displayName
                 val taskLabel = task.taskLabel
                 val customIcon = task.customIcon
-                val thumbnail = task.thumbnail
                 val baseIntent = task.baseIntent
 
                 // Try to get app info for icon and label
@@ -386,8 +385,9 @@ class ProxyHomeActivity : Activity() {
 
                     tag = taskId
 
-                    if (thumbnail != null) {
-                        background = BitmapDrawable(resources, thumbnail)
+                    // Optional real-state preview of the task (RAM-only system snapshot).
+                    if (prefs.recentAppsShowThumbnails) {
+                        setPreview(getTaskSnapshot(taskId))
                     }
 
                     // Set content description using task label or display name
@@ -1149,22 +1149,90 @@ class ProxyHomeActivity : Activity() {
         }
     }
     
+    /**
+     * Task preview via the system's task snapshot cache.
+     *
+     * RAM-only by design (this ROM never persists task snapshots to disk):
+     * 1. IActivityTaskManager.getTaskSnapshotManager() → ITaskSnapshotManager
+     *    (platform-signed launcher, manifest holds MANAGE_ACTIVITY_TASKS + READ_FRAME_BUFFER).
+     * 2. getTaskSnapshot(taskId, latestCaptureTime = 0, RESOLUTION_ANY) — reads the
+     *    WindowManager in-memory snapshot cache first; the disk fallback is a no-op here
+     *    because recording never persists (ROM patch in TaskSnapshotController).
+     * 3. Fallback for currently visible tasks: takeTaskSnapshot(updateCache=false) takes a
+     *    fresh real-content capture that is never stored in the SnapshotPersister.
+     *
+     * Bitmaps reference the shared gralloc buffers via TaskSnapshot#wrapToBitmap() — no pixel
+     * copy in this process. Returns null → the caller keeps the icon-only card.
+     */
     private fun getTaskSnapshot(taskId: Int): Bitmap? {
+        taskSnapshots[taskId]?.let { return it }
+
+        val snapshotManager = try {
+            val serviceManagerClass = Class.forName("android.os.ServiceManager")
+            val getServiceMethod = serviceManagerClass.getMethod("getService", String::class.java)
+            val service = getServiceMethod.invoke(null, "activity_task")
+
+            val stubClass = Class.forName("android.app.IActivityTaskManager\$Stub")
+            val asInterfaceMethod = stubClass.getMethod("asInterface", Class.forName("android.os.IBinder"))
+            val iatm = asInterfaceMethod.invoke(null, service) ?: return null
+
+            val getManagerMethod = iatm.javaClass.getMethod("getTaskSnapshotManager")
+            getManagerMethod.invoke(iatm)
+        } catch (e: Exception) {
+            android.util.Log.w(TAG, "getTaskSnapshot: no ITaskSnapshotManager: ${e.message}")
+            return null
+        }
+        if (snapshotManager == null) {
+            android.util.Log.w(TAG, "getTaskSnapshot: snapshot manager binder is null")
+            return null
+        }
+
+        fun snapshotToBitmap(snapshot: Any?): Bitmap? = try {
+            snapshot?.javaClass?.getMethod("wrapToBitmap")?.invoke(snapshot) as? Bitmap
+        } catch (e: Exception) {
+            android.util.Log.w(TAG, "wrapToBitmap failed: ${e.message}")
+            null
+        }
+
         try {
-            val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-            val method = activityManager.javaClass.getMethod("getTaskSnapshot", Int::class.javaPrimitiveType)
-            val snapshot = method.invoke(activityManager, taskId)
-            
-            if (snapshot != null) {
-                val snapshotClass = snapshot.javaClass
-                val getBitmapMethod = snapshotClass.getMethod("getBitmap")
-                val bitmap = getBitmapMethod.invoke(snapshot) as? Bitmap
-                android.util.Log.d(TAG, "Got snapshot for task $taskId: ${bitmap != null}")
+            val getMethod = snapshotManager.javaClass.getMethod(
+                "getTaskSnapshot",
+                Int::class.javaPrimitiveType,
+                Long::class.javaPrimitiveType,
+                Int::class.javaPrimitiveType
+            )
+            // latestCaptureTime = 0 → always return the cached copy; 3 = RESOLUTION_ANY
+            val snapshot = getMethod.invoke(snapshotManager, taskId, 0L, 3)
+            val bitmap = snapshotToBitmap(snapshot)
+            if (bitmap != null) {
+                taskSnapshots[taskId] = bitmap
                 return bitmap
             }
         } catch (e: Exception) {
-            android.util.Log.w(TAG, "getTaskSnapshot failed for task $taskId", e)
+            android.util.Log.w(TAG, "getTaskSnapshot (cache) failed: ${e.message}")
         }
+
+        // Fresh capture. updateCache = false → real content, never put into the persister.
+        // Works only while the task is still visible on screen.
+        try {
+            val takeMethod = snapshotManager.javaClass.getMethod(
+                "takeTaskSnapshot",
+                Int::class.javaPrimitiveType,
+                Boolean::class.javaPrimitiveType,
+                Boolean::class.javaPrimitiveType
+            )
+            val snapshot = takeMethod.invoke(snapshotManager, taskId, false, false)
+            val bitmap = snapshotToBitmap(snapshot)
+            if (bitmap != null) {
+                taskSnapshots[taskId] = bitmap
+            }
+            return bitmap
+        } catch (e: SecurityException) {
+            android.util.Log.w(TAG, "takeTaskSnapshot denied (platform signature build?): ${e.message}")
+        } catch (e: Exception) {
+            android.util.Log.w(TAG, "takeTaskSnapshot failed: ${e.message}")
+        }
+
         return null
     }
 }

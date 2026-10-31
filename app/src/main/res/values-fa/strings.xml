@@ -57,5 +57,36 @@
     <string name="recent_apps_size">اندازه کارت‌ها</string>
     <string name="recent_apps_size_percent">%d%% ارتفاع صفحه</string>
     <string name="recent_apps_thumbnails">نمایش تصاویر کوچک</string>
-    <string name="recent_apps_thumbnails_hint">به‌زودی</string>
+    <string name="recent_apps_thumbnails_hint">پیش‌نماهای آخرین صفحهٔ برنامه در کارت‌ها</string>
+    <string name="app_info">اطلاعات برنامه</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">کارت‌های برنامه</string>
+    <string name="app_cards_size">اندازه کارت‌های برنامه</string>
+    <string name="favorite_cards_size">اندازه کارت‌های دلخواه</string>
+    <string name="watch_next_cards_size">اندازه کارت‌های «تماشای بعدی»</string>
+    <string name="card_corner_radius">شعاع گوشه‌های کارت</string>
+    <string name="card_background">پس‌زمینه کارت</string>
+    <string name="card_background_theme">رنگ تم</string>
+    <string name="card_background_custom">رنگ سفارشی</string>
+    <string name="card_background_gradient">گرادیان سفارشی</string>
+    <string name="card_background_icon">رنگ‌های نماد</string>
+    <string name="color_picker_title">انتخاب رنگ</string>
+    <string name="color_picker_presets">پیش‌تنظیم‌ها</string>
+    <string name="color_picker_custom">سفارشی</string>
+    <string name="select_color">انتخاب رنگ</string>
+    <string name="gradient_start">شروع</string>
+    <string name="gradient_end">پایان</string>
+    <string name="gradient_direction">جهت</string>
+    <string name="gradient_vertical_tb">عمودی (بالا→پایین)</string>
+    <string name="gradient_vertical_bt">عمودی (پایین→بالا)</string>
+    <string name="gradient_horizontal_lr">افقی (چپ→راست)</string>
+    <string name="gradient_horizontal_rl">افقی (راست→چپ)</string>
+    <string name="gradient_diagonal_tlbr">مورب (بالا-چپ→پایین-راست)</string>
+    <string name="gradient_diagonal_trbl">مورب (بالا-راست→پایین-چپ)</string>
+    <string name="gradient_diagonal_bltr">مورب (پایین-چپ→بالا-راست)</string>
+    <string name="gradient_diagonal_brtl">مورب (پایین-راست→بالا-چپ)</string>
+    <string name="cancel">لغو</string>
+    <string name="all_apps_grid_view">نمای شبکه‌ای همهٔ برنامه‌ها</string>
+    <string name="all_apps_grid_columns">ستون‌های شبکه</string>
 </resources>

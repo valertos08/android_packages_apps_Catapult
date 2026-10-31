@@ -8,6 +8,9 @@
         <item name="android:textAlignment">center</item>
         <item name="android:maxLines">1</item>
         <item name="android:textColor">@android:color/white</item>
+        <item name="android:shadowColor">@color/label_shadow</item>
+        <item name="android:shadowRadius">2.0</item>
+        <item name="android:shadowDy">1</item>
         <item name="android:visibility">invisible</item>
         <item name="android:ellipsize">marquee</item>
         <item name="android:marqueeRepeatLimit">marquee_forever</item>

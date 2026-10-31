@@ -57,5 +57,36 @@
     <string name="recent_apps_size">카드 크기</string>
     <string name="recent_apps_size_percent">화면 높이의 %d%%</string>
     <string name="recent_apps_thumbnails">썸네일 표시</string>
-    <string name="recent_apps_thumbnails_hint">곧 제공</string>
+    <string name="recent_apps_thumbnails_hint">카드에 마지막 화면의 미리보기를 표시합니다</string>
+    <string name="app_info">앱 정보</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">앱 카드</string>
+    <string name="app_cards_size">앱 카드 크기</string>
+    <string name="favorite_cards_size">즐겨찾기 카드 크기</string>
+    <string name="watch_next_cards_size">\u0027다음 보기\u0027 카드 크기</string>
+    <string name="card_corner_radius">카드 모서리 반경</string>
+    <string name="card_background">카드 배경</string>
+    <string name="card_background_theme">테마 색상</string>
+    <string name="card_background_custom">사용자 지정 색상</string>
+    <string name="card_background_gradient">사용자 지정 그라데이션</string>
+    <string name="card_background_icon">아이콘 색상</string>
+    <string name="color_picker_title">색상 선택</string>
+    <string name="color_picker_presets">프리셋</string>
+    <string name="color_picker_custom">사용자 지정</string>
+    <string name="select_color">색상 선택</string>
+    <string name="gradient_start">시작</string>
+    <string name="gradient_end">끝</string>
+    <string name="gradient_direction">방향</string>
+    <string name="gradient_vertical_tb">세로 (위→아래)</string>
+    <string name="gradient_vertical_bt">세로 (아래→위)</string>
+    <string name="gradient_horizontal_lr">가로 (왼쪽→오른쪽)</string>
+    <string name="gradient_horizontal_rl">가로 (오른쪽→왼쪽)</string>
+    <string name="gradient_diagonal_tlbr">대각선 (왼쪽 위→오른쪽 아래)</string>
+    <string name="gradient_diagonal_trbl">대각선 (오른쪽 위→왼쪽 아래)</string>
+    <string name="gradient_diagonal_bltr">대각선 (왼쪽 아래→오른쪽 위)</string>
+    <string name="gradient_diagonal_brtl">대각선 (오른쪽 아래→왼쪽 위)</string>
+    <string name="cancel">취소</string>
+    <string name="all_apps_grid_view">모든 앱 그리드 보기</string>
+    <string name="all_apps_grid_columns">그리드 열 수</string>
 </resources>

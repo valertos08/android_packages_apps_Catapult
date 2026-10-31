@@ -57,5 +57,36 @@
     <string name="recent_apps_size">Taille des cartes</string>
     <string name="recent_apps_size_percent">%d%% de la hauteur de l\'écran</string>
     <string name="recent_apps_thumbnails">Afficher les vignettes</string>
-    <string name="recent_apps_thumbnails_hint">Bientôt disponible</string>
+    <string name="recent_apps_thumbnails_hint">Aperçu du dernier écran de l\'application sur les cartes</string>
+    <string name="app_info">Infos sur l\'appli</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">Cartes d\'applications</string>
+    <string name="app_cards_size">Taille des cartes d\'applications</string>
+    <string name="favorite_cards_size">Taille des cartes de favoris</string>
+    <string name="watch_next_cards_size">Taille des cartes « Vidéo suivante »</string>
+    <string name="card_corner_radius">Rayon des coins des cartes</string>
+    <string name="card_background">Arrière-plan des cartes</string>
+    <string name="card_background_theme">Couleur du thème</string>
+    <string name="card_background_custom">Couleur personnalisée</string>
+    <string name="card_background_gradient">Dégradé personnalisé</string>
+    <string name="card_background_icon">Couleurs des icônes</string>
+    <string name="color_picker_title">Choisir une couleur</string>
+    <string name="color_picker_presets">Préréglages</string>
+    <string name="color_picker_custom">Personnalisé</string>
+    <string name="select_color">Sélectionner une couleur</string>
+    <string name="gradient_start">Début</string>
+    <string name="gradient_end">Fin</string>
+    <string name="gradient_direction">Sens</string>
+    <string name="gradient_vertical_tb">Verticale (haut→bas)</string>
+    <string name="gradient_vertical_bt">Verticale (bas→haut)</string>
+    <string name="gradient_horizontal_lr">Horizontale (gauche→droite)</string>
+    <string name="gradient_horizontal_rl">Horizontale (droite→gauche)</string>
+    <string name="gradient_diagonal_tlbr">Diagonale (haut gauche→bas droite)</string>
+    <string name="gradient_diagonal_trbl">Diagonale (haut droite→bas gauche)</string>
+    <string name="gradient_diagonal_bltr">Diagonale (bas gauche→haut droite)</string>
+    <string name="gradient_diagonal_brtl">Diagonale (bas droite→haut gauche)</string>
+    <string name="cancel">Annuler</string>
+    <string name="all_apps_grid_view">Grille de toutes les applications</string>
+    <string name="all_apps_grid_columns">Colonnes de la grille</string>
 </resources>

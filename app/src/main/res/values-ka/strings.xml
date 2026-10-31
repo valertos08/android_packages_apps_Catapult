@@ -38,4 +38,38 @@
     <string name="connected">შეერთებულია</string>
     <string name="mic_assistant">ძიება მიკროფონით</string>
     <string name="keyboard_assistant">ძიება კლავიატურით</string>
+    <string name="app_info">აპის მონაცემები</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">აპლიკაციების ქართები</string>
+    <string name="app_cards_size">აპლიკაციების ქართების ზომა</string>
+    <string name="favorite_cards_size">რჩეულების ქართების ზომა</string>
+    <string name="watch_next_cards_size">«შემდეგის ყურება»-ის ქართების ზომა</string>
+    <string name="card_corner_radius">ქარტების კუთხეების რადიუსი</string>
+    <string name="card_background">ქარტების ფონი</string>
+    <string name="card_background_theme">თემის ფერი</string>
+    <string name="card_background_custom">საკუთარი ფერი</string>
+    <string name="card_background_gradient">საკუთარი გრადიენტი</string>
+    <string name="card_background_icon">ხატულების ფერები</string>
+    <string name="color_picker_title">ფერის არჩევა</string>
+    <string name="color_picker_presets">ნიმუშები</string>
+    <string name="color_picker_custom">საკუთარი</string>
+    <string name="select_color">აირჩიეთ ფერი</string>
+    <string name="gradient_start">დასაწყისი</string>
+    <string name="gradient_end">დასასრული</string>
+    <string name="gradient_direction">მიმართულება</string>
+    <string name="gradient_vertical_tb">ვერტიკალურად (ზემოდან→ქვემოთ)</string>
+    <string name="gradient_vertical_bt">ვერტიკალურად (ქვემოდან→ზემოთ)</string>
+    <string name="gradient_horizontal_lr">ჰორიზონტალურად (მარცხნიდან→მარჯვნივ)</string>
+    <string name="gradient_horizontal_rl">ჰორიზონტალურად (მარჯვნიდან→მარცხნივ)</string>
+    <string name="gradient_diagonal_tlbr">დიაგონალურად (ზემოთ-მარცხნივ→ქვემოთ-მარჯვნივ)</string>
+    <string name="gradient_diagonal_trbl">დიაგონალურად (ზემოთ-მარჯვნივ→ქვემოთ-მარცხნივ)</string>
+    <string name="gradient_diagonal_bltr">დიაგონალურად (ქვემოთ-მარცხნივ→ზემოთ-მარჯვნივ)</string>
+    <string name="gradient_diagonal_brtl">დიაგონალურად (ქვემოთ-მარჯვნივ→ზემოთ-მარცხნივ)</string>
+    <string name="cancel">გაუქმება</string>
+    <string name="all_apps_grid_view">ყველა პროგრამის ბადე</string>
+    <string name="all_apps_grid_columns">ბადის სვეტები</string>
+
+    <string name="recent_apps_thumbnails">მინიატურების ჩვენება</string>
+    <string name="recent_apps_thumbnails_hint">აპლიკაციის ბოლო ეკრანის გადახედვა ქარტებზე</string>
 </resources>

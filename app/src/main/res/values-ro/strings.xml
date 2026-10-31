@@ -57,5 +57,36 @@
     <string name="recent_apps_size">Dimensiune carduri</string>
     <string name="recent_apps_size_percent">%d%% din înălțimea ecranului</string>
     <string name="recent_apps_thumbnails">Afișați miniaturi</string>
-    <string name="recent_apps_thumbnails_hint">În curând</string>
+    <string name="recent_apps_thumbnails_hint">Previzualizarea ultimului ecran al aplicației în carduri</string>
+    <string name="app_info">Informații despre aplicație</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">Carduri aplicații</string>
+    <string name="app_cards_size">Dimensiune carduri aplicații</string>
+    <string name="favorite_cards_size">Dimensiune carduri favorite</string>
+    <string name="watch_next_cards_size">Dimensiune carduri „Urmărește în continuare”</string>
+    <string name="card_corner_radius">Raza colțurilor cardurilor</string>
+    <string name="card_background">Fundal carduri</string>
+    <string name="card_background_theme">Culoare temă</string>
+    <string name="card_background_custom">Culoare personalizată</string>
+    <string name="card_background_gradient">Degrade personalizat</string>
+    <string name="card_background_icon">Culorile pictogramelor</string>
+    <string name="color_picker_title">Alege o culoare</string>
+    <string name="color_picker_presets">Presetări</string>
+    <string name="color_picker_custom">Personalizat</string>
+    <string name="select_color">Selectează culoarea</string>
+    <string name="gradient_start">Început</string>
+    <string name="gradient_end">Sfârșit</string>
+    <string name="gradient_direction">Direcție</string>
+    <string name="gradient_vertical_tb">Vertical (de sus→în jos)</string>
+    <string name="gradient_vertical_bt">Vertical (de jos→în sus)</string>
+    <string name="gradient_horizontal_lr">Orizontal (stânga→dreapta)</string>
+    <string name="gradient_horizontal_rl">Orizontal (dreapta→stânga)</string>
+    <string name="gradient_diagonal_tlbr">Diagonal (sus-stânga→jos-dreapta)</string>
+    <string name="gradient_diagonal_trbl">Diagonal (sus-dreapta→jos-stânga)</string>
+    <string name="gradient_diagonal_bltr">Diagonal (jos-stânga→sus-dreapta)</string>
+    <string name="gradient_diagonal_brtl">Diagonal (jos-dreapta→sus-stânga)</string>
+    <string name="cancel">Anulează</string>
+    <string name="all_apps_grid_view">Grilă cu toate aplicațiile</string>
+    <string name="all_apps_grid_columns">Coloanele grilei</string>
 </resources>

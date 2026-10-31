@@ -59,6 +59,7 @@ class FavoriteCard @JvmOverloads constructor(
         }
         
         cardContainer.background = borderDrawable
+        applyCardShadow(cardFrame)
         bannerView.background = CardBackgroundHelper.getBannerBorderDrawable(context)
         iconContainer.background = backgroundDrawable
     }
@@ -82,7 +83,7 @@ class FavoriteCard @JvmOverloads constructor(
         }
 
         cardFrame.layoutParams = cardFrame.layoutParams.apply {
-            height = newHeight
+            height = newHeight + 2 * shadowPadding()
         }
 
         moveOverlayView.layoutParams = moveOverlayView.layoutParams.apply {

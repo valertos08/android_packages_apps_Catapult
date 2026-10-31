@@ -57,5 +57,36 @@
     <string name="recent_apps_size">Rozmiar kart</string>
     <string name="recent_apps_size_percent">%d%% wysokości ekranu</string>
     <string name="recent_apps_thumbnails">Pokaż miniatury</string>
-    <string name="recent_apps_thumbnails_hint">Wkrótce</string>
+    <string name="recent_apps_thumbnails_hint">Podglad ostatniego ekranu aplikacji na kartach</string>
+    <string name="app_info">Informacje o aplikacji</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">Karty aplikacji</string>
+    <string name="app_cards_size">Rozmiar kart aplikacji</string>
+    <string name="favorite_cards_size">Rozmiar kart ulubionych</string>
+    <string name="watch_next_cards_size">Rozmiar kart „Obejrzyj następne”</string>
+    <string name="card_corner_radius">Promień narożników kart</string>
+    <string name="card_background">Tło kart</string>
+    <string name="card_background_theme">Kolor motywu</string>
+    <string name="card_background_custom">Kolor niestandardowy</string>
+    <string name="card_background_gradient">Niestandardowy gradient</string>
+    <string name="card_background_icon">Kolory ikon</string>
+    <string name="color_picker_title">Wybierz kolor</string>
+    <string name="color_picker_presets">Predefiniowane</string>
+    <string name="color_picker_custom">Niestandardowy</string>
+    <string name="select_color">Wybierz kolor</string>
+    <string name="gradient_start">Początek</string>
+    <string name="gradient_end">Koniec</string>
+    <string name="gradient_direction">Kierunek</string>
+    <string name="gradient_vertical_tb">Pionowo (z góry→na dół)</string>
+    <string name="gradient_vertical_bt">Pionowo (z dołu→na górę)</string>
+    <string name="gradient_horizontal_lr">Poziomo (z lewej→na prawo)</string>
+    <string name="gradient_horizontal_rl">Poziomo (z prawej→na lewo)</string>
+    <string name="gradient_diagonal_tlbr">Ukośnie (lewy-górny róg→prawy-dolny)</string>
+    <string name="gradient_diagonal_trbl">Ukośnie (prawy-górny róg→lewy-dolny)</string>
+    <string name="gradient_diagonal_bltr">Ukośnie (lewy-dolny róg→prawy-górny)</string>
+    <string name="gradient_diagonal_brtl">Ukośnie (prawy-dolny róg→lewy-górny)</string>
+    <string name="cancel">Anuluj</string>
+    <string name="all_apps_grid_view">Siatka wszystkich aplikacji</string>
+    <string name="all_apps_grid_columns">Kolumny siatki</string>
 </resources>

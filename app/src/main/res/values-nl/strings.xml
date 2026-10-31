@@ -54,5 +54,36 @@
     <string name="recent_apps_size">Kaartgrootte</string>
     <string name="recent_apps_size_percent">%d%% van de schermhoogte</string>
     <string name="recent_apps_thumbnails">Miniaturen tonen</string>
-    <string name="recent_apps_thumbnails_hint">Binnenkort</string>
+    <string name="recent_apps_thumbnails_hint">Voorbeeld van het laatste app-scherm op de kaarten</string>
+    <string name="app_info">App-info</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">App-kaarten</string>
+    <string name="app_cards_size">Grootte van de app-kaarten</string>
+    <string name="favorite_cards_size">Grootte van de favoritenkaarten</string>
+    <string name="watch_next_cards_size">Grootte van de kaarten van \'Bekijk volgende\'</string>
+    <string name="card_corner_radius">Hoekstraal van kaarten</string>
+    <string name="card_background">Achtergrond van kaarten</string>
+    <string name="card_background_theme">Themakleur</string>
+    <string name="card_background_custom">Aangepaste kleur</string>
+    <string name="card_background_gradient">Aangepaste verloop</string>
+    <string name="card_background_icon">Icoonkleuren</string>
+    <string name="color_picker_title">Kies een kleur</string>
+    <string name="color_picker_presets">Voorinstellingen</string>
+    <string name="color_picker_custom">Aangepast</string>
+    <string name="select_color">Selecteer een kleur</string>
+    <string name="gradient_start">Begin</string>
+    <string name="gradient_end">Einde</string>
+    <string name="gradient_direction">Richting</string>
+    <string name="gradient_vertical_tb">Verticaal (boven→onder)</string>
+    <string name="gradient_vertical_bt">Verticaal (onder→boven)</string>
+    <string name="gradient_horizontal_lr">Horizontaal (links→rechts)</string>
+    <string name="gradient_horizontal_rl">Horizontaal (rechts→links)</string>
+    <string name="gradient_diagonal_tlbr">Diagonaal (linksboven→rechtsonder)</string>
+    <string name="gradient_diagonal_trbl">Diagonaal (rechtsboven→linksonder)</string>
+    <string name="gradient_diagonal_bltr">Diagonaal (linksonder→rechtsboven)</string>
+    <string name="gradient_diagonal_brtl">Diagonaal (rechtsonder→linksboven)</string>
+    <string name="cancel">Annuleren</string>
+    <string name="all_apps_grid_view">Rasterweergave van alle apps</string>
+    <string name="all_apps_grid_columns">Rasterkolommen</string>
 </resources>

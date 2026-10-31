@@ -10,7 +10,6 @@
     android:clickable="true"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:clipToOutline="true"
     android:longClickable="true"
     android:orientation="vertical">
 
@@ -20,6 +19,14 @@
         android:layout_height="wrap_content"
         android:clipChildren="false"
         android:clipToOutline="true">
+
+        <ImageView
+            android:id="@+id/app_preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:clipToOutline="true"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/app_banner"

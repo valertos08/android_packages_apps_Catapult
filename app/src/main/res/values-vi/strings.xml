@@ -57,5 +57,36 @@
     <string name="recent_apps_size">Kích thước thẻ</string>
     <string name="recent_apps_size_percent">%d%% chiều cao màn hình</string>
     <string name="recent_apps_thumbnails">Hiển thị hình thu nhỏ</string>
-    <string name="recent_apps_thumbnails_hint">Sắp ra mắt</string>
+    <string name="recent_apps_thumbnails_hint">Xem trước màn hình cuối cùng của ứng dụng trên thẻ</string>
+    <string name="app_info">Thông tin ứng dụng</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">Thẻ ứng dụng</string>
+    <string name="app_cards_size">Kích thước thẻ ứng dụng</string>
+    <string name="favorite_cards_size">Kích thước thẻ yêu thích</string>
+    <string name="watch_next_cards_size">Kích thước thẻ "Xem tiếp"</string>
+    <string name="card_corner_radius">Độ bo góc của thẻ</string>
+    <string name="card_background">Nền của thẻ</string>
+    <string name="card_background_theme">Màu theo chủ đề</string>
+    <string name="card_background_custom">Màu tùy chỉnh</string>
+    <string name="card_background_gradient">Chuyển màu tùy chỉnh</string>
+    <string name="card_background_icon">Màu biểu tượng</string>
+    <string name="color_picker_title">Chọn màu</string>
+    <string name="color_picker_presets">Đặt sẵn</string>
+    <string name="color_picker_custom">Tùy chỉnh</string>
+    <string name="select_color">Chọn màu</string>
+    <string name="gradient_start">Bắt đầu</string>
+    <string name="gradient_end">Kết thúc</string>
+    <string name="gradient_direction">Hướng</string>
+    <string name="gradient_vertical_tb">Dọc (từ trên xuống dưới)</string>
+    <string name="gradient_vertical_bt">Dọc (từ dưới lên trên)</string>
+    <string name="gradient_horizontal_lr">Ngang (trái→phải)</string>
+    <string name="gradient_horizontal_rl">Ngang (phải→trái)</string>
+    <string name="gradient_diagonal_tlbr">Chéo (trên trái→dưới phải)</string>
+    <string name="gradient_diagonal_trbl">Chéo (trên phải→dưới trái)</string>
+    <string name="gradient_diagonal_bltr">Chéo (dưới trái→trên phải)</string>
+    <string name="gradient_diagonal_brtl">Chéo (dưới phải→trên trái)</string>
+    <string name="cancel">Hủy</string>
+    <string name="all_apps_grid_view">Lưới tất cả ứng dụng</string>
+    <string name="all_apps_grid_columns">Cột của lưới</string>
 </resources>

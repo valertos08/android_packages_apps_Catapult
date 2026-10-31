@@ -57,5 +57,36 @@
     <string name="recent_apps_size">גודל כרטיסים</string>
     <string name="recent_apps_size_percent">%d%% מגובה המסך</string>
     <string name="recent_apps_thumbnails">הצג תמונות ממוזערות</string>
-    <string name="recent_apps_thumbnails_hint">בקרוב</string>
+    <string name="recent_apps_thumbnails_hint">תצוגה מקדימה של המסך האחרון של האפליקציה בכרטיסים</string>
+    <string name="app_info">פרטי האפליקציה</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">כרטיסי אפליקציות</string>
+    <string name="app_cards_size">גודל כרטיסי אפליקציות</string>
+    <string name="favorite_cards_size">גודל כרטיסי מועדפים</string>
+    <string name="watch_next_cards_size">גודל כרטיסי \u0027צפה בבא\u0027</string>
+    <string name="card_corner_radius">רדיוס פינות הכרטיסים</string>
+    <string name="card_background">רקע הכרטיסים</string>
+    <string name="card_background_theme">צבע ערכת הנושא</string>
+    <string name="card_background_custom">צבע מותאם אישית</string>
+    <string name="card_background_gradient">מדרג מותאם אישי</string>
+    <string name="card_background_icon">צבעי האייקונים</string>
+    <string name="color_picker_title">בחירת צבע</string>
+    <string name="color_picker_presets">הגדרות מוכנות</string>
+    <string name="color_picker_custom">התאמה אישית</string>
+    <string name="select_color">בחירת צבע</string>
+    <string name="gradient_start">התחלה</string>
+    <string name="gradient_end">סוף</string>
+    <string name="gradient_direction">כיוון</string>
+    <string name="gradient_vertical_tb">אנכי (למעלה→למטה)</string>
+    <string name="gradient_vertical_bt">אנכי (למטה→למעלה)</string>
+    <string name="gradient_horizontal_lr">אופקי (שמאל→ימין)</string>
+    <string name="gradient_horizontal_rl">אופקי (ימין→שמאל)</string>
+    <string name="gradient_diagonal_tlbr">אלכסוני (שמאל למעלה→ימין למטה)</string>
+    <string name="gradient_diagonal_trbl">אלכסוני (ימין למעלה→שמאל למטה)</string>
+    <string name="gradient_diagonal_bltr">אלכסוני (שמאל למטה→ימין למעלה)</string>
+    <string name="gradient_diagonal_brtl">אלכסוני (ימין למטה→שמאל למעלה)</string>
+    <string name="cancel">ביטול</string>
+    <string name="all_apps_grid_view">תצוגת רשת של כל היישומונים</string>
+    <string name="all_apps_grid_columns">עמודות הרשת</string>
 </resources>

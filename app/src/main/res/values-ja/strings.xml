@@ -57,5 +57,36 @@
     <string name="recent_apps_size">カードサイズ</string>
     <string name="recent_apps_size_percent">画面の高さの%d%%</string>
     <string name="recent_apps_thumbnails">サムネイルを表示</string>
-    <string name="recent_apps_thumbnails_hint">近日公開</string>
+    <string name="recent_apps_thumbnails_hint">カードにアプリの最後の画面を表示します</string>
+    <string name="app_info">アプリ情報</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">アプリカード</string>
+    <string name="app_cards_size">アプリカードのサイズ</string>
+    <string name="favorite_cards_size">お気に入りカードのサイズ</string>
+    <string name="watch_next_cards_size">「次を見る」カードのサイズ</string>
+    <string name="card_corner_radius">カードの角の半径</string>
+    <string name="card_background">カードの背景</string>
+    <string name="card_background_theme">テーマカラー</string>
+    <string name="card_background_custom">カスタムカラー</string>
+    <string name="card_background_gradient">カスタムグラデーション</string>
+    <string name="card_background_icon">アイコンのカラー</string>
+    <string name="color_picker_title">色を選択</string>
+    <string name="color_picker_presets">プリセット</string>
+    <string name="color_picker_custom">カスタム</string>
+    <string name="select_color">色を選択</string>
+    <string name="gradient_start">開始</string>
+    <string name="gradient_end">終了</string>
+    <string name="gradient_direction">方向</string>
+    <string name="gradient_vertical_tb">縦方向 (上→下)</string>
+    <string name="gradient_vertical_bt">縦方向 (下→上)</string>
+    <string name="gradient_horizontal_lr">横方向 (左→右)</string>
+    <string name="gradient_horizontal_rl">横方向 (右→左)</string>
+    <string name="gradient_diagonal_tlbr">斜め (左上→右下)</string>
+    <string name="gradient_diagonal_trbl">斜め (右上→左下)</string>
+    <string name="gradient_diagonal_bltr">斜め (左下→右上)</string>
+    <string name="gradient_diagonal_brtl">斜め (右下→左上)</string>
+    <string name="cancel">キャンセル</string>
+    <string name="all_apps_grid_view">すべてのアプリをグリッド表示</string>
+    <string name="all_apps_grid_columns">グリッドの列数</string>
 </resources>

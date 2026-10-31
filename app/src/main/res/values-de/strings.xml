@@ -56,5 +56,36 @@
     <string name="recent_apps_size">Kartengröße</string>
     <string name="recent_apps_size_percent">%d%% der Bildschirmhöhe</string>
     <string name="recent_apps_thumbnails">Miniaturansichten anzeigen</string>
-    <string name="recent_apps_thumbnails_hint">Bald verfügbar</string>
+    <string name="recent_apps_thumbnails_hint">Vorschau des letzten App-Bildschirms auf den Karten</string>
+    <string name="app_info">App-Info</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">App-Karten</string>
+    <string name="app_cards_size">Größe der App-Karten</string>
+    <string name="favorite_cards_size">Größe der Favoriten-Karten</string>
+    <string name="watch_next_cards_size">Größe der „Als Nächstes ansehen“-Karten</string>
+    <string name="card_corner_radius">Eckradius der Karten</string>
+    <string name="card_background">Kartenhintergrund</string>
+    <string name="card_background_theme">Designfarbe</string>
+    <string name="card_background_custom">Eigene Farbe</string>
+    <string name="card_background_gradient">Eigener Farbverlauf</string>
+    <string name="card_background_icon">Symbolfarben</string>
+    <string name="color_picker_title">Farbe wählen</string>
+    <string name="color_picker_presets">Vorlagen</string>
+    <string name="color_picker_custom">Eigene</string>
+    <string name="select_color">Farbe auswählen</string>
+    <string name="gradient_start">Anfang</string>
+    <string name="gradient_end">Ende</string>
+    <string name="gradient_direction">Richtung</string>
+    <string name="gradient_vertical_tb">Vertikal (oben→unten)</string>
+    <string name="gradient_vertical_bt">Vertikal (unten→oben)</string>
+    <string name="gradient_horizontal_lr">Horizontal (links→rechts)</string>
+    <string name="gradient_horizontal_rl">Horizontal (rechts→links)</string>
+    <string name="gradient_diagonal_tlbr">Diagonal (oben links→unten rechts)</string>
+    <string name="gradient_diagonal_trbl">Diagonal (oben rechts→unten links)</string>
+    <string name="gradient_diagonal_bltr">Diagonal (unten links→oben rechts)</string>
+    <string name="gradient_diagonal_brtl">Diagonal (unten rechts→oben links)</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="all_apps_grid_view">Raster aller Apps</string>
+    <string name="all_apps_grid_columns">Rasterspalten</string>
 </resources>

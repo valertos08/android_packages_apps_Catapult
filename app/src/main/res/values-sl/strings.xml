@@ -57,5 +57,36 @@
     <string name="recent_apps_size">Velikost kartic</string>
     <string name="recent_apps_size_percent">%d%% višine zaslona</string>
     <string name="recent_apps_thumbnails">Prikaži sličice</string>
-    <string name="recent_apps_thumbnails_hint">Kmalu</string>
+    <string name="recent_apps_thumbnails_hint">Predogled zadnjega zaslona aplikacije na karticah</string>
+    <string name="app_info">Podatki o aplikaciji</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">Kartice aplikacij</string>
+    <string name="app_cards_size">Velikost kartic aplikacij</string>
+    <string name="favorite_cards_size">Velikost kartic priljubljenih</string>
+    <string name="watch_next_cards_size">Velikost kartic »Glej naslednje«</string>
+    <string name="card_corner_radius">Polmer kotov kartic</string>
+    <string name="card_background">Ozadje kartic</string>
+    <string name="card_background_theme">Barva teme</string>
+    <string name="card_background_custom">Barva po meri</string>
+    <string name="card_background_gradient">Prehod po meri (gradient)</string>
+    <string name="card_background_icon">Barve ikon</string>
+    <string name="color_picker_title">Izberite barvo</string>
+    <string name="color_picker_presets">Prednastavitve</string>
+    <string name="color_picker_custom">Po meri</string>
+    <string name="select_color">Izberite barvo</string>
+    <string name="gradient_start">Začetek</string>
+    <string name="gradient_end">Konec</string>
+    <string name="gradient_direction">Smer</string>
+    <string name="gradient_vertical_tb">Navpično (zgoraj→spodaj)</string>
+    <string name="gradient_vertical_bt">Navpično (spodaj→zgoraj)</string>
+    <string name="gradient_horizontal_lr">Vodoravno (levo→desno)</string>
+    <string name="gradient_horizontal_rl">Vodoravno (desno→levo)</string>
+    <string name="gradient_diagonal_tlbr">Diagonalno (zgoraj levo→spodaj desno)</string>
+    <string name="gradient_diagonal_trbl">Diagonalno (zgoraj desno→spodaj levo)</string>
+    <string name="gradient_diagonal_bltr">Diagonalno (spodaj levo→zgoraj desno)</string>
+    <string name="gradient_diagonal_brtl">Diagonalno (spodaj desno→zgoraj levo)</string>
+    <string name="cancel">Prekliči</string>
+    <string name="all_apps_grid_view">Mreža vseh aplikacij</string>
+    <string name="all_apps_grid_columns">Stolpci mreže</string>
 </resources>

@@ -9,4 +9,38 @@
     <string name="system_modal">Opciones del sistema</string>
     <string name="system_settings">Configuración del sistema</string>
     <string name="launcher_settings">Configuración del launcher</string>
+    <string name="app_info">Información de la aplicación</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">Tarxetes d\'aplicaciones</string>
+    <string name="app_cards_size">Tamañu de les tarxetes d\'aplicaciones</string>
+    <string name="favorite_cards_size">Tamañu de les tarxetes de favoritos</string>
+    <string name="watch_next_cards_size">Tamañu de tarxetes «Ver lo siguiente»</string>
+    <string name="card_corner_radius">Radiu d\'esquina de les tarxetes</string>
+    <string name="card_background">Fondu de les tarxetes</string>
+    <string name="card_background_theme">Color del tema</string>
+    <string name="card_background_custom">Color personalizáu</string>
+    <string name="card_background_gradient">Degradáu personalizáu</string>
+    <string name="card_background_icon">Colores de los iconos</string>
+    <string name="color_picker_title">Escoyer color</string>
+    <string name="color_picker_presets">Preaxustaos</string>
+    <string name="color_picker_custom">Personalizáu</string>
+    <string name="select_color">Escoyer el color</string>
+    <string name="gradient_start">Entamu</string>
+    <string name="gradient_end">Fin</string>
+    <string name="gradient_direction">Direición</string>
+    <string name="gradient_vertical_tb">Vertical (arriba→abaxo)</string>
+    <string name="gradient_vertical_bt">Vertical (abaxo→arriba)</string>
+    <string name="gradient_horizontal_lr">Horizontal (esquierda→derecha)</string>
+    <string name="gradient_horizontal_rl">Horizontal (derecha→esquierda)</string>
+    <string name="gradient_diagonal_tlbr">Diagonal (esquierda arriba→derecha abaxo)</string>
+    <string name="gradient_diagonal_trbl">Diagonal (derecha arriba→esquierda abaxo)</string>
+    <string name="gradient_diagonal_bltr">Diagonal (esquierda abaxo→derecha arriba)</string>
+    <string name="gradient_diagonal_brtl">Diagonal (derecha abaxo→esquierda arriba)</string>
+    <string name="cancel">Encaboxar</string>
+    <string name="all_apps_grid_view">Rejilla de toes les aplicaciones</string>
+    <string name="all_apps_grid_columns">Columnes de la rejilla</string>
+
+    <string name="recent_apps_thumbnails">Amosar miniatures</string>
+    <string name="recent_apps_thumbnails_hint">Previsualización de la postrera pantalla de l\'aplicación en les tarxetes</string>
 </resources>

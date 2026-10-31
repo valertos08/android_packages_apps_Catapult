@@ -43,4 +43,38 @@
     <string name="background_image">Imazh</string>
     <string name="select_image">Zgjidh imazhin</string>
     <string name="selected_image">Imazhi u zgjedh</string>
+    <string name="app_info">Informacioni i apl.</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">Kartat e aplikacioneve</string>
+    <string name="app_cards_size">Madhësia e kartave të aplikacioneve</string>
+    <string name="favorite_cards_size">Madhësia e kartave të preferuara</string>
+    <string name="watch_next_cards_size">Madhësia e kartave "Shiko tjetër"</string>
+    <string name="card_corner_radius">Rrezja e qosheve të kartave</string>
+    <string name="card_background">Sfondi i kartave</string>
+    <string name="card_background_theme">Ngjyra e temës</string>
+    <string name="card_background_custom">Ngjyrë e personalizuar</string>
+    <string name="card_background_gradient">Gradien i personalizuar</string>
+    <string name="card_background_icon">Ngjyrat e ikonave</string>
+    <string name="color_picker_title">Zgjidh një ngjyrë</string>
+    <string name="color_picker_presets">Predefinuar</string>
+    <string name="color_picker_custom">Personalizuar</string>
+    <string name="select_color">Zgjidh ngjyrën</string>
+    <string name="gradient_start">Fillimi</string>
+    <string name="gradient_end">Fundi</string>
+    <string name="gradient_direction">Drejtimi</string>
+    <string name="gradient_vertical_tb">Vertikale (sipër→poshtë)</string>
+    <string name="gradient_vertical_bt">Vertikale (poshtë→sipër)</string>
+    <string name="gradient_horizontal_lr">Horizontale (majtas→djathtas)</string>
+    <string name="gradient_horizontal_rl">Horizontale (djathtas→majtas)</string>
+    <string name="gradient_diagonal_tlbr">Diagonale (sipër-majtas→poshtë-djathtas)</string>
+    <string name="gradient_diagonal_trbl">Diagonale (sipër-djathtas→poshtë-majtas)</string>
+    <string name="gradient_diagonal_bltr">Diagonale (poshtë-majtas→sipër-djathtas)</string>
+    <string name="gradient_diagonal_brtl">Diagonale (poshtë-djathtas→sipër-majtas)</string>
+    <string name="cancel">Anulo</string>
+    <string name="all_apps_grid_view">Pamja me rrjetë e të gjitha aplikacioneve</string>
+    <string name="all_apps_grid_columns">Kolonat e rrjetës</string>
+
+    <string name="recent_apps_thumbnails">Shfaq pamjet e vogla</string>
+    <string name="recent_apps_thumbnails_hint">Paraqitje e ekranit të fundit të aplikacionit në karta</string>
 </resources>

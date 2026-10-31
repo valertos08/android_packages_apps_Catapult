@@ -51,5 +51,5 @@
     <string name="recent_apps_size">Card size</string>
     <string name="recent_apps_size_percent">%d%% of screen height</string>
     <string name="recent_apps_thumbnails">Show thumbnails</string>
-    <string name="recent_apps_thumbnails_hint">Coming soon</string>
+    <string name="recent_apps_thumbnails_hint">Preview of the app\'s last screen on the cards</string>
 </resources>

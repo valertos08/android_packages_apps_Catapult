@@ -57,5 +57,36 @@
     <string name="recent_apps_size">Kart boyutu</string>
     <string name="recent_apps_size_percent">%d%% ekran yüksekliği</string>
     <string name="recent_apps_thumbnails">Küçük resimleri göster</string>
-    <string name="recent_apps_thumbnails_hint">Yakında</string>
+    <string name="recent_apps_thumbnails_hint">Kartlarda uygulamanın son ekranının önizlemesi</string>
+    <string name="app_info">Uygulama bilgileri</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">Uygulama kartları</string>
+    <string name="app_cards_size">Uygulama kartlarının boyutu</string>
+    <string name="favorite_cards_size">Favori kartların boyutu</string>
+    <string name="watch_next_cards_size">"Sıradaki" kartlarının boyutu</string>
+    <string name="card_corner_radius">Kart köşe yarıçapı</string>
+    <string name="card_background">Kart arka planı</string>
+    <string name="card_background_theme">Tema rengi</string>
+    <string name="card_background_custom">Özel renk</string>
+    <string name="card_background_gradient">Özel renk geçişi</string>
+    <string name="card_background_icon">Simge renkleri</string>
+    <string name="color_picker_title">Renk seç</string>
+    <string name="color_picker_presets">Hazır ayarlar</string>
+    <string name="color_picker_custom">Özel</string>
+    <string name="select_color">Renk seçin</string>
+    <string name="gradient_start">Başlangıç</string>
+    <string name="gradient_end">Bitiş</string>
+    <string name="gradient_direction">Yön</string>
+    <string name="gradient_vertical_tb">Dikey (yukarı→aşağı)</string>
+    <string name="gradient_vertical_bt">Dikey (aşağı→yukarı)</string>
+    <string name="gradient_horizontal_lr">Yatay (soldan→sağa)</string>
+    <string name="gradient_horizontal_rl">Yatay (sağdan→sola)</string>
+    <string name="gradient_diagonal_tlbr">Çapraz (sol üst→sağ alt)</string>
+    <string name="gradient_diagonal_trbl">Çapraz (sağ üst→sol alt)</string>
+    <string name="gradient_diagonal_bltr">Çapraz (sol alt→sağ üst)</string>
+    <string name="gradient_diagonal_brtl">Çapraz (sağ alt→sol üst)</string>
+    <string name="cancel">İptal</string>
+    <string name="all_apps_grid_view">Tüm uygulamalar ızgarası</string>
+    <string name="all_apps_grid_columns">Izgara sütunları</string>
 </resources>

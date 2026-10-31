@@ -49,5 +49,36 @@
     <string name="recent_apps_size">Velikost karet</string>
     <string name="recent_apps_size_percent">%d%% výšky obrazovky</string>
     <string name="recent_apps_thumbnails">Zobrazit náhledy</string>
-    <string name="recent_apps_thumbnails_hint">Již brzy</string>
+    <string name="recent_apps_thumbnails_hint">Náhledy poslední obrazovky aplikace na kartách</string>
+    <string name="app_info">O aplikaci</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">Karty aplikací</string>
+    <string name="app_cards_size">Velikost karet aplikací</string>
+    <string name="favorite_cards_size">Velikost karet oblíbených</string>
+    <string name="watch_next_cards_size">Velikost karet „Zhlédnout další“</string>
+    <string name="card_corner_radius">Zaoblení rohů karet</string>
+    <string name="card_background">Pozadí karet</string>
+    <string name="card_background_theme">Barva motivu</string>
+    <string name="card_background_custom">Vlastní barva</string>
+    <string name="card_background_gradient">Vlastní přechod</string>
+    <string name="card_background_icon">Barvy ikon</string>
+    <string name="color_picker_title">Zvolte barvu</string>
+    <string name="color_picker_presets">Přednastavené</string>
+    <string name="color_picker_custom">Vlastní</string>
+    <string name="select_color">Vyberte barvu</string>
+    <string name="gradient_start">Začátek</string>
+    <string name="gradient_end">Konec</string>
+    <string name="gradient_direction">Směr</string>
+    <string name="gradient_vertical_tb">Svisle (shora dolů)</string>
+    <string name="gradient_vertical_bt">Svisle (zdola nahoru)</string>
+    <string name="gradient_horizontal_lr">Vodorovně (zleva doprava)</string>
+    <string name="gradient_horizontal_rl">Vodorovně (zprava doleva)</string>
+    <string name="gradient_diagonal_tlbr">Úhlopříčně (vlevo nahoře→vpravo dole)</string>
+    <string name="gradient_diagonal_trbl">Úhlopříčně (vpravo nahoře→vlevo dole)</string>
+    <string name="gradient_diagonal_bltr">Úhlopříčně (vlevo dole→vpravo nahoře)</string>
+    <string name="gradient_diagonal_brtl">Úhlopříčně (vpravo dole→vlevo nahoře)</string>
+    <string name="cancel">Zrušit</string>
+    <string name="all_apps_grid_view">Mřížka všech aplikací</string>
+    <string name="all_apps_grid_columns">Sloupce mřížky</string>
 </resources>

@@ -56,7 +56,7 @@
     <string name="background_image">Image</string>
     <string name="select_image">Select image</string>
     <string name="selected_image">Image selected</string>
-    <string name="app_info">Информация о приложении</string>
+    <string name="app_info">App info</string>
     <string name="app_cards">App cards</string>
     <string name="app_cards_size">App cards size</string>
     <string name="favorite_cards_size">Favorite cards size</string>
@@ -94,7 +94,7 @@
     <string name="recent_apps_size">Card size</string>
     <string name="recent_apps_size_percent">%d%% of screen height</string>
     <string name="recent_apps_thumbnails">Show thumbnails</string>
-    <string name="recent_apps_thumbnails_hint">Coming soon</string>
+    <string name="recent_apps_thumbnails_hint">Preview of the app\'s last screen on the cards</string>
 
     <string name="additional">Additional</string>
     <string name="external_launcher">External launcher</string>

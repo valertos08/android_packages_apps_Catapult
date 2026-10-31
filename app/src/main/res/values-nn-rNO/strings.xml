@@ -38,4 +38,38 @@
     <string name="connected">Tilkopla</string>
     <string name="mic_assistant">Søk med mikrofonen</string>
     <string name="keyboard_assistant">Søk med tastaturet</string>
+    <string name="app_info">Informasjon om appen</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">App-kort</string>
+    <string name="app_cards_size">Storleik på app-kort</string>
+    <string name="favorite_cards_size">Storleik på favoritt-kort</string>
+    <string name="watch_next_cards_size">Storleik på «Sjå neste»-kort</string>
+    <string name="card_corner_radius">Hjørneradius på kort</string>
+    <string name="card_background">Kortbakgrunn</string>
+    <string name="card_background_theme">Temafarge</string>
+    <string name="card_background_custom">Eigendefinert farge</string>
+    <string name="card_background_gradient">Eigendefinert gradient</string>
+    <string name="card_background_icon">Ikonfargar</string>
+    <string name="color_picker_title">Vel farge</string>
+    <string name="color_picker_presets">Føreinnstillingar</string>
+    <string name="color_picker_custom">Eigendefinert</string>
+    <string name="select_color">Vel farge</string>
+    <string name="gradient_start">Byrje</string>
+    <string name="gradient_end">Slutt</string>
+    <string name="gradient_direction">Retning</string>
+    <string name="gradient_vertical_tb">Loddrett (oppe→nede)</string>
+    <string name="gradient_vertical_bt">Loddrett (nede→oppe)</string>
+    <string name="gradient_horizontal_lr">Vassrett (venstre→høgre)</string>
+    <string name="gradient_horizontal_rl">Vassrett (høgre→venstre)</string>
+    <string name="gradient_diagonal_tlbr">Diagonal (oppe til venstre→nede til høgre)</string>
+    <string name="gradient_diagonal_trbl">Diagonal (oppe til høgre→nede til venstre)</string>
+    <string name="gradient_diagonal_bltr">Diagonal (nede til venstre→oppe til høgre)</string>
+    <string name="gradient_diagonal_brtl">Diagonal (nede til høgre→oppe til venstre)</string>
+    <string name="cancel">Avbryt</string>
+    <string name="all_apps_grid_view">Rutenett for alle appar</string>
+    <string name="all_apps_grid_columns">Rutekolonner</string>
+
+    <string name="recent_apps_thumbnails">Vis miniatyrar</string>
+    <string name="recent_apps_thumbnails_hint">Førehandsvising av appen sin siste skjerm på korta</string>
 </resources>

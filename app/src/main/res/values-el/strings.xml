@@ -56,5 +56,36 @@
     <string name="recent_apps_size">Μέγεθος καρτών</string>
     <string name="recent_apps_size_percent">%d%% του ύψους οθόνης</string>
     <string name="recent_apps_thumbnails">Εμφάνιση μικρογραφιών</string>
-    <string name="recent_apps_thumbnails_hint">Σύντομα</string>
+    <string name="recent_apps_thumbnails_hint">Προεπισκόπηση της τελευταίας οθόνης της εφαρμογής στις κάρτες</string>
+    <string name="app_info">Πληροφορίες εφαρμογής</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">Κάρτες εφαρμογών</string>
+    <string name="app_cards_size">Μέγεθος καρτών εφαρμογών</string>
+    <string name="favorite_cards_size">Μέγεθος καρτών αγαπημένων</string>
+    <string name="watch_next_cards_size">Μέγεθος καρτών «Δείτε στη συνέχεια»</string>
+    <string name="card_corner_radius">Ακτίνα γωνιών των καρτών</string>
+    <string name="card_background">Φόντο των καρτών</string>
+    <string name="card_background_theme">Χρώμα θέματος</string>
+    <string name="card_background_custom">Προσαρμοσμένο χρώμα</string>
+    <string name="card_background_gradient">Προσαρμοσμένη διαβάθμιση</string>
+    <string name="card_background_icon">Χρώματα εικονιδίων</string>
+    <string name="color_picker_title">Επιλογή χρώματος</string>
+    <string name="color_picker_presets">Προεπιλογές</string>
+    <string name="color_picker_custom">Προσαρμοσμένο</string>
+    <string name="select_color">Επιλογή χρώματος</string>
+    <string name="gradient_start">Αρχή</string>
+    <string name="gradient_end">Τέλος</string>
+    <string name="gradient_direction">Κατεύθυνση</string>
+    <string name="gradient_vertical_tb">Κάθετο (πάνω→κάτω)</string>
+    <string name="gradient_vertical_bt">Κάθετο (κάτω→πάνω)</string>
+    <string name="gradient_horizontal_lr">Οριζόντια (αριστερά→δεξιά)</string>
+    <string name="gradient_horizontal_rl">Οριζόντια (δεξιά→αριστερά)</string>
+    <string name="gradient_diagonal_tlbr">Διαγώνια (πάνω αριστερά→κάτω δεξιά)</string>
+    <string name="gradient_diagonal_trbl">Διαγώνια (πάνω δεξιά→κάτω αριστερά)</string>
+    <string name="gradient_diagonal_bltr">Διαγώνια (κάτω αριστερά→πάνω δεξιά)</string>
+    <string name="gradient_diagonal_brtl">Διαγώνια (κάτω δεξιά→πάνω αριστερά)</string>
+    <string name="cancel">Ακύρωση</string>
+    <string name="all_apps_grid_view">Πλέγμα όλων των εφαρμογών</string>
+    <string name="all_apps_grid_columns">Στήλες πλέγματος</string>
 </resources>

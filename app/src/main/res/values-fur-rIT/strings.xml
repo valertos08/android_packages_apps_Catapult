@@ -40,4 +40,38 @@
     <string name="keyboard_assistant">Cîr doprant la tastiere</string>
     <string name="system_settings">Impostazions dal sisteme</string>
     <string name="launcher_settings">Impostazions dal launcher</string>
+    <string name="app_info">Informazions de la aplicazion</string>
+
+    <!-- App cards settings -->
+    <string name="app_cards">Schedis des aplicazions</string>
+    <string name="app_cards_size">Dimension des schedis des aplicazions</string>
+    <string name="favorite_cards_size">Dimension des schedis "Preferîts"</string>
+    <string name="watch_next_cards_size">Dimension des schedis "Cjale il sucessîf"</string>
+    <string name="card_corner_radius">Radius dai cûi des schedis</string>
+    <string name="card_background">Sfont des schedis</string>
+    <string name="card_background_theme">Colôr dal teme</string>
+    <string name="card_background_custom">Colôr personâl</string>
+    <string name="card_background_gradient">Gradent personâl</string>
+    <string name="card_background_icon">Colôrs des icuonis</string>
+    <string name="color_picker_title">Sieste un colôr</string>
+    <string name="color_picker_presets">Preset</string>
+    <string name="color_picker_custom">Personâl</string>
+    <string name="select_color">Sieste un colôr</string>
+    <string name="gradient_start">Inizi</string>
+    <string name="gradient_end">Fin</string>
+    <string name="gradient_direction">Direzion</string>
+    <string name="gradient_vertical_tb">Verticâl (sur→sot)</string>
+    <string name="gradient_vertical_bt">Verticâl (sot→sur)</string>
+    <string name="gradient_horizontal_lr">Orizontâl (çampe→drete)</string>
+    <string name="gradient_horizontal_rl">Orizontâl (drete→çampe)</string>
+    <string name="gradient_diagonal_tlbr">Diagonâl (çampe sur→drete sot)</string>
+    <string name="gradient_diagonal_trbl">Diagonâl (drete sur→çampe sot)</string>
+    <string name="gradient_diagonal_bltr">Diagonâl (çampe sot→drete sur)</string>
+    <string name="gradient_diagonal_brtl">Diagonâl (drete sot→çampe sur)</string>
+    <string name="cancel">Anule</string>
+    <string name="all_apps_grid_view">Grilie des dutis lis aplicazions</string>
+    <string name="all_apps_grid_columns">Colons de grilie</string>
+
+    <string name="recent_apps_thumbnails">Mostre miniaturis</string>
+    <string name="recent_apps_thumbnails_hint">Anteprime dal ultin schermi de aplicazion tes schedis</string>
 </resources>
