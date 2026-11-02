@@ -6,6 +6,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:clipChildren="false"
     android:orientation="vertical">
 
     <TextView
@@ -17,7 +18,7 @@
         android:shadowColor="@color/label_shadow"
         android:shadowRadius="2.0"
         android:shadowDy="1"
-        android:paddingStart="8dp" />
+        android:paddingStart="56dp" />
 
     <androidx.leanback.widget.HorizontalGridView
         android:id="@+id/horizontal_grid"

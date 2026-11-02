@@ -58,9 +58,10 @@ class MainRowItemView @JvmOverloads constructor(
         val focusScale = 1.1f
         val focusPadding = (cardHeight * (focusScale - 1f)).toInt()
         val basePadding = (8f * density).toInt()
+        val edgePadding = (48f * density).toInt() + basePadding
         val topPadding = focusPadding + basePadding
-        
-        horizontalGridView.setPadding(basePadding, topPadding, basePadding, basePadding)
+
+        horizontalGridView.setPadding(edgePadding, topPadding, edgePadding, basePadding)
         
         val spacing = calculateCardSpacing(adapter)
         horizontalGridView.setItemSpacing(spacing)
@@ -79,6 +80,11 @@ class MainRowItemView @JvmOverloads constructor(
         horizontalGridView.visibility = if (isGrid) View.GONE else View.VISIBLE
         verticalGridRecyclerView.visibility = if (isGrid) View.VISIBLE else View.GONE
 
+        layoutParams = layoutParams.apply {
+            height = if (isGrid) ViewGroup.LayoutParams.WRAP_CONTENT
+            else ViewGroup.LayoutParams.MATCH_PARENT
+        }
+
         if (isGrid) {
             setupGridView(mainRowItem.adapter as AllAppsAdapter)
         } else {
@@ -94,23 +100,24 @@ class MainRowItemView @JvmOverloads constructor(
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val density = context.resources.displayMetrics.density
         val columns = prefs.allAppsGridColumns.coerceIn(4, 10)
+        val edgePadding = (48f * density).toInt()
+        val spacing = (12f * density).toInt()
 
         adapter.gridMode = true
         adapter.notifyDataSetChanged()
 
         verticalGridRecyclerView.adapter = adapter
         verticalGridRecyclerView.layoutManager = GridLayoutManager(context, columns)
-        verticalGridRecyclerView.isNestedScrollingEnabled = true
-        verticalGridRecyclerView.setPadding(0, 0, 0, 0)
+        verticalGridRecyclerView.isNestedScrollingEnabled = false
+        verticalGridRecyclerView.clipToPadding = false
+        verticalGridRecyclerView.clipChildren = false
         while (verticalGridRecyclerView.itemDecorationCount > 0) {
             verticalGridRecyclerView.removeItemDecorationAt(0)
         }
 
         // Calculate row height based on card dimensions
         val screenWidth = context.resources.displayMetrics.widthPixels
-        val horizontalPadding = (16 * density).toInt()
-        val availableWidth = screenWidth - horizontalPadding
-        val spacing = (12f * density).toInt()
+        val availableWidth = screenWidth - edgePadding * 2 - spacing * (columns - 1)
         
         // Card width = available width / columns
         val cardWidth = (availableWidth / columns.toFloat()).toInt()
@@ -126,19 +133,20 @@ class MainRowItemView @JvmOverloads constructor(
         // Total card height
         val cardTotalHeight = cardImageHeight + textHeight
         
-        // Row height with focus scale (1.1x) + padding for 2 rows
-        val focusScale = 1.1f
-        val focusedCardHeight = (cardTotalHeight * focusScale).toInt()
-        val padding = (8f * density).toInt()
-        val rowHeight = focusedCardHeight + padding * 2
-        val twoRowsHeight = rowHeight * 2 + spacing
-        
+        // Fully expanded grid: all rows visible, outer VerticalGridView scrolls the page
+        val rowCount = (adapter.itemCount + columns - 1) / columns
+        val cardSlotHeight = cardTotalHeight + 2 * spacing
+        val focusMargin = (cardTotalHeight * 0.1f).toInt() + (8f * density).toInt()
+        val gridHeight = rowCount * cardSlotHeight + focusMargin * 2
+
         verticalGridRecyclerView.addItemDecoration(
             GridSpacingItemDecoration(columns, spacing, spacing)
         )
-        
+
+        verticalGridRecyclerView.setPadding(edgePadding, focusMargin, edgePadding, focusMargin)
+
         val lp = verticalGridRecyclerView.layoutParams
-        lp.height = twoRowsHeight
+        lp.height = gridHeight
         verticalGridRecyclerView.layoutParams = lp
         verticalGridRecyclerView.overScrollMode = View.OVER_SCROLL_NEVER
     }
@@ -184,6 +192,21 @@ class MainRowItemView @JvmOverloads constructor(
         PreferenceManager.getDefaultSharedPreferences(context).registerOnSharedPreferenceChangeListener(prefsListener)
     }
     
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        if (verticalGridRecyclerView.visibility != View.VISIBLE) return
+        val content = getChildAt(0) as? ViewGroup ?: return
+        var needed = 0
+        for (i in 0 until content.childCount) {
+            val child = content.getChildAt(i)
+            val lp = child.layoutParams as? ViewGroup.MarginLayoutParams
+            needed += child.measuredHeight + (lp?.topMargin ?: 0) + (lp?.bottomMargin ?: 0)
+        }
+        if (needed > measuredHeight) {
+            setMeasuredDimension(measuredWidth, needed)
+        }
+    }
+
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         PreferenceManager.getDefaultSharedPreferences(context).unregisterOnSharedPreferenceChangeListener(prefsListener)
