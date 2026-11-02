@@ -61,9 +61,12 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">8dp</item>
-        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
-        <item name="android:backgroundTint">?attr/colorSecondaryContainer</item>
-        <item name="android:padding">4dp</item>
+        <item name="android:background">@drawable/top_bar_button_background</item>
+        <item name="android:backgroundTint">@null</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:minWidth">44dp</item>
+        <item name="android:minHeight">44dp</item>
+        <item name="android:padding">8dp</item>
         <item name="android:stateListAnimator">@animator/app_card_state_animator</item>
         <item name="tint">@color/settings_color</item>
     </style>
@@ -74,6 +77,7 @@
         <item name="android:layout_margin">0dp</item>
         <item name="android:background">@drawable/search_button_background</item>
         <item name="android:backgroundTint">@null</item>
+        <item name="android:foreground">@null</item>
         <item name="android:stateListAnimator">@animator/search_button_state_animator</item>
         <item name="tint">@color/search_button_icon_color</item>
     </style>
