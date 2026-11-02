@@ -5,5 +5,5 @@
 -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:color="?attr/colorOnSecondaryContainer" android:state_focused="true" />
-    <item android:color="?attr/colorOnBackground" />
+    <item android:color="?attr/colorControlNormal" />
 </selector>
