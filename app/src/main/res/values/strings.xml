@@ -46,6 +46,8 @@
     <string name="allow_notification_access">Allow notification access</string>
     <string name="dismiss">Dismiss</string>
     <string name="connected">Connected</string>
+    <string name="vpn">VPN</string>
+    <string name="vpn_no_clients">VPN clients not found</string>
     <string name="mic_assistant">Search using microphone</string>
     <string name="keyboard_assistant">Search using keyboard</string>
     <string name="system_settings">System settings</string>

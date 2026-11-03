@@ -64,12 +64,26 @@
             android:shadowDy="2"
             android:textAppearance="?attr/textAppearanceTitleMedium" />
 
+        <ImageButton
+            android:id="@+id/vpnButton"
+            android:contentDescription="@string/vpn"
+            android:src="@drawable/ic_vpn"
+            android:focusable="true"
+            android:clickable="true"
+            android:nextFocusLeft="@id/assistantHintImageView"
+            android:nextFocusRight="@id/notificationCountTextView"
+            style="@style/TopBarImageButton" />
+
         <TextView
             android:id="@+id/notificationCountTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:focusable="true"
+            android:clickable="true"
+            android:nextFocusLeft="@id/vpnButton"
+            android:nextFocusRight="@id/settingsMaterialButton"
             style="@style/TopBarImageButton"
             android:drawablePadding="5dp"
             app:drawableLeftCompat="@drawable/ic_bell" />
